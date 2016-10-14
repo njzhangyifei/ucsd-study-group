@@ -1,15 +1,20 @@
-<ion-view style="" id="page9" title="Profile">
-    <ion-content class="has-header" padding="true">
-        <h2 style="color: rgb(0, 0, 0); text-align: center;" id="profile-heading8">First Last</h2>
-        <form class="list" id="profile-form5">
-            <label id="profile-input9" class="item item-input">
-                <span class="input-label">Mail</span>
-                <input placeholder="" type="email">
-            </label>
-            <label id="profile-input10" class="item item-input">
-                <span class="input-label">Phone</span>
-                <input placeholder="" type="tel">
-            </label>
-        </form>
-    </ion-content>
+<ion-view style="" id="page-profile" title="Profile">
+<ion-content class="has-header" padding="true">
+<h2 style="color: rgb(0, 0, 0); text-align: center;" id="profile-heading8">First Last</h2>
+<form class="list" id="profile-form5">
+    <label id="profile-input9" class="item item-input">
+        <span class="input-label">Mail</span>
+        <input placeholder="" type="email">
+    </label>
+    <label id="profile-input10" class="item item-input">
+        <span class="input-label">Phone</span>
+        <input placeholder="" type="tel">
+    </label>
+</form>
+<button class="button button-assertive button-block" 
+        id="profile-button-signout" 
+        ng-click="signout()">
+    Sign out
+</button>
+</ion-content>
 </ion-view>
