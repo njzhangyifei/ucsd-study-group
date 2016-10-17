@@ -1,25 +1,46 @@
-<ion-view style="" id="page6" title="Signup">
-    <ion-content class="has-header" padding="true">
-        <form class="list" id="signup-form2">
-            <ion-list id="signup-list2">
-                <label id="signup-input3" class="item item-input">
-                    <span class="input-label">UCSD E-mail</span>
-                    <input placeholder="" type="text">
-                </label>
-                <label id="signup-input4" class="item item-input">
-                    <span class="input-label">Nickname</span>
-                    <input placeholder="" type="text">
-                </label>
-                <label id="signup-input5" class="item item-input">
-                    <span class="input-label">Password</span>
-                    <input placeholder="" type="text">
-                </label>
-            </ion-list>
-            <label id="signup-input6" class="item item-input">
-                <span class="input-label">Verify Password</span>
-                <input placeholder="" type="text">
-            </label>
-            <button class="button button-stable  button-block" id="signup-button3">Sign up</button>
-        </form>
-    </ion-content>
+<ion-view style="" id="page-signup" title="Signup">
+<ion-content class="has-header" padding="true">
+<style type="text/css" media="screen">
+.verify-password {
+    font-size: 14px;
+}
+</style>
+<form class="list" id="signup-form">
+    <ion-list id="signup-list">
+    <label id="signup-input-email" class="item item-input">
+        <span class="input-label">UCSD E-mail</span>
+        <input placeholder="you@ucsd.edu" 
+               type="email" 
+               ng-model="signupForm.email">
+        </input>
+    </label>
+    <label id="signup-input-nickname" class="item item-input">
+        <span class="input-label">Preferred Name</span>
+        <input placeholder="Triton" 
+               type="text"
+               ng-model="signupForm.nickname">
+        </input>
+    </label>
+    <label id="signup-input-password" class="item item-input">
+        <span class="input-label">Password</span>
+        <input placeholder="" 
+               type="password"
+               ng-model="signupForm.password">
+        </input>
+    </label>
+    <label id="signup-input-password" class="item item-input">
+        <span class="input-label verify-password">Verify Password</span>
+        <input placeholder="" 
+               type="password"
+               ng-model="signupForm.passwordVerify"> 
+        </input>
+    </label>
+    <button class="button button-positive button-block" 
+            id="signup-button"
+            ng-click="signup()">
+        Create account
+    </button>
+    </ion-list>
+</form>
+</ion-content>
 </ion-view>

@@ -14,9 +14,9 @@ angular.module('app.services', [])
             onLoginStatusChanged: function(callback){
                 firebase.auth().onAuthStateChanged(function(user) {
                     if (user) {
-                        console.log("onLoginStatusChanged => Signed in");
+                        console.log("LoginService: onLoginStatusChanged => Signed in");
                     } else {
-                        console.log("onLoginStatusChanged => Not signed in");
+                        console.log("LoginService: onLoginStatusChanged => Not signed in");
                     }
                     callback(user);
                 });
@@ -26,22 +26,34 @@ angular.module('app.services', [])
             },
             login: function(email, password){
                 var auth = firebase.auth();
-                console.log("Login user: " + email +
+                console.log("LoginService: Login user: " + email +
                     " password: " + password);
 
                 return auth.signInWithEmailAndPassword(email, password);
             },
+            signup: function(email, password){
+                console.log("LoginService: Sign up user: " + email +
+                    " password: " + password);
+                var auth = firebase.auth();
+                return firebase.auth().createUserWithEmailAndPassword(email, password);
+            },
             signout: function(){
                 var user = firebase.auth().currentUser;
                 if (user) {
-                    console.log("signing out user: " + user);
+                    console.log("LoginService: Sign out user: " + user);
                     firebase.auth().signOut().then(
-                        function(){ 
+                        function(){
                             if (signOutCallback) {
                                 signOutCallback();
                             }
                         }
                     )
+                }
+            },
+            sendVerification: function(){
+                var user = firebase.auth().currentUser;
+                if (user) {
+                    user.sendEmailVerification();
                 }
             }
         }
