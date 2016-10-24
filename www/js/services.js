@@ -106,7 +106,12 @@ angular.module('app.services', [])
             
             updateClasses: function(classes){
                 
-            }
+            },
+            onProfileChanged: function(callback){
+                var ref = firebase.database().ref("Users/" + firebase.auth().currentUser.uid);
+                ref.on("value", function(snapshot){callback(snapshot)});
+            },
+            
         }
 
     }])

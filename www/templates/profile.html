@@ -1,16 +1,13 @@
 <ion-view style="" id="page-profile" title="Profile">
 <ion-content class="has-header" padding="true">
-<h2 style="color: rgb(0, 0, 0); text-align: center;" id="profile-heading8">First Last</h2>
-<form class="list" id="profile-form5">
-    <label id="profile-input9" class="item item-input">
-        <span class="input-label">Mail</span>
-        <input placeholder="" type="email">
-    </label>
-    <label id="profile-input10" class="item item-input">
-        <span class="input-label">Phone</span>
-        <input placeholder="" type="tel">
-    </label>
-</form>
+<h2 style="color: rgb(0, 0, 0); text-align: center;" id="profile-heading8">{{displayName}}</h2>
+<ion-list>
+    <div class="item item-divider">Contact</div>
+    <a class="item" href="#">{{email}}</a>
+    <a class="item" href="#">{{phone}}</a>
+    <div class="item item-divider">About</div>
+    <a class="item" href="#">{{description}}</a>
+</ion-list>
     <button class="button button-positive button-block" 
         id="profile-button-edit" 
         ng-click="editProfile()">
