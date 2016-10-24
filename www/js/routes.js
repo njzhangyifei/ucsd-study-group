@@ -21,7 +21,7 @@ angular.module('app.routes', ['ionicUIRouter'])
                 url: '/page1',
                 templateUrl: 'templates/tabsController.html',
                 abstract:true
-            })
+            })  
 
             .state('login', {
                 url: '/page-login',
@@ -34,6 +34,17 @@ angular.module('app.routes', ['ionicUIRouter'])
                 templateUrl: 'templates/signup.html',
                 controller: 'signupCtrl'
             })
+        
+            .state('tabsController.editProfile', {
+                url: '/page-edit-profile',
+                views: {
+                    'tab3':{
+                        templateUrl: 'templates/editProfile.html',
+                        controller: 'editProfileCtrl'
+                    }
+                }
+            })
+
 
             .state('tabsController.home', {
                 url: '/page-home',

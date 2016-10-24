@@ -193,15 +193,43 @@ angular.module('app.controllers', ['ionic', 'app.services'])
 
         }])
 
-    .controller('profileCtrl', ['$scope', '$stateParams', 'loginService',
+    .controller('profileCtrl', ['$scope', '$state', '$stateParams', 'loginService',
         // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams, loginService) {
+        function ($scope, $state, $stateParams, loginService) {
             $scope.signout = function() {
                 loginService.signout();
             }
+            
+            $scope.editProfile = function(){
+                console.log("button edit profile clicked");
+                $state.go('tabsController.editProfile');
+            }
         }])
+
+
+    .controller('editProfileCtrl', ['$scope', '$state','$stateParams', 'profileService',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+        // You can include any angular dependencies as parameters for this function
+        // TIP: Access Route Parameters for your page via $stateParams.parameterName
+        function ($scope, $state, $stateParams, profileService) {
+            $scope.profileForm = {}
+            
+            $scope.updateProfile = function(){
+                // TODO update the user's database entry
+                var name = $scope.profileForm.name;
+                var email = $scope.profileForm.email;
+                var phone = $scope.profileForm.phone;
+                var description = $scope.profileForm.description;
+                
+                console.log("button update profile clicked");
+                profileService.updateProfile(name, email, phone, description);
+                                    
+                $state.go('tabsController.profile');
+            };
+
+        }])
+
 
     .controller('newStudyGroupCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
@@ -210,4 +238,4 @@ angular.module('app.controllers', ['ionic', 'app.services'])
 
 
         }])
-
+;
