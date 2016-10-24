@@ -94,12 +94,13 @@ angular.module('app.controllers', ['ionic', 'app.services'])
     .controller('signupCtrl', 
         ['$scope', '$stateParams', 
             '$ionicLoading', '$ionicPopup',
-            'loginService',
+            'loginService', 'profileService',
             // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
             // You can include any angular dependencies as parameters for this function
             // TIP: Access Route Parameters for your page via $stateParams.parameterName
-            function ($scope, $stateParams, $ionicLoading, $ionicPopup, loginService) {
+            function ($scope, $stateParams, $ionicLoading, $ionicPopup, loginService, profileService) {
                 $scope.signupForm = {}
+                
                 $scope.signup = function(){
                     var verifyInput = function () {
                         var correctEmail = false;
@@ -161,12 +162,22 @@ angular.module('app.controllers', ['ionic', 'app.services'])
                             .signup(
                                 $scope.signupForm.email, $scope.signupForm.password
                             )
-                            .then(function(){
+                            .then(function(user){
+                                //create database entry for user's profile
+                                user.updateProfile({displayName: $scope.signupForm.nickname})
+                                    .then(function(){
+                                        profileService.createProfile(user);
+                                    }, function(error){ 
+                                        // an error happened
+                                    });
+                                
+                                //send verification email
                                 loginService.sendVerification();
                                 $ionicLoading.hide();
-                                console.log("registered")
-                            })
-                            .catch(function(error){ 
+                                
+                                console.log("registered");
+                                
+                            }, function(error){ 
                                 $ionicLoading.hide();
                                 $ionicPopup.alert({
                                     title: 'Invalid Input',

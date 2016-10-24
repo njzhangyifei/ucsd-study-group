@@ -34,8 +34,7 @@ angular.module('app.services', [])
             signup: function(email, password){
                 console.log("LoginService: Sign up user: " + email +
                     " password: " + password);
-                var auth = firebase.auth();
-                return      firebase.auth().createUserWithEmailAndPassword(email, password);
+                return firebase.auth().createUserWithEmailAndPassword(email, password);
             },
             signout: function(){
                 var user = firebase.auth().currentUser;
@@ -67,16 +66,17 @@ angular.module('app.services', [])
                 and creates a database entry using the user's uid as a key
                 that stores the user's profile information.
             */
-            createProfile: function(name, email){
-                var user = firebase.auth().currentUser;
+            createProfile: function(user){
                 var db = firebase.database();
                 var path = "Users/" + user.uid;
                 
                 var profile = {
-                    Name: name,
-                    Email: email
+                    Name: user.displayName,
+                    Email: user.email
                 };
                 db.ref(path).set(profile);
+                
+                console.log("ProfileService: profile created");
             },
             
             /*
@@ -100,6 +100,12 @@ angular.module('app.services', [])
                     updates["Description"] = description;
                 
                 db.ref(path).update(updates);
+                
+                console.log("ProfileService: profile updated");
+            },
+            
+            updateClasses: function(classes){
+                
             }
         }
 
