@@ -34,7 +34,6 @@ angular.module('app.services', [])
             signup: function(email, password){
                 console.log("LoginService: Sign up user: " + email +
                     " password: " + password);
-                var auth = firebase.auth();
                 return firebase.auth().createUserWithEmailAndPassword(email, password);
             },
             signout: function(){
@@ -59,5 +58,62 @@ angular.module('app.services', [])
         }
     }
     ])
+
+    .service('profileService', [function(){
+        return{
+            /*
+                This function takes two strings, a name and an email, 
+                and creates a database entry using the user's uid as a key
+                that stores the user's profile information.
+            */
+            createProfile: function(user){
+                var db = firebase.database();
+                var path = "Users/" + user.uid;
+                
+                var profile = {
+                    Name: user.displayName,
+                    Email: user.email
+                };
+                db.ref(path).set(profile);
+                
+                console.log("ProfileService: profile created");
+            },
+            
+            /*
+                This function takes four arguments, name, email, phone, and
+                description and updates the current user's profile entry in 
+                firebase's realtime database. 
+            */
+            updateProfile: function(name, email, phone, description){
+                var user = firebase.auth().currentUser;
+                var db = firebase.database();
+                var path = "Users/" + user.uid;
+                
+                var updates = {};
+                if(name)
+                    updates["Name"] = name;
+                if(email)
+                    updates["Email"] = email;
+                if(phone)
+                    updates["Phone"] = phone;
+                if(description)
+                    updates["Description"] = description;
+                
+                db.ref(path).update(updates);
+                
+                console.log("ProfileService: profile updated");
+            },
+            
+            updateClasses: function(classes){
+                
+            },
+            onProfileChanged: function(callback){
+                var ref = firebase.database().ref("Users/" + firebase.auth().currentUser.uid);
+                ref.on("value", function(snapshot){callback(snapshot)});
+            },
+            
+        }
+
+    }])
 
 ;
