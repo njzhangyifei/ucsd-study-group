@@ -116,4 +116,29 @@ angular.module('app.services', [])
 
     }])
 
+    .service('groupService', [function(){
+        
+        return{
+            createGroup: function(){
+                var db = firebase.database();
+                var newGroupRef = db.ref("Groups").push();
+                var uid = firebase.auth().currentUser.uid;
+                
+                // TODO write group to database
+                //
+            },
+            
+            //TODO implement this
+            joinGroup: function(uid, gid){
+                // TODO update database fields to add user to group
+            },
+            
+            //TODO implement this
+            onGroupInfoChanged: function(){
+                //view profile
+            }
+        }
+
+    }])
+
 ;
