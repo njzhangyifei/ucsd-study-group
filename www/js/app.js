@@ -9,7 +9,7 @@ angular.module('app',
     ['ionic', 'app.controllers', 'app.homeCtrlController',
      'app.routes', 'app.directives', 
      'app.services', 'app.courseDatabaseService', 'app.newClassPopupService',
-     'app.userDatabaseService',
+     'app.userDatabaseService', 'app.groupDatabaseService',
      'jett.ionic.filter.bar'])
 
 .run(function($ionicPlatform) {
