@@ -1,8 +1,8 @@
 angular.module('app.courseDatabaseService', ['ionic'])
     .service('courseDatabaseService', [
         function($ionicPopup, $rootScope){
-            var coursePath = "Courses/";
-            var availableCoursesPath = "AvailableCourses/";
+            var coursePath = 'courses/';
+            var availableCoursesPath = 'availableCourses/';
             return {
                 createCourse: function(course){
                     // course department, course number
@@ -11,8 +11,8 @@ angular.module('app.courseDatabaseService', ['ionic'])
                     var courseName = course.department + course.number;
                     var idPath = availableCoursesPath+courseName;
                     var courseInfo = {
-                        Department: course.department,
-                        Number: course.number,
+                        department: course.department,
+                        number: course.number,
                     }
                     var courseInfoRef = db.ref(coursePath).push(courseInfo);
                     return courseInfoRef.then(function(){
@@ -26,8 +26,8 @@ angular.module('app.courseDatabaseService', ['ionic'])
                     return courseInfoRef.once('value').then(function(snapshot){
                         var courseInfo = snapshot.val();
                         var course = {
-                            department : courseInfo.Department,
-                            number : courseInfo.Number,
+                            department : courseInfo.department,
+                            number : courseInfo.number,
                             key : courseId
                         }
                         return course;

@@ -1,14 +1,23 @@
 angular.module('app.groupDatabaseService', ['ionic'])
-    .service('groupDatabaseService', [
+    .service('groupDatabaseService', [ 'profileService',
         function($ionicPopup, $rootScope){
-            var groupsPath = "Groups/";
+            var db = firebase.database();
+            var groupsPath = 'groups/';
             return {
-                createGroup: function(){
-                    
+                createGroup: function(group, cid){\
+                    var groupInfoRef = db.ref(groupsPath).push(group);
+                    return groupInfoRef.then(function(){
+                        return addMember(groupInfoRef, group.creator);
+                    });
                 },
 
                 getGroup: function(groupId){
-                    
+                    var groupInfoRef = db.ref(groupsPath + groupId);
+                    return groupInfoRef.once('value').then(function(snapshot){
+                        var groupInfo = snapshot.val();
+                        groupInfo.key = groupId
+                        return groupInfo;
+                    });
                 },
 
                 addMember: function(){
