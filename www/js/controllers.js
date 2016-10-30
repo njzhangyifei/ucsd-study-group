@@ -1,4 +1,7 @@
-angular.module('app.controllers', ['ionic', 'app.services'])
+angular.module('app.controllers',
+    ['ionic', 'app.services', 'jett.ionic.filter.bar',
+        'app.userDatabaseService',
+        'app.courseDatabaseService'])
 
     .controller('groupTabPageCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
@@ -9,8 +12,8 @@ angular.module('app.controllers', ['ionic', 'app.services'])
         }])
 
     .controller('loginCtrl',
-        ['$scope', '$state', '$stateParams', 
-            '$ionicPopup', '$ionicLoading', '$timeout', 
+        ['$scope', '$state', '$stateParams',
+            '$ionicPopup', '$ionicLoading', '$timeout',
             'loginService',
             // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
             // You can include any angular dependencies as parameters for this function
@@ -58,7 +61,7 @@ angular.module('app.controllers', ['ionic', 'app.services'])
                     var email = $scope.loginForm.id;
                     var password = $scope.loginForm.password;
 
-                    if (email && password) { 
+                    if (email && password) {
 
                         $ionicLoading.show({
                             template: 'Loading',
@@ -91,8 +94,8 @@ angular.module('app.controllers', ['ionic', 'app.services'])
                 }
             }])
 
-    .controller('signupCtrl', 
-        ['$scope', '$stateParams', 
+    .controller('signupCtrl',
+        ['$scope', '$stateParams',
             '$ionicLoading', '$ionicPopup',
             'loginService', 'profileService',
             // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -100,7 +103,7 @@ angular.module('app.controllers', ['ionic', 'app.services'])
             // TIP: Access Route Parameters for your page via $stateParams.parameterName
             function ($scope, $stateParams, $ionicLoading, $ionicPopup, loginService, profileService) {
                 $scope.signupForm = {}
-                
+
                 $scope.signup = function(){
                     var verifyInput = function () {
                         var correctEmail = false;
@@ -167,17 +170,17 @@ angular.module('app.controllers', ['ionic', 'app.services'])
                                 user.updateProfile({displayName: $scope.signupForm.nickname})
                                     .then(function(){
                                         profileService.createProfile(user);
-                                    }, function(error){ 
+                                    }, function(error){
                                         // an error happened
                                     });
-                                
+
                                 //send verification email
                                 loginService.sendVerification();
                                 $ionicLoading.hide();
-                                
+
                                 console.log("registered");
-                                
-                            }, function(error){ 
+
+                            }, function(error){
                                 $ionicLoading.hide();
                                 $ionicPopup.alert({
                                     title: 'Invalid Input',
@@ -187,14 +190,6 @@ angular.module('app.controllers', ['ionic', 'app.services'])
                     }
                 }
             }])
-
-    .controller('homeCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-        // You can include any angular dependencies as parameters for this function
-        // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams) {
-
-
-        }])
 
     .controller('groupDetailCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
@@ -209,23 +204,23 @@ angular.module('app.controllers', ['ionic', 'app.services'])
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
         function ($scope, $state, $stateParams, loginService, profileService) {
-            
+
             profileService.onProfileChanged(function(snapshot){
                 $scope.displayName = snapshot.child("Name").val();
                 $scope.phone = snapshot.child("Phone").val();
                 $scope.email = snapshot.child("Email").val();
-                $scope.description = snapshot.child("Description").val();                
+                $scope.description = snapshot.child("Description").val();
             });
-            
+
             $scope.signout = function() {
                 loginService.signout();
             }
-            
+
             $scope.editProfile = function(){
                 console.log("button edit profile clicked");
                 $state.go('tabsController.editProfile');
             }
-            
+
         }])
 
 
@@ -234,22 +229,114 @@ angular.module('app.controllers', ['ionic', 'app.services'])
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
         function ($scope, $state, $stateParams, profileService) {
             $scope.profileForm = {}
-            
+
             $scope.updateProfile = function(){
                 // TODO update the user's database entry
                 var name = $scope.profileForm.name;
                 var email = $scope.profileForm.email;
                 var phone = $scope.profileForm.phone;
                 var description = $scope.profileForm.description;
-                
+
                 console.log("button update profile clicked");
                 profileService.updateProfile(name, email, phone, description);
-                                    
+
                 $state.go('tabsController.profile');
             };
 
         }])
 
+
+    .controller('addCourseCtrl', [
+        '$scope', '$stateParams', '$state', '$ionicFilterBar', '$ionicLoading',
+        '$ionicHistory', 'newClassPopupService', 'courseDatabaseService', 'userCourseGroupService',
+        function ($scope, $stateParams, $state,
+            $ionicFilterBar, $ionicLoading, $ionicHistory,
+            newClassPopupService, courseDatabaseService, userCourseGroupService) {
+                var filterBarInstance;
+
+                function getItems () {
+                    $scope.items = [];
+                    $ionicLoading.show({
+                        template: 'Loading',
+                        delay: 50
+                    });
+                    return courseDatabaseService
+                        .getAvailableCourses()
+                        .then(function(snapshot){
+                            snapshot.forEach(function(childSnapshot){
+                                var childKey = childSnapshot.key;
+                                var childData = childSnapshot.val();
+                                $scope.items.push(
+                                    {name: childKey, courseId: childData}
+                                );
+                            })
+                            $ionicLoading.hide();
+                        }).catch(function(error){
+                            $ionicLoading.hide();
+                        });
+                }
+
+                getItems();
+
+                $scope.goback = function(){
+                    $ionicHistory.goBack();
+                }
+
+                $scope.showFilterBar = function () {
+                    filterBarInstance = $ionicFilterBar.show({
+                        items: $scope.items,
+                        update: function (filteredItems, filterText) {
+                            $scope.items = filteredItems;
+                        }
+                    });
+                };
+
+                $scope.refreshItems = function () {
+                    if (filterBarInstance) {
+                        filterBarInstance();
+                        filterBarInstance = null;
+                    }
+
+                    // load items here
+                    getItems().then(function(){
+                        $scope.$broadcast('scroll.refreshComplete');
+                    });
+                };
+
+                $scope.selectedItem = function(item) {
+                    console.log("adding course")
+                    userCourseGroupService.addUserCourse(item.courseId);
+                    $state.go('tabsController.home',
+                        {updateRequired:true}
+                    );
+                };
+
+                $scope.addNewCourse = function() {
+                    newClassPopupService.show().then(function(res){
+                        if (res) {
+                            // course added
+                            $ionicLoading.show({
+                                template: 'Loading',
+                                delay: 50
+                            });
+                            courseDatabaseService.createCourse(res)
+                                .then(
+                                    function() {
+                                        getItems();
+                                        $ionicLoading.hide();
+                                    }
+                                )
+                                .catch(
+                                    function() {
+                                        console.log("Error writing to database");
+                                        getItems();
+                                        $ionicLoading.hide();
+                                    }
+                                )
+                        }
+                    });
+                }
+            }])
 
     .controller('newStudyGroupCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
