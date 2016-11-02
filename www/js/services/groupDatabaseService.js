@@ -3,9 +3,10 @@ angular.module('app.groupDatabaseService', ['ionic'])
         function($ionicPopup, $rootScope){
             var db = firebase.database();
             var groupsPath = 'groups/';
-	    var membersPath = 'members/';
+            var membersPath = 'members/';
+            
             return {
-                createGroup: function(group, cid){\
+                createGroup: function(group){
                     var groupInfoRef = db.ref(groupsPath).push(group);
                     return groupInfoRef.then(function(){
                         return addMember(groupInfoRef, group.creator);
@@ -22,13 +23,13 @@ angular.module('app.groupDatabaseService', ['ionic'])
                 },
 
                 addMember: function(groupId, uid){
-                   var member = {};
-		   member[uid] = profileService.getName();
-		   return db.ref(groupsPath + groupId+ '/' + memberPath).set(member);
+                    var member = {};
+                    member[uid] = profileService.getName();
+                    return db.ref(groupsPath + groupId+ '/' + memberPath).set(member);
                 },
                 
                 removeMember: function(groupId, uid){
-                    return db.ref(groupsPath + groupId + '/' + memberPath.child(uid).remove();
+                    return db.ref(groupsPath + groupId + '/' + memberPath).child(uid).remove();
                 }
 
 
