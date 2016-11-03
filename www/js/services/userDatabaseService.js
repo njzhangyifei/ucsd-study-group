@@ -6,7 +6,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
             var groupsPath = 'groups/';
             var db = firebase.database();
             return {
-                
+
                 getUserCourses: function(){
                     var uid = firebase.auth().currentUser.uid;
                     var path = usersPath + uid + "/" + coursesPath;
@@ -17,7 +17,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                         snapshot.forEach(function(childSnapshot){
                             // query for name
                             // courses.push
-                            var course = 
+                            var course =
                                 courseDatabaseService
                                 .getCourse(childSnapshot.val());
                             courses.push(course);
@@ -25,14 +25,14 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                         return Promise.all(courses);
                     });
                 },
-                                        
+
                 addUserCourse: function(courseId){
                     var uid = firebase.auth().currentUser.uid;
                     var path = usersPath + uid + "/" + coursesPath;
                     var coursesRef = db.ref(path);
                     return coursesRef.push(courseId);
                 },
-                                        
+
                 getUserGroups: function() {
                     var uid = firebase.auth().currentUser.uid;
                     var path = usersPath + uid + "/" + groupsPath;
@@ -40,14 +40,14 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                     return groupsRef.once('value').then(function(snapshot){
                         var groups = [];
                         snapshot.forEach(function(childSnapshot){
-                            var group = 
+                            var group =
                                 groupDatabaseService
                                 .getGroup(childSnapshot.val());
                             groups.push(group);
                         })
                         return Promise.all(groups);
                     });
-            	}
+                }
             }
         }])
 
@@ -100,7 +100,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 var profileRef = db.ref(usersPath + firebase.auth().currentUser.uid);
                 profileRef.on('value', function(snapshot){callback(snapshot)});
             },
-            
+
             getName: function(uid){
                 return db.ref(usersPath + uid + '/name').once('value').then(function(snapshot){
                     return snapshot.val();
