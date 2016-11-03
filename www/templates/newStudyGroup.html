@@ -3,10 +3,14 @@
         <form class="list" id="newStudyGroup-form">
             <label id="newStudyGroup-name" class="item item-input">
                 <span class="input-label">Group Name</span>
-                <input placeholder="" type="text">
+                <input placeholder="Name"
+                    type="text"
+                    ng-model=newStudyGroupForm.id>
+                </input>
             </label>
-            <label id="newStudyGroup-descr" class="item item-input">
-                <span class="input-label">Description</span><textarea placeholder=""></textarea>
+            <label id="newStudyGroup-description" class="item item-input">
+                <span class="input-label">Description</span>
+                <textarea placeholder=""></textarea>
             </label>
         </form>
         <button class="button button-positive  button-block" id="newStudyGroup-button26" ng-click="createGroup()">Submit</button>

@@ -30,7 +30,7 @@ angular.module('app.newClassPopupService', ['ionic'])
                                         e.preventDefault();
                                     } else {
                                         scope.course.department.trim();
-                                        scope.course.department = 
+                                        scope.course.department =
                                             scope.course.department.toUpperCase();
                                         scope.course.number.trim();
                                         if (!validityCheck(scope.course)) {

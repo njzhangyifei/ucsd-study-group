@@ -4,7 +4,7 @@ angular.module('app.groupDatabaseService', ['ionic'])
             var db = firebase.database();
             var groupsPath = 'groups/';
             var membersPath = 'members/';
-            
+
             return {
                 createGroup: function(group){
                     // still needs work
@@ -29,19 +29,10 @@ angular.module('app.groupDatabaseService', ['ionic'])
                     member[uid] = profileService.getName();
                     return db.ref(groupsPath + groupId+ '/' + memberPath).set(member);
                 },
-                
+
                 removeMember: function(groupId, uid){
                     return db.ref(groupsPath + groupId + '/' + memberPath).child(uid).remove();
                 }
-
-
-                // onAvailableCoursesChanged: function(func){
-                    // var db = firebase.database();
-                    // var availCourseRef = db.ref(availableCoursesPath);
-                    // availCourseRef.on('child_added', function(snapshot){
-                        // func(snapshot);
-                    // });
-                // },
             }
         }])
 ;
