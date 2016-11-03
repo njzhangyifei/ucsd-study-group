@@ -56,7 +56,7 @@ angular.module('app.routes', ['ionicUIRouter'])
                     updateRequired: false
                 },
                 views: {
-                    'tab-home': {
+                    'tab-groups': {
                         templateUrl: 'templates/myGroups.html',
                         controller: 'myGroupsCtrl'
                     }

@@ -1,4 +1,4 @@
-angular.module('app.homeCtrlController', 
+angular.module('app.myGroupsController', 
     ['ionic', 'app.services', 'jett.ionic.filter.bar', 'app.userDatabaseService'])
 
     .controller('myGroupsCtrl', ['$scope', 
@@ -19,7 +19,7 @@ angular.module('app.homeCtrlController',
                         $scope.items = [];
                         res.forEach(function(t){
                             $scope.items.push({
-                                name: t.name;
+                                name: t.name
                             })
                         })
                         $ionicLoading.hide();

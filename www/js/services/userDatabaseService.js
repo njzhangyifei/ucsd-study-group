@@ -4,9 +4,9 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
             var usersPath = 'users/';
             var coursesPath = 'courses/';
             var groupsPath = 'groups/';
-            var db = firbase.database();
-            return {.ref(rootpath+uid)
-                }
+            var db = firebase.database();
+            return {
+                
                 getUserCourses: function(){
                     var uid = firebase.auth().currentUser.uid;
                     var path = usersPath + uid + "/" + coursesPath;
@@ -25,27 +25,31 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                         return Promise.all(courses);
                     });
                 },
+                                        
                 addUserCourse: function(courseId){
                     var uid = firebase.auth().currentUser.uid;
                     var path = rootPath + uid + "/" + coursesPath;
                     var coursesRef = db.ref(path);
                     return coursesRef.push(courseId);
                 },
-		getUserGroups: function() {
-		    var uid = firebase.auth().currentUser.uid;
-		    var path = usersPath + uid + "/" + groupsPath;
-		    var groupsRef = db.ref(path);
-		    return groupsRef.once('value').then(function(snapshot){
-		        var groups = [];
-			snapshot.forEach(function(childSnapshot){
-			    var group = 
-			         groupDatabaseService
-			        .getGroup(childSnapshot.val());
-			    groups.push(group);
-			})
-			return Promise.all(groups);
-		     });
+                                        
+                getUserGroups: function() {
+                    var uid = firebase.auth().currentUser.uid;
+                    var path = usersPath + uid + "/" + groupsPath;
+                    var groupsRef = db.ref(path);
+                    return groupsRef.once('value').then(function(snapshot){
+                        var groups = [];
+                        snapshot.forEach(function(childSnapshot){
+                            var group = 
+                                groupDatabaseService
+                                .getGroup(childSnapshot.val());
+                            groups.push(group);
+                        })
+                        return Promise.all(groups);
+                    });
             	}
+                
+            }
         }])
 
     .service('profileService', [function(){

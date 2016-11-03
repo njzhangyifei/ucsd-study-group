@@ -1,4 +1,4 @@
-angular.module('app.homeCtrlController', 
+angular.module('app.newStudyGroupController', 
     ['ionic', 'app.services', 'jett.ionic.filter.bar', 'app.userDatabaseService'])
 
     .controller('newStudyGroupCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
