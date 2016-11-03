@@ -49,6 +49,19 @@ angular.module('app.routes', ['ionicUIRouter'])
                 },
             })
 
+            .state('tabsController.myGroups', {
+                cache: false,
+                url: '/page-myGroups',
+                params: {
+                    updateRequired: false
+                },
+                views: {
+                    'tab-home': {
+                        templateUrl: 'templates/myGroups.html',
+                        controller: 'myGroupsCtrl'
+                    }
+                },
+            })
             .state('tabsController.profile', {
                 url: '/page-profile',
                 views: {
