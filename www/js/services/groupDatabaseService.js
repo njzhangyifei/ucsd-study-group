@@ -7,6 +7,8 @@ angular.module('app.groupDatabaseService', ['ionic'])
             
             return {
                 createGroup: function(group){
+                    // still needs work
+                    group.creator = firebase.auth().currentUser.uid;
                     var groupInfoRef = db.ref(groupsPath).push(group);
                     return groupInfoRef.then(function(){
                         return addMember(groupInfoRef, group.creator);
