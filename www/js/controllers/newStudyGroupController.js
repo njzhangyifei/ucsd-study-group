@@ -19,6 +19,15 @@ angular.module('app.newStudyGroupController',
     }])
 =======
         function ($scope, $stateParams) {
+            $scope.createGroup = function(){
+                var group = {};
+                // TODO
+                // retrieve data from create group form
+                //group.name = $scope.groupForm.name;
+                //group.description = $scope.groupForm.description;
+                
+                groupDatabaseService.createGroup(group);
+            }
 
     }])
 ;

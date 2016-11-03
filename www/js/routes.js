@@ -77,7 +77,12 @@ angular.module('app.routes', ['ionicUIRouter'])
             })
 
             .state('tabsController.courseGroups', {
+                cache: false;
                 url: '/page-course-groups',
+                params: {
+                    courseKey: null,
+                    updateRequired: false
+                },
                 views: {
                     'tab-home': {
                         templateUrl: 'templates/courseGroups.html',
