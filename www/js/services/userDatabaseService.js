@@ -28,7 +28,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                                         
                 addUserCourse: function(courseId){
                     var uid = firebase.auth().currentUser.uid;
-                    var path = rootPath + uid + "/" + coursesPath;
+                    var path = usersPath + uid + "/" + coursesPath;
                     var coursesRef = db.ref(path);
                     return coursesRef.push(courseId);
                 },
@@ -48,7 +48,6 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                         return Promise.all(groups);
                     });
             	}
-                
             }
         }])
 
