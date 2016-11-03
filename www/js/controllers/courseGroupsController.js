@@ -1,45 +1,45 @@
 angular.module('app.courseGroupsController', 
-    ['ionic', 'app.services', 'jett.ionic.filter.bar', 'app.userDatabaseService'])
+    ['ionic', 'app.services', 'jett.ionic.filter.bar'])
 
     .controller('courseGroupsCtrl', ['$scope', 
         '$stateParams', 
-        '$state', '$ionicLoading', 'userCourseGroupService',
+        '$state', '$ionicLoading', 
         function ($scope, 
-            $stateParams, $state, $ionicLoading, 
-            userCourseGroupService) {
+            $stateParams, $state, $ionicLoading) {
+                console.log($stateParams.course)
 
-            function getItems () {
-                $scope.items = [];
-                $ionicLoading.show({
-                    template: 'Loading',
-                    delay: 50
-                });
-                // userCourseGroupService.getUserCourses()
-                    // .then(function(res){
-                        // $scope.items = [];
-                        // res.forEach(function(t){
-                            // $scope.items.push({
-                                // name: t.department + " - " + t.number,
-                                // key: t.key
-                            // })
-                        // })
-                        // $ionicLoading.hide();
-                    // }).catch(function(error){
-                        // console.log("error !" + error);
-                        // $ionicLoading.hide();
+                function getItems () {
+                    $scope.items = [];
+                    // $ionicLoading.show({
+                    // template: 'Loading',
+                    // delay: 50
                     // });
-            }
+                    // userCourseGroupService.getUserCourses()
+                    // .then(function(res){
+                    // $scope.items = [];
+                    // res.forEach(function(t){
+                    // $scope.items.push({
+                    // name: t.department + " - " + t.number,
+                    // key: t.key
+                    // })
+                    // })
+                    // $ionicLoading.hide();
+                    // }).catch(function(error){
+                    // console.log("error !" + error);
+                    // $ionicLoading.hide();
+                    // });
+                }
 
-            getItems();
+                $scope.addGroup = function() {
+                    $state.go('tabsController.newStudyGroup', {
+                        course: course
+                    });
+                }
 
-            $scope.addCourse = function() {
-                $state.go('addCourse');
-            }
-
-            if ($stateParams.updateRequired) {
-                // force refresh
-                console.log("update is required");
-                getItems();
-            }
-        }])
+                if ($stateParams.updateRequired) {
+                    // force refresh
+                    console.log("update is required");
+                    getItems();
+                }
+            }])
 

@@ -1,7 +1,7 @@
-<ion-view style="" id="page-course-groups" title="Groups">
+<ion-view style="" id="page-course-groups" title="{{$stateParam.course.name}}">
     <ion-content class="has-header" padding="true">
         <ion-nav-buttons side="secondary">
-            <button class="button button-icon icon ion-android-add" 
+            <button class="button button-icon icon ion-android-add"
                     ng-click="addGroup()">
             </button>
         </ion-nav-buttons>
@@ -9,7 +9,7 @@
         <!-- <h4 style="color: rgb(0, 0, 0);" id="heading-joined">Joined Groups</h4> -->
 
         <ion-list id="page-course-groups-list">
-            <ion-item collection-repeat="item in items" 
+            <ion-item collection-repeat="item in items"
                       ng-click="selectedItem(item)"
                       class="item-icon-right">
                 {{item.name}}
@@ -26,8 +26,8 @@
                 <!-- <i class="icon ion-ios-information-outline"></i> -->
             <!-- </ion-item> -->
         <!-- </ion-list> -->
-        <!-- <a class="button button-positive  
-            button-block icon-left ion-android-add" id="groupTabPage-button25" 
+        <!-- <a class="button button-positive
+            button-block icon-left ion-android-add" id="groupTabPage-button25"
             ui-sref="tabsController.newStudyGroup">Create study group</a> -->
     </ion-content>
 </ion-view>

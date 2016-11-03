@@ -34,12 +34,26 @@ angular.module('app.courseDatabaseService', ['ionic'])
                     });
                 },
 
+                getGroups: function(courseId) {
+                    var db = firebase.database();
+                    var courseInfoRef = db.ref(coursePath+courseId);
+                    return courseInfoRef.once('value').then(function(snapshot){
+                        var groups = [];
+                        snapshot.forEach(function(childSnapshot){
+                            var group = 
+                                groupDatabaseService.
+                                    getGroup(childSnapshot.val());
+                            groups.push(group);
+                        })
+                        return Promise.all(groups);
+                    });
+                },
+
                 getAvailableCourses: function(){
                     var db = firebase.database();
                     var availCourseRef = db.ref(availableCoursesPath);
                     return availCourseRef.once('value');
                 },
-
 
             }
         }])

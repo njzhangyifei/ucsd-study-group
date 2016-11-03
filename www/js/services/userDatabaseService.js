@@ -6,7 +6,6 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
             var groupsPath = 'groups/';
             var db = firebase.database();
             return {
-
                 getUserCourses: function(){
                     var uid = firebase.auth().currentUser.uid;
                     var path = usersPath + uid + "/" + coursesPath;
@@ -96,7 +95,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 console.log('ProfileService: profile updated');
             },
 
-            
+
             getProfile: function(uid){
                 if(!uid) uid = firebase.auth().currentUser.uid;
                 profileRef = db.ref(usersPath + uid);
