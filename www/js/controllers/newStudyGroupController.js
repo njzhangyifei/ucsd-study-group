@@ -13,8 +13,17 @@ angular.module('app.newStudyGroupController',
                     $scope.groupForm = {};
                     $scope.createGroup = function(){
                         var group = {};
+                       //var hasName = false;
+                       // if($scope.groupForm.name) {
+                       //  hasName = true;
+                       // } else {
+                       //   return "Please enter a name for your group"
+                       // }
                         group.name = $scope.groupForm.name;
                         group.description = $scope.groupForm.description;
+                        
+                        courseDatabaseService.addGroup(group);
+                        //add creator?
                         // TODO need to link course to the group
                         // groupDatabaseService.createGroup(group);
                     }
