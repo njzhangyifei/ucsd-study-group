@@ -41,13 +41,6 @@ angular.module('app.courseDatabaseService', ['ionic'])
                 },
 
 
-                // onAvailableCoursesChanged: function(func){
-                    // var db = firebase.database();
-                    // var availCourseRef = db.ref(availableCoursesPath);
-                    // availCourseRef.on('child_added', function(snapshot){
-                        // func(snapshot);
-                    // });
-                // },
             }
         }])
 ;
