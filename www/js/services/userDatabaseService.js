@@ -1,14 +1,15 @@
 angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService'])
     .service('userCourseGroupService', ['courseDatabaseService',
         function(courseDatabaseService){
-            var rootPath = "Users/";
-            var coursesPath = "Courses/"
-            var groupsPath = "Groups/"
-            return {
+            var usersPath = 'users/';
+            var coursesPath = 'courses/';
+            var groupsPath = 'groups/';
+            var db = firbase.database();
+            return {.ref(rootpath+uid)
+                }
                 getUserCourses: function(){
-                    var db = firebase.database();
                     var uid = firebase.auth().currentUser.uid;
-                    var path = rootPath + uid + "/" + coursesPath;
+                    var path = usersPath + uid + "/" + coursesPath;
 
                     var coursesRef = db.ref(path);
                     return coursesRef.once('value').then(function(snapshot){
@@ -26,7 +27,6 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 },
 
                 addUserCourse: function(courseId){
-                    var db = firebase.database();
                     var uid = firebase.auth().currentUser.uid;
                     var path = rootPath + uid + "/" + coursesPath;
                     var coursesRef = db.ref(path);
@@ -36,6 +36,8 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
         }])
 
     .service('profileService', [function(){
+        var db = firebase.database();
+        var usersPath = 'users/'
         return{
             /*
                 This function takes two strings, a name and an email,
@@ -43,16 +45,15 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 that stores the user's profile information.
             */
             createProfile: function(user){
-                var db = firebase.database();
-                var path = "Users/" + user.uid;
+                var path = usersPath + user.uid;
 
                 var profile = {
-                    Name: user.displayName,
-                    Email: user.email
+                    name: user.displayName,
+                    email: user.email
                 };
                 db.ref(path).set(profile);
 
-                console.log("ProfileService: profile created");
+                console.log('ProfileService: profile created');
             },
 
             /*
@@ -62,28 +63,33 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
             */
             updateProfile: function(name, email, phone, description){
                 var user = firebase.auth().currentUser;
-                var db = firebase.database();
-                var path = "Users/" + user.uid;
+                var path = usersPath + user.uid;
 
                 var updates = {};
                 if(name)
-                    updates["Name"] = name;
+                    updates['name'] = name;
                 if(email)
-                    updates["Email"] = email;
+                    updates['email'] = email;
                 if(phone)
-                    updates["Phone"] = phone;
+                    updates['phone'] = phone;
                 if(description)
-                    updates["Description"] = description;
+                    updates['description'] = description;
 
                 db.ref(path).update(updates);
 
-                console.log("ProfileService: profile updated");
+                console.log('ProfileService: profile updated');
             },
 
             onProfileChanged: function(callback){
-                var ref = firebase.database().ref("Users/" + firebase.auth().currentUser.uid);
-                ref.on("value", function(snapshot){callback(snapshot)});
+                var profileRef = db.ref(usersPath + firebase.auth().currentUser.uid);
+                profileRef.on('value', function(snapshot){callback(snapshot)});
             },
+            
+            getName: function(uid){
+                return db.ref(usersPath + uid + '/name').once('value').then(function(snapshot){
+                    return snapshot.val();
+                });
+            }
 
         }
     }])

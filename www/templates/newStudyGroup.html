@@ -1,16 +1,16 @@
 <ion-view style="" id="page10" title="New Study Group">
     <ion-content class="has-header" padding="true">
-        <form class="list" id="newStudyGroup-form6">
-            <label id="newStudyGroup-input11" class="item item-input">
+        <form class="list" id="newStudyGroup-form">
+            <label id="newStudyGroup-name" class="item item-input">
                 <span class="input-label">Group Name</span>
                 <input placeholder="" type="text">
             </label>
-            <label id="newStudyGroup-textarea2" class="item item-input">
+            <label id="newStudyGroup-descr" class="item item-input">
                 <span class="input-label">Description</span><textarea placeholder=""></textarea>
             </label>
         </form>
         <form class="list" id="newStudyGroup-form9">
-            <label id="newStudyGroup-select1" class="item item-select">
+            <label id="newStudyGroup-select" class="item item-select">
                 <span class="input-label">Group Size</span>
                 <select>
                     <option>&lt;5</option>
@@ -19,6 +19,6 @@
                 </select>
             </label>
         </form>
-        <button class="button button-positive  button-block" id="newStudyGroup-button26">Submit</button>
+        <button class="button button-positive  button-block" id="newStudyGroup-button26" ng-click="createGroup()">Submit</button>
     </ion-content>
 </ion-view>
