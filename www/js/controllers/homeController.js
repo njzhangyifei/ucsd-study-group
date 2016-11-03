@@ -1,13 +1,12 @@
-angular.module('app.homeCtrlController', 
+angular.module('app.homeController',
     ['ionic', 'app.services', 'jett.ionic.filter.bar', 'app.userDatabaseService'])
 
-    .controller('homeCtrl', ['$scope', 
-        '$stateParams', 
-        '$state', '$ionicLoading', 'userCourseGroupService',
-        function ($scope, 
-            $stateParams, $state, $ionicLoading, 
+    .controller('homeCtrl', ['$scope',
+        '$stateParams',
+        '$state', '$ionicLoading', '$ionicHistory', 'userCourseGroupService',
+        function ($scope,
+            $stateParams, $state, $ionicLoading, $ionicHistory,
             userCourseGroupService) {
-
             function getItems () {
                 $scope.items = [];
                 $ionicLoading.show({
@@ -19,7 +18,7 @@ angular.module('app.homeCtrlController',
                         $scope.items = [];
                         res.forEach(function(t){
                             $scope.items.push({
-                                name: t.department + " - " + t.number,
+                                name: t.department + " " + t.number,
                                 key: t.key
                             })
                         })
@@ -30,16 +29,14 @@ angular.module('app.homeCtrlController',
                     });
             }
 
-            getItems();
-
-            $scope.addCourse = function() {
-                $state.go('addCourse');
-            }
-
             if ($stateParams.updateRequired) {
                 // force refresh
                 console.log("update is required");
                 getItems();
+            }
+
+            $scope.addCourse = function() {
+                $state.go('tabsController.addCourse');
             }
         }])
 

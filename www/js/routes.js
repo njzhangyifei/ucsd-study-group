@@ -65,19 +65,23 @@ angular.module('app.routes', ['ionicUIRouter'])
                 }
             })
 
-            .state('addCourse', {
+            .state('tabsController.addCourse', {
                 cache: false,
                 url: '/page-add-course',
-                templateUrl: 'templates/addCourse.html',
-                controller: 'addCourseCtrl'
-            })
-
-            .state('tabsController.groupTabPage', {
-                url: '/page-group-page',
                 views: {
                     'tab-home': {
-                        templateUrl: 'templates/groupTabPage.html',
-                        controller: 'groupTabPageCtrl'
+                        templateUrl: 'templates/addCourse.html',
+                        controller: 'addCourseCtrl'
+                    }
+                }
+            })
+
+            .state('tabsController.courseGroups', {
+                url: '/page-course-groups',
+                views: {
+                    'tab-home': {
+                        templateUrl: 'templates/courseGroups.html',
+                        controller: 'courseGroupsCtrl'
                     }
                 }
             })
