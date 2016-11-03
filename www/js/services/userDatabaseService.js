@@ -28,7 +28,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                                         
                 addUserCourse: function(courseId){
                     var uid = firebase.auth().currentUser.uid;
-                    var path = rootPath + uid + "/" + coursesPath;
+                    var path = usersPath + uid + "/" + coursesPath;
                     var coursesRef = db.ref(path);
                     return coursesRef.push(courseId);
                 },
@@ -97,9 +97,13 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 console.log('ProfileService: profile updated');
             },
 
-            onProfileChanged: function(callback){
-                var profileRef = db.ref(usersPath + firebase.auth().currentUser.uid);
-                profileRef.on('value', function(snapshot){callback(snapshot)});
+            
+            getProfile: function(uid){
+                if(!uid) uid = firebase.auth().currentUser.uid;
+                profileRef = db.ref(usersPath + uid);
+                return profileRef.once('value').then(function(snapshot){
+                    return snapshot.val();
+                })
             },
             
             getName: function(uid){

@@ -25,16 +25,6 @@ angular.module('app.routes', ['ionicUIRouter'])
                 controller: 'signupCtrl'
             })
 
-            .state('tabsController.editProfile', {
-                url: '/page-edit-profile',
-                views: {
-                    'tab-profile':{
-                        templateUrl: 'templates/editProfile.html',
-                        controller: 'editProfileCtrl'
-                    }
-                }
-            })
-
             .state('tabsController.home', {
                 cache: false,
                 url: '/page-home',
@@ -64,6 +54,9 @@ angular.module('app.routes', ['ionicUIRouter'])
             })
             .state('tabsController.profile', {
                 url: '/page-profile',
+                params:{
+                    uid: null
+                },
                 views: {
                     'tab-profile': {
                         templateUrl: 'templates/profile.html',
