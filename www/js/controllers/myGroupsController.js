@@ -24,7 +24,7 @@ angular.module('app.myGroupsController',
                         })
                         $ionicLoading.hide();
                     }).catch(function(error){
-                        console.log("error !" + error);
+                        console.log("error :" + error);
                         $ionicLoading.hide();
                     });
             }

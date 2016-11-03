@@ -20,10 +20,7 @@ angular.module('app.profileController', ['ionic', 'jett.ionic.filter.bar',
                 });
                 profileService.getProfile($stateParams.uid)
                     .then(function(res){
-                        $scope.profile.name = res.name;
-                        $scope.profile.email = res.email;
-                        $scope.profile.phone = res.phone;
-                        $scope.profile.description = res.description;
+                        $scope.profile = res;
                         $ionicLoading.hide();
                     }).catch(function(error){
                         console.log("error !" + error);
