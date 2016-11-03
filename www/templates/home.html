@@ -1,29 +1,18 @@
 <ion-view style="" id="page-home" title="Home">
-    <ion-content class="has-header" padding="true">
-        <!-- <div class="button-bar" id="home-button-bar3"> -->
-            <!-- <a class="button button-stable button-large button-block button-outline" id="home-button11" ui-sref="tabsController.groupTabPage">CSE 999</a> -->
-        <!-- </div> -->
-        <!-- <div class="button-bar" id="home-button-bar4"> -->
-            <!-- <button class="button button-stable button-large button-block button-outline" id="home-button13">CSE 999</button> -->
-        <!-- </div> -->
+    <ion-nav-buttons side="secondary">
+        <button class="button button-icon icon ion-android-add" ng-click="addCourse()">
+        </button>
+    </ion-nav-buttons>
 
-        <ion-refresher pulling-icon="ion-arrow-down-c" 
+    <ion-content class="has-header" padding="true">
+        <ion-refresher pulling-icon="ion-arrow-down-c"
                        on-refresh="refreshItems()">
         </ion-refresher>
 
-        
-        <div class="button-bar" collection-repeat="item in items" ng-click="selectedItem(item)">
-            <button class="button button-stable button-large button-block button-outline"> 
-                {{item.name}}
-            </button>
-        </div>
 
-        <div style="margin-right:-20px;">
-            <button class="button button-positive button-full icon-left ion-android-add" 
-                    style="left:-10px;" 
-                    id="home-button-add-course"
-                    ng-click="addCourse()">
-                Add your course
+        <div class="button-bar" collection-repeat="item in items" ng-click="selectedItem(item)">
+            <button class="button button-stable button-large button-block button-outline">
+                {{item.name}}
             </button>
         </div>
     </ion-content>

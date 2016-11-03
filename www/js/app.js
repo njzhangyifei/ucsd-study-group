@@ -5,10 +5,12 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', 
-    ['ionic', 'app.controllers', 'app.homeCtrlController', 'app.newStudyGroupController',
-     'app.myGroupsController',
-     'app.routes', 'app.directives', 
+angular.module('app',
+    ['ionic', 'app.controllers', 'app.homeController', 
+     'app.newStudyGroupController',
+     'app.addCourseController',
+     'app.courseGroupsController', 'app.myGroupsController',
+     'app.routes', 'app.directives',
      'app.services', 'app.courseDatabaseService', 'app.newClassPopupService',
      'app.userDatabaseService', 'app.groupDatabaseService',
      'jett.ionic.filter.bar'])
