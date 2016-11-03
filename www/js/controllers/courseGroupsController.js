@@ -6,7 +6,7 @@ angular.module('app.courseGroupsController',
         '$state', '$ionicLoading', 
         function ($scope, 
             $stateParams, $state, $ionicLoading) {
-                console.log($stateParams.course)
+                $scope.course = $stateParams.course;
 
                 function getItems () {
                     $scope.items = [];
@@ -32,7 +32,7 @@ angular.module('app.courseGroupsController',
 
                 $scope.addGroup = function() {
                     $state.go('tabsController.newStudyGroup', {
-                        course: course
+                        course: $stateParams.course
                     });
                 }
 
