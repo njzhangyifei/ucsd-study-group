@@ -40,13 +40,12 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
 			snapshot.forEach(function(childSnapshot){
 			    var group = 
 			         groupDatabaseService
-			        .getGroup(function(childSnapshot.val());
+			        .getGroup(childSnapshot.val());
 			    groups.push(group);
 			})
 			return Promise.all(groups);
 		     });
             	}
-	    }
         }])
 
     .service('profileService', [function(){
