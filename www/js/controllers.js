@@ -202,8 +202,6 @@ angular.module('app.controllers',
 
         }])
 
-<<<<<<< HEAD
-
     .controller('addCourseCtrl', [
         '$scope', '$stateParams', '$state', '$ionicFilterBar', '$ionicLoading',
         '$ionicHistory', 'newClassPopupService', 'courseDatabaseService', 'userCourseGroupService',
@@ -295,7 +293,7 @@ angular.module('app.controllers',
                     });
                 }
             }])
-=======
+
     .controller('profileCtrl', ['$scope', '$state', '$stateParams', 'loginService', 'profileService',
         // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
@@ -340,6 +338,5 @@ angular.module('app.controllers',
                 $state.go('tabsController.profile');
             };
         }])
->>>>>>> 3f00bdbd2dfcf692609f1bb87afcc6947365fe89
 
 ;
