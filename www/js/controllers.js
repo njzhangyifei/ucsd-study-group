@@ -294,49 +294,4 @@ angular.module('app.controllers',
                 }
             }])
 
-    .controller('profileCtrl', ['$scope', '$state', '$stateParams', 'loginService', 'profileService',
-        // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-        // You can include any angular dependencies as parameters for this function
-        // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $state, $stateParams, loginService, profileService) {
-
-            profileService.onProfileChanged(function(snapshot){
-                $scope.displayName = snapshot.child("Name").val();
-                $scope.phone = snapshot.child("Phone").val();
-                $scope.email = snapshot.child("Email").val();
-                $scope.description = snapshot.child("Description").val();
-            });
-
-            $scope.signout = function() {
-                loginService.signout();
-            }
-
-            $scope.editProfile = function(){
-                console.log("button edit profile clicked");
-                $state.go('tabsController.editProfile');
-            }
-
-        }])
-
-
-    .controller('editProfileCtrl', ['$scope', '$state','$stateParams', 'profileService',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-        // You can include any angular dependencies as parameters for this function
-        // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $state, $stateParams, profileService) {
-            $scope.profileForm = {}
-
-            $scope.updateProfile = function(){
-                // TODO update the user's database entry
-                var name = $scope.profileForm.name;
-                var email = $scope.profileForm.email;
-                var phone = $scope.profileForm.phone;
-                var description = $scope.profileForm.description;
-
-                console.log("button update profile clicked");
-                profileService.updateProfile(name, email, phone, description);
-
-                $state.go('tabsController.profile');
-            };
-        }])
-
 ;
