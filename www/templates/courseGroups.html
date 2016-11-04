@@ -1,13 +1,16 @@
 <ion-view style="" id="page-course-groups" title="Groups within {{course.department+course.number}}">
 
-        <ion-nav-buttons side="secondary">
-            <button class="button button-icon icon ion-android-add"
-                    ng-click="addGroup()">
-            </button>
-        </ion-nav-buttons>
-    <ion-content class="has-header" padding="true">
+    <ion-nav-buttons side="secondary">
+        <button class="button button-icon icon ion-android-add"
+                ng-click="addGroup()">
+        </button>
+    </ion-nav-buttons>
+    <ion-content class="has-header" padding="true" direction="y" scrollbar-y="false">
 
         <!-- <h4 style="color: rgb(0, 0, 0);" id="heading-joined">Joined Groups</h4> -->
+        <ion-refresher pulling-icon="ion-arrow-down-c" 
+                       on-refresh="refreshItems()">
+        </ion-refresher>
 
         <ion-list id="page-course-groups-list">
             <ion-item collection-repeat="item in items"
@@ -15,7 +18,15 @@
                       class="item-icon-right">
                 {{item.name}}
             </ion-item>
+
+            <ion-item ng-if="items !== undefined && !items.length" ng-click="addNewCourse()">
+                <p>
+                    Whoa! No groups here?<br>
+                    Why not add one?
+                </p>
+            </ion-item>
         </ion-list>
+
         <!-- <h4 style="color: rgb(0, 0, 0);" id="heading-open">Open Groups</h4> -->
         <!-- <ion-list id="page-course-groups-list-open"> -->
             <!-- <ion-item style="" ui-sref="tabsController.groupDetail" id="groupTabPage-list-item24" class="item-icon-right">Name of the Group -->
