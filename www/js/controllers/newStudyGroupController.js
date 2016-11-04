@@ -7,10 +7,11 @@ angular.module('app.newStudyGroupController',
             // You can include any angular dependencies as parameters for this function
             // TIP: Access Route Parameters for your page via $stateParams.parameterName
             function ($scope, $stateParams, groupDatabaseService, courseDatabaseService) {
-                console.log("new study group for " + $stateParams.course.name);
-
+                var course = $stateParams.course;
+                console.log('new study group for ' + course.department 
+                            +  ' ' + course.number);
+                $scope.groupForm = {};
                 $scope.createGroup = function(){
-                    $scope.groupForm = {};
                     var group = {};
                     //var hasName = false;
                     // if($scope.groupForm.name) {
@@ -20,13 +21,14 @@ angular.module('app.newStudyGroupController',
                     // }
                     group.name = $scope.groupForm.name;
                     group.description = $scope.groupForm.description;
-
+                    
+                    console.log(group.name);
                     var groupRef = groupDatabaseService.createGroup(group);
                     groupRef.then(function(){
-                        var k = groupRef.key();
-                        console.log(k);
+                        var k = groupRef.key;
+                        console.log("group added - key: " + k);
+                        courseDatabaseService.addGroup(groupRef.key, course.id);
                     });
-                    courseDatabaseService.addGroup(group);
                     //add creator?
                     // TODO need to link course to the group
                     // groupDatabaseService.createGroup(group);

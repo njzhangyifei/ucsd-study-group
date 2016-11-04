@@ -10,6 +10,7 @@ angular.module('app.courseGroupsController',
             $stateParams, $state, $ionicLoading, courseDatabaseService) {
                 var course = $stateParams.course;
                 $scope.course = course;
+                console.log(course.department+course.number);
 
                 function getItems () {
                     $scope.items = [];
@@ -35,13 +36,19 @@ angular.module('app.courseGroupsController',
                         $scope.$broadcast('scroll.refreshComplete');
                     });
                 };
+            
+                $scope.selectedItem = function(group){
+                    $state.go('tabsController.groupDetail',{
+                        group: group
+                    })
+                }
 
                 $scope.addGroup = function() {
                     $state.go('tabsController.newStudyGroup', {
                         course: course
                     });
                 }
-
+                
                 if ($stateParams.updateRequired) {
                     // force refresh
                     console.log("update is required");

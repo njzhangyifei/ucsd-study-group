@@ -6,6 +6,12 @@ angular.module('app.groupDetailController',
         '$ionicLoading','groupDatabaseService',
         function($scope, $stateParams, $state, $ionicLoading, 
             groupDatabaseService){
+            var group = $stateParams.group;
+            $scope.group = group;
+            
+            $scope.join = function(){
+                //TODO
+            }
             
             function loadGroupInfo(){
                 $ionicLoading.show({

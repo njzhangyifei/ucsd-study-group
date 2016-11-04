@@ -1,9 +1,19 @@
 <ion-view style="" id="page-group-detail" title="Group Detail">
+    <ion-nav-buttons side="secondary">
+    <button class="button button-icon icon ion-edit" 
+            ng-click="editProfile()">
+    </button>
+    <button class="button button-icon icon ion-checkmark-round" 
+            ng-click="updateProfile()">
+    </button>  
+    </ion-nav-buttons>
+    
     <ion-content class="has-header" padding="true">
         <h2 style="color: rgb(0, 0, 0);" id="groupDetail-heading">{{group.name}}</h2>
         <div style="width: 300px; height: 10px;" class="spacer"></div>
         <div style="margin-right:-20px;">
-            <a class="button button-positive  button-full" style="left:-10px;" id="groupDetail-button" ui-sref="tabsController.groupTabPage">Join</a>
+            <a class="button button-positive  button-full" style="left:-10px;" 
+               id="groupDetail-button-join" ng-click="join()">Join</a>
         </div>
         <h4 style="color: rgb(0, 0, 0);" id="groupDetail-heading">Announcement</h4>
         <form class="list" id="groupDetail-form">

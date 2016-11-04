@@ -34,8 +34,8 @@ angular.module('app.courseDatabaseService', ['ionic', 'app.groupDatabaseService'
                     });
                 },
                 
-                addGroup: function(groupiId, courseId){
-                   return db.ref(coursePath + courseId + '/' + groupPath + gid).set(gid)
+                addGroup: function(groupId, courseId){
+                   return db.ref(coursePath + courseId + '/' + groupPath + groupId).set(groupId)
                 },
 
                 getGroups: function(courseId) {
