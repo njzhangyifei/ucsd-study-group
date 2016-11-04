@@ -28,7 +28,7 @@ angular.module('app.courseDatabaseService', ['ionic'])
                         var course = {
                             department : courseInfo.department,
                             number : courseInfo.number,
-                            key : courseId
+                            id : courseId
                         }
                         return course;
                     });
