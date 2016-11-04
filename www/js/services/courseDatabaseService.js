@@ -33,7 +33,7 @@ angular.module('app.courseDatabaseService', ['ionic'])
                         return course;
                     });
                 },
-                
+
                 addGroup: function(gid){
                     return db.ref(coursePath + groupPath + gid).set(gid)
                 },
@@ -43,7 +43,7 @@ angular.module('app.courseDatabaseService', ['ionic'])
                     return courseInfoRef.once('value').then(function(snapshot){
                         var groups = [];
                         snapshot.forEach(function(childSnapshot){
-                            var group = 
+                            var group =
                                 groupDatabaseService.
                                     getGroup(childSnapshot.val());
                             groups.push(group);
