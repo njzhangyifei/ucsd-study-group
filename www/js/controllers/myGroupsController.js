@@ -1,5 +1,4 @@
-a
-gular.module('app.myGroupsController', 
+angular.module('app.myGroupsController', 
     ['ionic', 'app.services', 'jett.ionic.filter.bar', 'app.userDatabaseService'])
 
     .controller('myGroupsCtrl', ['$scope', 
