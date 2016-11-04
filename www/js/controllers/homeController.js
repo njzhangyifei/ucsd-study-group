@@ -38,5 +38,10 @@ angular.module('app.homeController',
             $scope.addCourse = function() {
                 $state.go('tabsController.addCourse');
             }
+            
+            $scope.selectedItem = function(item){
+                $state.go('tabsController.courseGroups', 
+                    {course: item, updateRequired:true});
+            }
         }])
 

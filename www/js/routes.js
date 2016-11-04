@@ -25,16 +25,6 @@ angular.module('app.routes', ['ionicUIRouter'])
                 controller: 'signupCtrl'
             })
 
-            .state('tabsController.editProfile', {
-                url: '/page-edit-profile',
-                views: {
-                    'tab-profile':{
-                        templateUrl: 'templates/editProfile.html',
-                        controller: 'editProfileCtrl'
-                    }
-                }
-            })
-
             .state('tabsController.home', {
                 cache: false,
                 url: '/page-home',
@@ -64,6 +54,9 @@ angular.module('app.routes', ['ionicUIRouter'])
             })
             .state('tabsController.profile', {
                 url: '/page-profile',
+                params:{
+                    uid: null
+                },
                 views: {
                     'tab-profile': {
                         templateUrl: 'templates/profile.html',
@@ -84,10 +77,10 @@ angular.module('app.routes', ['ionicUIRouter'])
             })
 
             .state('tabsController.courseGroups', {
-                cache: false;
+                cache: false,
                 url: '/page-course-groups',
                 params: {
-                    courseKey: null,
+                    course: null,
                     updateRequired: false
                 },
                 views: {
@@ -109,7 +102,11 @@ angular.module('app.routes', ['ionicUIRouter'])
             })
 
             .state('tabsController.newStudyGroup', {
-                url: '/page10',
+                cache: false,
+                url: '/page-new-study-group',
+                params: {
+                    course: null,
+                },
                 views: {
                     'tab-home': {
                         templateUrl: 'templates/newStudyGroup.html',

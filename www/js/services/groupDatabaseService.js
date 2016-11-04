@@ -18,9 +18,7 @@ angular.module('app.groupDatabaseService', ['ionic'])
                 getGroup: function(groupId){
                     var groupInfoRef = db.ref(groupsPath + groupId);
                     return groupInfoRef.once('value').then(function(snapshot){
-                        var groupInfo = snapshot.val();
-                        groupInfo.key = groupId
-                        return groupInfo;
+                        return snapshot.val();
                     });
                 },
 

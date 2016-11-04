@@ -8,12 +8,13 @@
 angular.module('app',
     ['ionic', 'app.controllers', 'app.homeController', 
      'app.newStudyGroupController',
-     'app.addCourseController',
+     'app.addCourseController', 'app.profileController',
      'app.courseGroupsController', 'app.myGroupsController',
      'app.routes', 'app.directives',
      'app.services', 'app.courseDatabaseService', 'app.newClassPopupService',
      'app.userDatabaseService', 'app.groupDatabaseService',
-     'jett.ionic.filter.bar'])
+     'jett.ionic.filter.bar'
+    ])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

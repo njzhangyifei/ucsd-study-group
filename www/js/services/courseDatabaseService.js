@@ -2,12 +2,13 @@ angular.module('app.courseDatabaseService', ['ionic'])
     .service('courseDatabaseService', [
         function($ionicPopup, $rootScope){
             var coursePath = 'courses/';
+            var groupPath = 'groups/'
             var availableCoursesPath = 'availableCourses/';
+            var db = firebase.database();
             return {
                 createCourse: function(course){
                     // course department, course number
                     // check if exist
-                    var db = firebase.database();
                     var courseName = course.department + course.number;
                     var idPath = availableCoursesPath+courseName;
                     var courseInfo = {
@@ -21,7 +22,6 @@ angular.module('app.courseDatabaseService', ['ionic'])
                 },
 
                 getCourse: function(courseId){
-                    var db = firebase.database();
                     var courseInfoRef = db.ref(coursePath+courseId);
                     return courseInfoRef.once('value').then(function(snapshot){
                         var courseInfo = snapshot.val();
@@ -33,21 +33,30 @@ angular.module('app.courseDatabaseService', ['ionic'])
                         return course;
                     });
                 },
+                
+                addGroup: function(gid){
+                    return db.ref(coursePath + groupPath + gid).set(gid)
+                },
+
+                getGroups: function(courseId) {
+                    var courseInfoRef = db.ref(coursePath+courseId);
+                    return courseInfoRef.once('value').then(function(snapshot){
+                        var groups = [];
+                        snapshot.forEach(function(childSnapshot){
+                            var group = 
+                                groupDatabaseService.
+                                    getGroup(childSnapshot.val());
+                            groups.push(group);
+                        })
+                        return Promise.all(groups);
+                    });
+                },
 
                 getAvailableCourses: function(){
-                    var db = firebase.database();
                     var availCourseRef = db.ref(availableCoursesPath);
                     return availCourseRef.once('value');
                 },
 
-
-                // onAvailableCoursesChanged: function(func){
-                    // var db = firebase.database();
-                    // var availCourseRef = db.ref(availableCoursesPath);
-                    // availCourseRef.on('child_added', function(snapshot){
-                        // func(snapshot);
-                    // });
-                // },
             }
         }])
 ;

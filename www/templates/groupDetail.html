@@ -1,33 +1,22 @@
-<ion-view style="" id="page8" title="Group Detail">
+<ion-view style="" id="page-group-detail" title="Group Detail">
     <ion-content class="has-header" padding="true">
-        <h2 style="color: rgb(0, 0, 0);" id="groupDetail-heading7">CSE321</h2>
+        <h2 style="color: rgb(0, 0, 0);" id="groupDetail-heading">{{group.name}}</h2>
         <div style="width: 300px; height: 10px;" class="spacer"></div>
         <div style="margin-right:-20px;">
-            <a class="button button-positive  button-full" style="left:-10px;" id="groupDetail-button23" ui-sref="tabsController.groupTabPage">Join</a>
+            <a class="button button-positive  button-full" style="left:-10px;" id="groupDetail-button" ui-sref="tabsController.groupTabPage">Join</a>
         </div>
-        <h4 style="color: rgb(0, 0, 0);" id="groupDetail-heading3">Announcement</h4>
-        <form class="list" id="groupDetail-form3">
+        <h4 style="color: rgb(0, 0, 0);" id="groupDetail-heading">Announcement</h4>
+        <form class="list" id="groupDetail-form">
             <label name="announcement" id="groupDetail-textarea1" class="item item-input">
-                <span class="input-label">This is an announcement</span><textarea placeholder=""></textarea>
+                <textarea placeholder="">{{group.announcement}}</textarea>
             </label>
         </form>
-        <h4 style="color: rgb(0, 0, 0);" id="groupDetail-heading6">Members</h4>
-        <ion-list id="groupDetail-list9">
-            <ion-item style="" ui-sref="tabsController.profile" id="groupDetail-list-item16" class="item-avatar">
-                <h2>Name</h2>
-                <p>Bio</p>
-            </ion-item>
-            <ion-item style="" ui-sref="tabsController.profile" id="groupDetail-list-item17" class="item-avatar">
-                <h2>Name</h2>
-                <p>Bio</p>
-            </ion-item>
-            <ion-item style="" ui-sref="tabsController.profile" id="groupDetail-list-item23" class="item-avatar">
-                <h2>Name</h2>
-                <p>Bio</p>
-            </ion-item>
-            <ion-item style="" ui-sref="tabsController.profile" id="groupDetail-list-item22" class="item-avatar">
-                <h2>Name</h2>
-                <p>Bio</p>
+        <h4 style="color: rgb(0, 0, 0);" id="groupDetail-heading">Members</h4>
+        <ion-list id="groupDetail-list">
+            <ion-item style="" ui-sref="tabsController.profile" id="groupDetail-list-item" 
+                      class="item-avatar" collection-repeat="member in members">
+                <h2>{{member.name}}</h2>
+                <p>{{member.description}}</p>
             </ion-item>
         </ion-list>
     </ion-content>
