@@ -2,11 +2,13 @@ angular.module('app.newStudyGroupController',
     ['ionic', 'app.services', 'jett.ionic.filter.bar', 'app.userDatabaseService'])
 
     .controller('newStudyGroupCtrl',
-        ['$scope', '$stateParams', 'groupDatabaseService', 'courseDatabaseService', 'userCourseGroupService',
+        ['$scope', '$stateParams', '$ionicHistory', 'groupDatabaseService', 
+         'courseDatabaseService', 'userCourseGroupService',
             // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
             // You can include any angular dependencies as parameters for this function
             // TIP: Access Route Parameters for your page via $stateParams.parameterName
-            function ($scope, $stateParams, groupDatabaseService, courseDatabaseService, userCourseGroupService) {
+            function ($scope, $stateParams, $ionicHistory, groupDatabaseService, 
+                       courseDatabaseService, userCourseGroupService) {
                 var course = $stateParams.course;
                 console.log('new study group for ' + course.department 
                             +  ' ' + course.number);
@@ -30,6 +32,8 @@ angular.module('app.newStudyGroupController',
                         courseDatabaseService.addGroup(groupRef.key, course.id);
                         userCourseGroupService.addGroupMember(groupRef.key);
                     });
+                    
+                    $ionicHistory.goBack();
                     //add creator?
                     // TODO need to link course to the group
                     // groupDatabaseService.createGroup(group);
