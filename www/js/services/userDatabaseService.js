@@ -1,14 +1,14 @@
 angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService'])
-    .service('userCourseGroupService', ['courseDatabaseService',
-        function(courseDatabaseService){
+    .service('userCourseGroupService', ['courseDatabaseService', 'profileService',
+        function(courseDatabaseService, profileService){
             var usersPath = 'users/';
             var coursesPath = 'courses/';
             var groupsPath = 'groups/';
             var db = firebase.database();
+            var userId = firebase.auth().currentUser.uid;
             return {
                 getUserCourses: function(){
-                    var uid = firebase.auth().currentUser.uid;
-                    var path = usersPath + uid + "/" + coursesPath;
+                    var path = usersPath + userId + '/' + coursesPath;
 
                     var coursesRef = db.ref(path);
                     return coursesRef.once('value').then(function(snapshot){
@@ -26,15 +26,24 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 },
 
                 addUserCourse: function(courseId){
-                    var uid = firebase.auth().currentUser.uid;
-                    var path = usersPath + uid + "/" + coursesPath;
+                    var path = usersPath + userId + '/' + coursesPath;
                     var coursesRef = db.ref(path);
                     return coursesRef.push(courseId);
                 },
+                
+                addGroupMember: function(groupId){
+                    var member = {};
+                    member[userId] = profileService.getName();
+                    
+                    return db.ref(groupsPath + groupId + '/members/').set(member)
+                        .then(function(){
+                            return db.ref(usersPath + userId + '/' + groupsPath + groupId).set(groupId)
+                    });
+                    
+                },
 
                 getUserGroups: function() {
-                    var uid = firebase.auth().currentUser.uid;
-                    var path = usersPath + uid + "/" + groupsPath;
+                    var path = usersPath + userId + '/' + groupsPath;
                     var groupsRef = db.ref(path);
                     return groupsRef.once('value').then(function(snapshot){
                         var groups = [];
