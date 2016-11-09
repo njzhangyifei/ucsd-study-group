@@ -18,7 +18,7 @@ angular.module('app.groupDetailController',
                     template: 'Loading',
                     delay: 50
                 })
-                groupDatabaseService.getGroup()
+                groupDatabaseService.getGroup(group.key)
                     .then(function(res){
                         $scope.group = res;
                         $scope.items = [];

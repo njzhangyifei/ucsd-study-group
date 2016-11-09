@@ -1,6 +1,6 @@
 angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService'])
-    .service('userCourseGroupService', ['courseDatabaseService', 'profileService',
-        function(courseDatabaseService, profileService){
+    .service('userCourseGroupService', ['courseDatabaseService', 'profileService', 'groupDatabaseService',
+        function(courseDatabaseService, profileService, groupDatabaseService){
             var usersPath = 'users/';
             var coursesPath = 'courses/';
             var groupsPath = 'groups/';
@@ -51,6 +51,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                             var group =
                                 groupDatabaseService
                                 .getGroup(childSnapshot.val());
+                            group.key = childSnapshot.kdy
                             groups.push(group);
                         })
                         return Promise.all(groups);
