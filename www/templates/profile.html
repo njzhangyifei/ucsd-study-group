@@ -1,9 +1,15 @@
 <ion-view style="" id="page-profile" title="Profile">
 <ion-nav-buttons side="secondary">
-    <button class="button button-icon icon ion-edit" ng-click="editProfile()">
+    <button class="button button-icon icon ion-edit" 
+            ng-show="isCurrentUser && !editing" 
+            ng-click="editProfile()">
+    </button>
+    <button class="button button-icon icon ion-checkmark-round" 
+            ng-show="isCurrentUser && editing" 
+            ng-click="updateProfile()">
     </button>
 </ion-nav-buttons>
-
+    
 <ion-content class="has-header" padding="true">
 <h2 style="color: rgb(0, 0, 0); text-align: center;" id="profile-heading">{{profile.name}}</h2>
 <form class="list" id="edit-profile-form">
@@ -36,12 +42,6 @@
                   ng-disabled="!editing"
                   ng-model="profile.description"></textarea>
     </label>
-    <button class="button button-positive button-block" 
-            id="profile-button-update" 
-            ng-click="updateProfile()"
-            ng-show="isCurrentUser && editing">
-        Update Profile
-    </button>
     <button class="button button-assertive button-block" 
             id="profile-button-signout" 
             ng-click="signout()"

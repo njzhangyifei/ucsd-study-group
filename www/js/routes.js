@@ -92,7 +92,11 @@ angular.module('app.routes', ['ionicUIRouter'])
             })
 
             .state('tabsController.groupDetail', {
-                url: '/page8',
+                url: '/page-group-detail',
+                cache: false,
+                params: {
+                    group: null
+                },
                 views: {
                     'tab-home': {
                         templateUrl: 'templates/groupDetail.html',

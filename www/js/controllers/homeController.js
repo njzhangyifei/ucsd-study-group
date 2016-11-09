@@ -17,10 +17,7 @@ angular.module('app.homeController',
                     .then(function(res){
                         $scope.items = [];
                         res.forEach(function(t){
-                            $scope.items.push({
-                                name: t.department + " " + t.number,
-                                key: t.key
-                            })
+                            $scope.items.push(t)
                         })
                         $ionicLoading.hide();
                     }).catch(function(error){

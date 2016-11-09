@@ -6,13 +6,19 @@ angular.module('app.groupDetailController',
         '$ionicLoading','groupDatabaseService',
         function($scope, $stateParams, $state, $ionicLoading, 
             groupDatabaseService){
+            var group = $stateParams.group;
+            $scope.group = group;
+            
+            $scope.join = function(){
+                //TODO
+            }
             
             function loadGroupInfo(){
                 $ionicLoading.show({
                     template: 'Loading',
                     delay: 50
                 })
-                groupDatabaseService.getGroup()
+                groupDatabaseService.getGroup(group.key)
                     .then(function(res){
                         $scope.group = res;
                         $scope.items = [];

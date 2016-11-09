@@ -18,9 +18,7 @@ angular.module('app.myGroupsController',
                     .then(function(res){
                         $scope.items = [];
                         res.forEach(function(t){
-                            $scope.items.push({
-                                name: t.name
-                            })
+                            $scope.items.push(t);
                         })
                         $ionicLoading.hide();
                     }).catch(function(error){
@@ -30,6 +28,11 @@ angular.module('app.myGroupsController',
             }
 
             getItems();
+            
+            $scope.selectedItem = function(item){
+                $state.go('tabsController.groupDetail', 
+                    {group: item.key});
+            }
 
             if ($stateParams.updateRequired) {
                 // force refresh

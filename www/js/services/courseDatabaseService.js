@@ -1,6 +1,6 @@
-angular.module('app.courseDatabaseService', ['ionic'])
-    .service('courseDatabaseService', [
-        function($ionicPopup, $rootScope){
+angular.module('app.courseDatabaseService', ['ionic', 'app.groupDatabaseService'])
+    .service('courseDatabaseService', [ 'groupDatabaseService',
+        function(groupDatabaseService){
             var coursePath = 'courses/';
             var groupPath = 'groups/'
             var availableCoursesPath = 'availableCourses/';
@@ -28,26 +28,25 @@ angular.module('app.courseDatabaseService', ['ionic'])
                         var course = {
                             department : courseInfo.department,
                             number : courseInfo.number,
-                            key : courseId
+                            id : courseId
                         }
                         return course;
                     });
                 },
                 
-                addGroup: function(gid){
-                    return db.ref(coursePath + groupPath + gid).set(gid)
+                addGroup: function(groupId, courseId){
+                   return db.ref(coursePath + courseId + '/' + groupPath + groupId).set(groupId)
                 },
 
                 getGroups: function(courseId) {
                     var courseInfoRef = db.ref(coursePath+courseId);
                     return courseInfoRef.once('value').then(function(snapshot){
                         var groups = [];
-                        snapshot.forEach(function(childSnapshot){
-                            var group = 
-                                groupDatabaseService.
-                                    getGroup(childSnapshot.val());
-                            groups.push(group);
-                        })
+                        var groupsDict =  snapshot.val().groups;
+                        for (var key in groupsDict){
+                            var g = groupDatabaseService.getGroup(groupsDict[key]);
+                            groups.push(g);
+                        }
                         return Promise.all(groups);
                     });
                 },
