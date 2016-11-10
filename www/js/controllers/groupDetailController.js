@@ -16,6 +16,7 @@ angular.module('app.groupDetailController',
                             template: 'Joining',
                             delay: 50
                         })
+                        console.log(group);
                         userCourseGroupService.addGroupMember(group.key).then(function(){
                             loadGroupInfo();
                             $ionicLoading.hide();
@@ -27,30 +28,33 @@ angular.module('app.groupDetailController',
                     }
 
                     //generate a list of promises and resolve them
-                    // var membersProfiles = {};
-                    // var updateMember = function(){
-                        // group.members.forEach(function(memberId){
-                            // membersProfiles.push()
-                        // })
-                    // }
+                    var updateMember = function(){
+                        $ionicLoading.show({
+                            template: 'Loading',
+                            delay: 50
+                        })
+                        var membersProfilesPromises = [];
+                        for (var key in group.members){
+                            membersProfilesPromises.push(
+                                profileService.getProfile(group.members[key])
+                            )
+                        }
+                        var p = Promise.all(membersProfilesPromises);
+                        p.then(function(res){
+                            var membersProfiles = [];
+                            res.forEach(function(profile){
+                                membersProfiles.push(profile);
+                            })
+                            $scope.members = membersProfiles;
+                        })
+                        $ionicLoading.hide();
+                    }
 
-                    // function loadGroupInfo(){
-                        // $ionicLoading.show({
-                            // template: 'Loading',
-                            // delay: 50
-                        // })
-                        // groupDatabaseService.getGroup(group.key)
-                            // .then(function(res){
-                                // console.log(res);
-                                // $scope.group = res;
-                                // $scope.items = [];
-                                // $ionicLoading.hide();
-                            // }).catch(function(error){
-                                // console.log("error !" + error);
-                                // $ionicLoading.hide();
-                            // });
-                    // }
+                    function loadGroupInfo(){
+                        updateMember();
+                    }
 
+                    loadGroupInfo();
                 }
         ])
 
