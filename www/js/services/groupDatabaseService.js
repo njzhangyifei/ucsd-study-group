@@ -1,19 +1,17 @@
 angular.module('app.groupDatabaseService', ['ionic'])
-    .service('groupDatabaseService', [ 'profileService',
-        function($ionicPopup, $rootScope, userCourseGroupService){
+    .service('groupDatabaseService', [
+        function(){
             var db = firebase.database();
             var groupsPath = 'groups/';
             var membersPath = 'members/';
             var usersPath = 'users/'
 
             return {
-                
                 createGroup: function(group){
                     // still needs work
                     var currentUser = firebase.auth().currentUser.uid;
                     group.creator = currentUser
                     var groupInfoRef = db.ref(groupsPath).push(group);
-                  
                     return groupInfoRef;
                 },
 
@@ -23,11 +21,10 @@ angular.module('app.groupDatabaseService', ['ionic'])
                         return snapshot.val();
                     });
                 },
-                
-                
-                removeMember: function(groupId, userId){
-                    return db.ref(groupsPath + groupId + '/' + memberPath).child(userId).remove();
-                }
+
+                // removeMember: function(groupId, userId){
+                    // return db.ref(groupsPath + groupId + '/' + memberPath).child(userId).remove();
+                // }
             }
         }])
 ;

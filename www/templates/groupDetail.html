@@ -9,21 +9,30 @@
     </ion-nav-buttons>
     
     <ion-content class="has-header" padding="true">
-        <h2 style="color: rgb(0, 0, 0);" id="groupDetail-heading">{{group.name}}</h2>
-        <div style="width: 300px; height: 10px;" class="spacer"></div>
-        <div style="margin-right:-20px;">
-            <a class="button button-positive  button-full" style="left:-10px;" 
-               id="groupDetail-button-join" ng-click="join()">Join</a>
-        </div>
-        <h4 style="color: rgb(0, 0, 0);" id="groupDetail-heading">Announcement</h4>
+        <h2 style="color: rgb(0, 0, 0);" id="groupDetail-heading">
+            {{group.name}}
+        </h2>
+        <p>{{group.description}}</p>
+        <button class="button button-positive button-block"
+           id="groupDetail-button-join" ng-click="join()">Join</button>
+        <h4 style="color: rgb(0, 0, 0);" id="groupDetail-heading">
+            Announcement
+        </h4>
         <form class="list" id="groupDetail-form">
-            <label name="announcement" id="groupDetail-textarea1" class="item item-input">
+            <label name="announcement"
+                   id="groupDetail-textarea-announcement" 
+                   class="item item-input">
                 <textarea placeholder="">{{group.announcement}}</textarea>
             </label>
         </form>
         <h4 style="color: rgb(0, 0, 0);" id="groupDetail-heading">Members</h4>
         <ion-list id="groupDetail-list">
-            <ion-item style="" ui-sref="tabsController.profile" id="groupDetail-list-item" 
+            <ion-item style="" ui-sref="tabsController.profile"
+                      class="item-avatar" >
+                <h2>Test</h2>
+                <p>T</p>
+            </ion-item>
+            <ion-item style="" ui-sref="tabsController.profile" 
                       class="item-avatar" collection-repeat="member in members">
                 <h2>{{member.name}}</h2>
                 <p>{{member.description}}</p>
