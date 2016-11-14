@@ -19,10 +19,17 @@ angular.module('app.groupDatabaseService', ['ionic'])
                     var groupInfoRef = db.ref(groupsPath + groupId);
                     return groupInfoRef.once('value').then(function(snapshot){
                         var group = snapshot.val();
-                        group.key = groupId;
+                        group.id = groupId;
                         return group;
                     });
                 },
+
+                updateGroup: function(group){
+                    var groupInfoRef = db.ref(groupsPath + group.id);
+                    delete group.id;
+                    delete group.member;
+                    return groupInfoRef.update(group);
+                }
             }
         }])
 ;

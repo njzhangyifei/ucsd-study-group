@@ -48,7 +48,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                             var group =
                                 groupDatabaseService
                                 .getGroup(childSnapshot.val());
-                            group.key = childSnapshot.kdy
+                            group.id = childSnapshot.key
                             groups.push(group);
                         })
                         return Promise.all(groups);
@@ -100,6 +100,10 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 db.ref(path).update(updates);
 
                 console.log('ProfileService: profile updated');
+            },
+
+            getCurrentUserId:function(){
+                return firebase.auth().currentUser.uid;
             },
 
 

@@ -8,9 +8,8 @@ angular.module('app.courseGroupsController',
         '$state', '$ionicLoading', 'courseDatabaseService',
         function ($scope,
             $stateParams, $state, $ionicLoading, courseDatabaseService) {
-                var course = $stateParams.course;
-                $scope.course = course;
-                console.log(course.department+course.number);
+                // var course = $stateParams.course;
+                $scope.course = $stateParams.course;
 
                 function getItems () {
                     $scope.items = [];
@@ -18,7 +17,7 @@ angular.module('app.courseGroupsController',
                         template: 'Loading',
                         delay: 50
                     });
-                    return courseDatabaseService.getGroups(course.id)
+                    return courseDatabaseService.getGroups($stateParams.course.id)
                         .then(function(res){
                             $scope.items = [];
                             res.forEach(function(t){
@@ -45,7 +44,7 @@ angular.module('app.courseGroupsController',
 
                 $scope.addGroup = function() {
                     $state.go('tabsController.newStudyGroup', {
-                        course: course
+                        course: $stateParams.course
                     });
                 }
                 
