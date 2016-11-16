@@ -8,6 +8,7 @@ angular.module('app.routes', ['ionicUIRouter'])
         // Each state's controller can be found in controllers.js
         $stateProvider
             .state('tabsController', {
+                cache: false,
                 url: '/page-tab-controller',
                 templateUrl: 'templates/tabsController.html',
                 abstract:true
@@ -92,8 +93,8 @@ angular.module('app.routes', ['ionicUIRouter'])
             })
 
             .state('tabsController.groupDetail', {
-                url: '/page-group-detail',
                 cache: false,
+                url: '/page-group-detail',
                 params: {
                     group: null
                 },
@@ -123,4 +124,20 @@ angular.module('app.routes', ['ionicUIRouter'])
         // $urlRouterProvider.otherwise('/page1/page7')
         $urlRouterProvider.otherwise('/page-login')
 
-    });
+    })
+
+
+    .controller('tabsControllerCtrl', function($scope, $ionicTabsDelegate) {
+        $scope.goHome = function() {
+            $ionicTabsDelegate.$getByHandle('my-tabs').select(0);
+        }  
+    })
+
+    .controller('tabHomeLocalCtrl', function($scope, $state) {
+        console.log('tabHomeLocalCtrl');
+
+        $scope.onTabSelected = function() {
+            $state.go('tabsController.home', {updateRequired : true});
+        }
+
+    })

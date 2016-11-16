@@ -4,6 +4,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
             var usersPath = 'users/';
             var coursesPath = 'courses/';
             var groupsPath = 'groups/';
+            var membersPath = 'members/';
             var db = firebase.database();
             var userId = firebase.auth().currentUser.uid;
             return {
@@ -30,16 +31,12 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                     var coursesRef = db.ref(path);
                     return coursesRef.push(courseId);
                 },
-                
+
                 addGroupMember: function(groupId){
-                    var member = {};
-                    member[userId] = profileService.getName();
-                    
-                    return db.ref(groupsPath + groupId + '/members/').set(member)
-                        .then(function(){
-                            return db.ref(usersPath + userId + '/' + groupsPath + groupId).set(groupId)
+                    return db.ref(groupsPath + groupId + '/' + membersPath + userId).set(userId).then(function(){
+                        return db.ref(usersPath + userId + '/' + groupsPath + groupId).set(groupId)
                     });
-                    
+
                 },
 
                 getUserGroups: function() {
@@ -51,7 +48,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                             var group =
                                 groupDatabaseService
                                 .getGroup(childSnapshot.val());
-                            group.key = childSnapshot.kdy
+                            group.id = childSnapshot.key
                             groups.push(group);
                         })
                         return Promise.all(groups);
@@ -68,7 +65,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 This function takes two strings, a name and an email,
                 and creates a database entry using the user's uid as a key
                 that stores the user's profile information.
-            */
+                */
             createProfile: function(user){
                 var path = usersPath + user.uid;
 
@@ -85,7 +82,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 This function takes four arguments, name, email, phone, and
                 description and updates the current user's profile entry in
                 firebase's realtime database.
-            */
+                */
             updateProfile: function(name, email, phone, description){
                 var user = firebase.auth().currentUser;
                 var path = usersPath + user.uid;
@@ -103,6 +100,10 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 db.ref(path).update(updates);
 
                 console.log('ProfileService: profile updated');
+            },
+
+            getCurrentUserId:function(){
+                return firebase.auth().currentUser.uid;
             },
 
 

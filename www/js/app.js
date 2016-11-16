@@ -14,7 +14,8 @@ angular.module('app',
      'app.routes', 'app.directives',
      'app.services', 'app.courseDatabaseService', 'app.newClassPopupService',
      'app.userDatabaseService', 'app.groupDatabaseService',
-     'jett.ionic.filter.bar'
+     'jett.ionic.filter.bar',
+     'monospaced.elastic',
     ])
 
 .run(function($ionicPlatform) {

@@ -1,30 +1,55 @@
 <ion-view style="" id="page-group-detail" title="Group Detail">
     <ion-nav-buttons side="secondary">
     <button class="button button-icon icon ion-edit" 
-            ng-click="editProfile()">
+            ng-show="joined && !editing" 
+            ng-click="editGroup()">
     </button>
     <button class="button button-icon icon ion-checkmark-round" 
-            ng-click="updateProfile()">
-    </button>  
+            ng-show="joined && editing" 
+            ng-click="updateGroup()">
+    </button>
+
     </ion-nav-buttons>
     
     <ion-content class="has-header" padding="true">
-        <h2 style="color: rgb(0, 0, 0);" id="groupDetail-heading">{{group.name}}</h2>
-        <div style="width: 300px; height: 10px;" class="spacer"></div>
-        <div style="margin-right:-20px;">
-            <a class="button button-positive  button-full" style="left:-10px;" 
-               id="groupDetail-button-join" ng-click="join()">Join</a>
-        </div>
-        <h4 style="color: rgb(0, 0, 0);" id="groupDetail-heading">Announcement</h4>
-        <form class="list" id="groupDetail-form">
-            <label name="announcement" id="groupDetail-textarea1" class="item item-input">
-                <textarea placeholder="">{{group.announcement}}</textarea>
+        <h2 style="color: rgb(0, 0, 0);" id="groupDetail-heading">
+            {{group.name}}
+        </h2>
+        <h4 style="color: rgb(0, 0, 0);">
+            Description
+        </h4>
+
+        <pre ng-show="!editing">{{group.description}}</pre>
+        <div class="list" ng-show="editing">
+            <label class="item item-input">
+            <textarea msd-elastic ng-model="group.description">
+            </textarea>
             </label>
-        </form>
+        </div>
+
+        <button class="button button-positive button-block"
+           id="groupDetail-button-join" 
+           ng-show="!joined"
+           ng-click="join()">
+            Join
+        </button>
+
+        <h4 style="color: rgb(0, 0, 0);">
+            Announcement
+        </h4>
+
+        <pre ng-show="!editing">{{group.announcement}}</pre>
+        <div class="list" ng-show="editing">
+            <label class="item item-input">
+                <textarea msd-elastic ng-model="group.announcement">
+                </textarea>
+            </label>
+        </div>
         <h4 style="color: rgb(0, 0, 0);" id="groupDetail-heading">Members</h4>
         <ion-list id="groupDetail-list">
-            <ion-item style="" ui-sref="tabsController.profile" id="groupDetail-list-item" 
-                      class="item-avatar" collection-repeat="member in members">
+            <ion-item style="" ui-sref="tabsController.profile" 
+                      class="item item-icon-left" collection-repeat="member in members">
+                <i class="icon ion-person"></i>
                 <h2>{{member.name}}</h2>
                 <p>{{member.description}}</p>
             </ion-item>

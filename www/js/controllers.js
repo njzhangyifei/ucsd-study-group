@@ -52,7 +52,7 @@ angular.module('app.controllers',
                             $ionicHistory.nextViewOptions({
                                 disableBack: true
                             });
-                            $state.go('tabsController.home', {updateRequired : true});
+                            $state.go('tabsController.myGroups', {updateRequired : true});
                         } else {
                             emailVerification(user);
                         }
