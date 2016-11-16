@@ -36,7 +36,12 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                     return db.ref(groupsPath + groupId + '/' + membersPath + userId).set(userId).then(function(){
                         return db.ref(usersPath + userId + '/' + groupsPath + groupId).set(groupId)
                     });
-
+                },
+                
+                removeGroupMember: function(groupId){
+                    return db.ref(groupsPath + groupId + '/' + membersPath + userId).remove().then(function(){
+                        return db.ref(usersPath + userId + '/' + groupsPath + groupId).remove()
+                    })
                 },
 
                 getUserGroups: function() {

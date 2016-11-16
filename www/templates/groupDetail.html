@@ -1,11 +1,11 @@
 <ion-view style="" id="page-group-detail" title="Group Detail">
     <ion-nav-buttons side="secondary">
     <button class="button button-icon icon ion-edit" 
-            ng-show="joined && !editing" 
+            ng-show="creator && !editing" 
             ng-click="editGroup()">
     </button>
     <button class="button button-icon icon ion-checkmark-round" 
-            ng-show="joined && editing" 
+            ng-show="creator && editing" 
             ng-click="updateGroup()">
     </button>
 
@@ -54,5 +54,11 @@
                 <p>{{member.description}}</p>
             </ion-item>
         </ion-list>
+        <button class="button button-assertive button-block" 
+                id="groupDetail-button-leave" 
+                ng-click="leaveGroup()"
+                ng-show="joined && !editing">
+            Leave Group
+        </button>
     </ion-content>
 </ion-view>
