@@ -26,9 +26,10 @@ angular.module('app.groupDatabaseService', ['ionic'])
 
                 updateGroup: function(group){
                     var groupInfoRef = db.ref(groupsPath + group.id);
-                    delete group.id;
-                    delete group.member;
-                    return groupInfoRef.update(group);
+                    var g = Object.assign({}, group);
+                    delete g.id;
+                    delete g.member;
+                    return groupInfoRef.update(g);
                 }
             }
         }])
