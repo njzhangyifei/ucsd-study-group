@@ -28,8 +28,7 @@
         </div>
 
         <button class="button button-positive button-block"
-           id="groupDetail-button-join" 
-           ng-show="!joined"
+           id="groupDetail-button-join" ng-show="!joined"
            ng-click="join()">
             Join
         </button>
@@ -45,6 +44,20 @@
                 </textarea>
             </label>
         </div>
+
+        <button class="button button-outline button-positive button-block">
+            <div class="icon ion-calendar">
+                Upcoming Meeting
+            </div>
+            <div style="margin-top:-1em; font-size: smaller;">
+                Wednesday, Nov 23 2016  15:00 - 17:00
+            </div>
+        </button>
+        <button class="button icon ion-chatboxes button-outline button-positive button-block">
+            Group Discussion
+        </button>
+
+
         <h4 style="color: rgb(0, 0, 0);" id="groupDetail-heading">Members</h4>
         <ion-list id="groupDetail-list">
             <ion-item style="" ui-sref="tabsController.profile" 
