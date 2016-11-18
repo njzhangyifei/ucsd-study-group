@@ -99,6 +99,10 @@ angular.module('app.routes', ['ionicUIRouter'])
                     group: null
                 },
                 views: {
+                    'tab-groups': {
+                        templateUrl: 'templates/groupDetail.html',
+                        controller: 'groupDetailCtrl'
+                    },
                     'tab-home': {
                         templateUrl: 'templates/groupDetail.html',
                         controller: 'groupDetailCtrl'

@@ -5,22 +5,22 @@ angular.module('app.groupDetailController',
     ])
 
     .controller('groupDetailCtrl',
-        ['$scope', '$stateParams', '$state', '$ionicHistory',
+        ['$scope', '$stateParams', '$state', '$ionicHistory', '$ionicPopup',
             '$ionicLoading','profileService', 'userCourseGroupService', 'groupDatabaseService', 
-            function($scope, $stateParams, $state, $ionicHistory, $ionicLoading, 
+            function($scope, $stateParams, $state, $ionicHistory, $ionicPopup, $ionicLoading, 
                 profileService, userCourseGroupService, groupDatabaseService){
-                    var group = $stateParams.group;
-                    $scope.group = group;
+                    $scope.group = $stateParams.group;
+                    $scope.creator = ($scope.group.creator == profileService.getCurrentUserId());
 
                     $scope.join = function(){
                         $ionicLoading.show({
                             template: 'Joining',
                             delay: 50
                         })
-                        userCourseGroupService.addGroupMember(group.id).then(function(){
+                        userCourseGroupService.addGroupMember($scope.group.id).then(function(){
                             // joined
-                            groupDatabaseService.getGroup(group.id).then(function(p){
-                                group = p;
+                            groupDatabaseService.getGroup($scope.group.id).then(function(p){
+                                $scope.group = p;
                                 loadGroupInfo();
                                 $ionicLoading.hide();
                             }).catch(function(){
@@ -39,9 +39,9 @@ angular.module('app.groupDetailController',
                             delay: 50
                         })
                         var membersProfilesPromises = [];
-                        for (var key in group.members){
+                        for (var key in $scope.group.members){
                             membersProfilesPromises.push(
-                                profileService.getProfile(group.members[key])
+                                profileService.getProfile($scope.group.members[key])
                             )
                         }
                         var p = Promise.all(membersProfilesPromises);
@@ -57,7 +57,19 @@ angular.module('app.groupDetailController',
 
                     function loadGroupInfo(){
                         var uid = profileService.getCurrentUserId();
-                        if (group.members && (uid in group.members)) {
+                        
+                        $ionicLoading.show({
+                            template: 'Loading',
+                            delay: 50
+                        })
+                        groupDatabaseService.getGroup($scope.group.id).then(function(p){
+                                $scope.group = p;
+                                loadGroupInfo();
+                                $ionicLoading.hide();
+                            }).catch(function(){
+                                $ionicLoading.hide();
+                            });
+                        if ($scope.group.members && (uid in $scope.group.members)) {
                             $scope.joined = true;
                         } else {
                             $scope.joined = false;
@@ -71,10 +83,10 @@ angular.module('app.groupDetailController',
 
                     $scope.updateGroup = function(){
                         $ionicLoading.show({
-                            template: 'Joining',
+                            template: 'Loading',
                             delay: 50
                         })
-                        groupDatabaseService.updateGroup(group).then(function(){
+                        groupDatabaseService.updateGroup($scope.group).then(function(){
                             $scope.editing = false;
                             $ionicLoading.hide();
                             loadGroupInfo();
@@ -83,6 +95,21 @@ angular.module('app.groupDetailController',
                             $ionicLoading.hide();
                         });
                     };
+                
+                    $scope.leaveGroup = function(){
+                        var confirmPopup = $ionicPopup.confirm({
+                            title:'Leave Group',
+                            template:'Are you sure you want to leave this group?'
+                        })
+                        
+                        confirmPopup.then(function(ans){
+                            if(ans){
+                                userCourseGroupService.removeGroupMember($scope.group.id);
+                                loadGroupInfo();
+                                $scope.joined = false;
+                            }
+                        })
+                    }
 
                     loadGroupInfo();
                 }
