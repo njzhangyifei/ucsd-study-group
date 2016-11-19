@@ -10,6 +10,7 @@ angular.module('app.groupDetailController',
             function($scope, $stateParams, $state, $ionicHistory, $ionicPopup, $ionicLoading, 
                 profileService, userCourseGroupService, groupDatabaseService){
                     $scope.group = $stateParams.group;
+                    console.log($scope.group);
                     $scope.creator = ($scope.group.creator == profileService.getCurrentUserId());
 
                     $scope.join = function(){
@@ -63,8 +64,8 @@ angular.module('app.groupDetailController',
                             delay: 50
                         })
                         groupDatabaseService.getGroup($scope.group.id).then(function(p){
+                                console.log(p);
                                 $scope.group = p;
-                                loadGroupInfo();
                                 $ionicLoading.hide();
                             }).catch(function(){
                                 $ionicLoading.hide();
