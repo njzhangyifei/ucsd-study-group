@@ -1,3 +1,12 @@
+<style type="text/css" media="screen">
+.group-detail-name {
+    text-align: center
+}
+
+.group-detail-textbox {
+    font-family: sans-serif
+}
+</style>
 <ion-view style="" id="page-group-detail" title="Group Detail">
     <ion-nav-buttons side="secondary">
     <button class="button button-icon icon ion-edit" 
@@ -12,14 +21,14 @@
     </ion-nav-buttons>
     
     <ion-content class="has-header" padding="true">
-        <h2 style="color: rgb(0, 0, 0);" id="groupDetail-heading">
+        <h2 class="group-detail-name" style="color: rgb(0, 0, 0);" id="groupDetail-heading">
             {{group.name}}
         </h2>
-        <h4 style="color: rgb(0, 0, 0);">
-            Description
-        </h4>
+        <!-- <h4 style="color: rgb(0, 0, 0);"> -->
+            <!-- Description -->
+        <!-- </h4> -->
 
-        <pre ng-show="!editing">{{group.description}}</pre>
+        <pre class="group-detail-name group-detail-textbox" ng-show="!editing">{{group.description}}</pre>
         <div class="list" ng-show="editing">
             <label class="item item-input">
             <textarea msd-elastic ng-model="group.description">
@@ -33,18 +42,6 @@
             Join
         </button>
 
-        <h4 style="color: rgb(0, 0, 0);">
-            Announcement
-        </h4>
-
-        <pre ng-show="!editing">{{group.announcement}}</pre>
-        <div class="list" ng-show="editing">
-            <label class="item item-input">
-                <textarea msd-elastic ng-model="group.announcement">
-                </textarea>
-            </label>
-        </div>
-
         <button class="button button-outline button-positive button-block">
             <div class="icon ion-calendar">
                 Upcoming Meeting
@@ -56,6 +53,18 @@
         <button class="button icon ion-chatboxes button-outline button-positive button-block">
             Group Discussion
         </button>
+
+        <h4 style="color: rgb(0, 0, 0);">
+            Announcement
+        </h4>
+
+        <pre class="group-detail-textbox" ng-show="!editing">{{group.announcement}}</pre>
+        <div class="list" ng-show="editing">
+            <label class="item item-input">
+                <textarea msd-elastic ng-model="group.announcement">
+                </textarea>
+            </label>
+        </div>
 
 
         <h4 style="color: rgb(0, 0, 0);" id="groupDetail-heading">Members</h4>
