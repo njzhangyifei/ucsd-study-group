@@ -81,6 +81,22 @@ angular.module('app.groupDetailController',
                     $scope.editGroup = function(){
                         $scope.editing = true;
                     }
+                    $scope.viewMember = function(member) {
+                        var db = firebase.database();
+                        var memUid;
+                        for(var id in $scope.group.members) {
+                            var memberRef = db.ref('users/' + id + 'name/');
+                                for(var key in member) {
+                                   if(key == 'name') {
+                                       //check if names are equal
+                                    });
+                                      memUid = id;
+                                   } 
+                                }
+                        }
+                        $state.go('tabsController.memberProfile',
+                                {uid: memUid});
+                    }
 
                     $scope.updateGroup = function(){
                         $ionicLoading.show({
