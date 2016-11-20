@@ -69,8 +69,8 @@
 
         <h4 style="color: rgb(0, 0, 0);" id="groupDetail-heading">Members</h4>
         <ion-list id="groupDetail-list">
-            <ion-item style="" ui-sref="tabsController.profile" 
-                      class="item item-icon-left" collection-repeat="member in members">
+            <ion-item style="" ui-sref="tabsController.memberProfile"
+                      class="item item-icon-left" collection-repeat="member in members" ng-click="viewMember(member)">
                 <i class="icon ion-person"></i>
                 <h2>{{member.name}}</h2>
                 <p>{{member.description}}</p>

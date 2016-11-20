@@ -65,7 +65,18 @@ angular.module('app.routes', ['ionicUIRouter'])
                     }
                 }
             })
-
+            .state('tabsController.memberProfile', {
+                url: '/page-profile',
+                params:{
+                    uid: null
+                },
+                views: {
+                    'tab-home': {
+                        templateUrl: 'templates/profile.html',
+                        controller: 'profileCtrl'
+                    }
+                }
+            })
             .state('tabsController.addCourse', {
                 cache: false,
                 url: '/page-add-course',
