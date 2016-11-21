@@ -54,6 +54,7 @@ angular.module('app.routes', ['ionicUIRouter'])
                 },
             })
             .state('tabsController.profile', {
+                cache: false,
                 url: '/page-profile',
                 params:{
                     uid: null
@@ -65,18 +66,19 @@ angular.module('app.routes', ['ionicUIRouter'])
                     }
                 }
             })
-            .state('tabsController.memberProfile', {
-                url: '/page-profile',
-                params:{
-                    uid: null
-                },
-                views: {
-                    'tab-home': {
-                        templateUrl: 'templates/profile.html',
-                        controller: 'profileCtrl'
-                    }
-                }
-            })
+           // .state('tabsController.memberProfile', {
+             //   cache: false,
+               // url: '/page-profile-member',
+               // params:{
+                 //   uid: null
+               // },
+               // views: {
+                 //   'tab-home': {
+                   //     templateUrl: 'templates/memberProfile.html',
+                     //   controller: 'profileCtrl'
+                   // }
+              // }
+           // })
             .state('tabsController.addCourse', {
                 cache: false,
                 url: '/page-add-course',
