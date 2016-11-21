@@ -116,7 +116,9 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 if(!uid) uid = firebase.auth().currentUser.uid;
                 profileRef = db.ref(usersPath + uid);
                 return profileRef.once('value').then(function(snapshot){
-                    return snapshot.val();
+                    var member = snapshot.val();
+                    member.id = uid;
+                    return member;
                 })
             },
 
