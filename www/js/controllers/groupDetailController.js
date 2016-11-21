@@ -84,8 +84,7 @@ angular.module('app.groupDetailController',
                     $scope.viewMember = function(member) {
                         var memberID = member.id; 
                         console.log(memberID);
-                        $state.go('tabsController.memberProfile', 
-                                {uid: memberID});
+                        $state.go('tabsController.memberProfile', {uid: memberID});
                     }
 
                     $scope.updateGroup = function(){

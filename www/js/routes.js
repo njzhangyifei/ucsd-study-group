@@ -78,8 +78,12 @@ angular.module('app.routes', ['ionicUIRouter'])
                     'tab-home': {
                         templateUrl: 'templates/memberProfile.html',
                         controller: 'viewMemberProfileCtrl'
+                    },
+                    'tab-groups': {
+                        templateUrl: 'templates/memberProfile.html',
+                        controller: 'viewMemberProfileCtrl'
                     }
-               }
+                }
             })
             .state('tabsController.addCourse', {
                 cache: false,
@@ -149,7 +153,7 @@ angular.module('app.routes', ['ionicUIRouter'])
     .controller('tabsControllerCtrl', function($scope, $ionicTabsDelegate) {
         $scope.goHome = function() {
             $ionicTabsDelegate.$getByHandle('my-tabs').select(0);
-        }  
+        }
     })
 
     .controller('tabHomeLocalCtrl', function($scope, $state) {
