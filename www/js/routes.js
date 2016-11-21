@@ -66,19 +66,21 @@ angular.module('app.routes', ['ionicUIRouter'])
                     }
                 }
             })
-           // .state('tabsController.memberProfile', {
-             //   cache: false,
-               // url: '/page-profile-member',
-               // params:{
-                 //   uid: null
-               // },
-               // views: {
-                 //   'tab-home': {
-                   //     templateUrl: 'templates/memberProfile.html',
-                     //   controller: 'profileCtrl'
-                   // }
-              // }
-           // })
+//do another controller and tempalte and everything
+
+            .state('tabsController.memberProfile', {
+                cache: false,
+                url: '/page-profile-member',
+                params:{
+                    uid: null
+                },
+                views: {
+                    'tab-home': {
+                        templateUrl: 'templates/memberProfile.html',
+                        controller: 'viewMemberProfileCtrl'
+                    }
+               }
+            })
             .state('tabsController.addCourse', {
                 cache: false,
                 url: '/page-add-course',

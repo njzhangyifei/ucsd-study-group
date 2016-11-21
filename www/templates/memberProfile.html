@@ -1,0 +1,53 @@
+<ion-view style="" id="page-profile-member" title="Profile">
+<ion-nav-buttons side="secondary">
+    <button class="button button-icon icon ion-edit"
+            ng-show="isCurrentUser && !editing"
+            ng-click="editProfile()">
+    </button>
+    <button class="button button-icon icon ion-checkmark-round"
+            ng-show="isCurrentUser && editing"
+            ng-click="updateProfile()">
+    </button>
+</ion-nav-buttons>
+
+<ion-content class="has-header" padding="true">
+<h2 style="color: rgb(0, 0, 0); text-align: center;" id="profile-heading">{{profile.name}}</h2>
+<form class="list" id="edit-profile-form">
+    <label id="name" class="item item-input" ng-show="editing">
+        <span class="input-label">Name</span>
+        <input placeholder=""
+               type="text"
+               ng-disabled="!editing"
+               ng-model="profile.name">
+    </label>
+    <label id="email" class="item item-input">
+        <span class="input-label">Email</span>
+        <input placeholder="Preferred email"
+               type="email"
+               ng-disabled="!editing"
+               ng-model="profile.email">
+    </label>
+    <label id="phone" class="item item-input">
+        <span class="input-label">Phone</span>
+        <input placeholder="optional"
+               type="tel"
+               ng-disabled="!editing"
+               ng-model="profile.phone">
+    </label>
+    <label id="description" class="item item-input">
+        <span class="input-label">Description</span>
+        <textarea placeholder="optional"
+                  type="text"
+                  rows="4"
+                  ng-disabled="!editing"
+                  ng-model="profile.description"></textarea>
+    </label>
+    <button class="button button-assertive button-block"
+            id="profile-button-signout"
+            ng-click="signout()"
+            ng-show="isCurrentUser && !editing">
+        Sign out
+    </button>
+</form>
+</ion-content>
+</ion-view>
