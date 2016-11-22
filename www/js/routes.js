@@ -129,6 +129,25 @@ angular.module('app.routes', ['ionicUIRouter'])
                 }
             })
 
+            .state('tabsController.groupDiscussion', {
+                cache: false,
+                url: '/page-group-discussion',
+                params: {
+                    group: null
+                },
+                views: {
+                    'tab-groups': {
+                        templateUrl: 'templates/groupDiscussion.html',
+                        controller: 'groupDiscussionCtrl'
+                    },
+                    'tab-home': {
+                        templateUrl: 'templates/groupDiscussion.html',
+                        controller: 'groupDiscussionCtrl'
+                    }
+                }
+            })
+
+
             .state('tabsController.newStudyGroup', {
                 cache: false,
                 url: '/page-new-study-group',

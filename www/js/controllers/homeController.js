@@ -1,12 +1,12 @@
 angular.module('app.homeController',
-    ['ionic', 'app.services', 'jett.ionic.filter.bar', 'app.userDatabaseService'])
+    ['ionic', 'app.services', 'jett.ionic.filter.bar', 
+        'app.userDatabaseService', 'app.stateParamsService'])
 
-    .controller('homeCtrl', ['$scope',
-        '$stateParams',
-        '$state', '$ionicLoading', '$ionicHistory', 'userCourseGroupService',
+    .controller('homeCtrl', ['$scope', '$stateParams',
+        '$state', '$ionicLoading', '$ionicHistory', 'userCourseGroupService', 'stateParamsService',
         function ($scope,
             $stateParams, $state, $ionicLoading, $ionicHistory,
-            userCourseGroupService) {
+            userCourseGroupService, stateParamsService) {
             function getItems () {
                 $scope.items = [];
                 $ionicLoading.show({
@@ -35,10 +35,11 @@ angular.module('app.homeController',
             $scope.addCourse = function() {
                 $state.go('tabsController.addCourse');
             }
-            
+
             $scope.selectedItem = function(item){
-                $state.go('tabsController.courseGroups', 
+                stateParamsService.setStateParams('tabsController.courseGroups', 
                     {course: item, updateRequired:true});
+                $state.go('tabsController.courseGroups');
             }
         }])
 
