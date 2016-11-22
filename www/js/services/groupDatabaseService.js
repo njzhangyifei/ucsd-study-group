@@ -46,7 +46,10 @@ angular.module('app.groupDatabaseService', ['ionic'])
                     return messageQuery.once('value').then(function(snapshot){
                         var messages = [];
                         snapshot.forEach(function(childSnapshot){
-                            messages.push(childSnapshot.val());
+                            var message = childSnapshot.val();
+                            message.date = childSnapshot.key();
+                            messages.push(message);
+                            
                         });
                         return messages;
                     });

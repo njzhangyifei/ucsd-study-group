@@ -1,3 +1,9 @@
+<style>
+    .profile-contact {
+        text-align: center;
+        
+    }
+</style>
 <ion-view style="" id="page-profile" title="Profile">
 <ion-nav-buttons side="secondary">
     <button class="button button-icon icon ion-edit"
@@ -13,33 +19,36 @@
 <ion-content class="has-header" padding="true">
 <h2 style="color: rgb(0, 0, 0); text-align: center;" id="profile-heading">{{profile.name}}</h2>
 <form class="list" id="edit-profile-form">
+    
     <label id="name" class="item item-input" ng-show="editing">
         <span class="input-label">Name</span>
         <input placeholder=""
                type="text"
-               ng-disabled="!editing"
                ng-model="profile.name">
     </label>
-    <label id="email" class="item item-input">
+    
+    <pre class="profile-contact" ng-show="!editing">{{profile.email}}</pre>
+    <label id="email" class="item item-input" ng-show="editing">
         <span class="input-label">Email</span>
         <input placeholder="Preferred email"
                type="email"
-               ng-disabled="!editing"
                ng-model="profile.email">
     </label>
-    <label id="phone" class="item item-input">
+    
+    <pre class="profile-contact" ng-show="!editing">{{profile.phone}}</pre>
+    <label id="phone" class="item item-input" ng-show="editing">
         <span class="input-label">Phone</span>
         <input placeholder="optional"
                type="tel"
-               ng-disabled="!editing"
                ng-model="profile.phone">
     </label>
-    <label id="description" class="item item-input">
+    
+    <pre ng-show="!editing">{{profile.description}}</pre>
+    <label id="description" class="item item-input" ng-show="editing">
         <span class="input-label">Description</span>
-        <textarea placeholder="optional"
+        <textarea msd-elastic
+                  placeholder="optional"
                   type="text"
-                  rows="4"
-                  ng-disabled="!editing"
                   ng-model="profile.description"></textarea>
     </label>
     <button class="button button-assertive button-block"
