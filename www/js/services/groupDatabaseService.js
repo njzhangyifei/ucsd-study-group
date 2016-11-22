@@ -44,7 +44,14 @@ angular.module('app.groupDatabaseService', ['ionic'])
                 getMessages: function(groupId, lim){
                     var messageQuery = db.ref(groupsPath + groupId + '/' + messagePath).limitToLast(lim);
                     return messageQuery.once('value').then(function(snapshot){
-                       return snapshot.val(); 
+                        var messages = [];
+                        snapshot.forEach(function(childSnapshot){
+                            var message = childSnapshot.val();
+                            message.date = childSnapshot.key();
+                            messages.push(message);
+                            
+                        });
+                        return messages;
                     });
                 }
             }
