@@ -1,0 +1,73 @@
+<ion-view style="" id="page-group-discussion" title="Discussion in {{group.name}}">
+
+    <!-- <ion-nav-buttons side="secondary"> -->
+        <!-- <button class="button button-icon icon ion-android-add" -->
+                <!-- ng-click="add()"> -->
+        <!-- </button> -->
+    <!-- </ion-nav-buttons> -->
+
+    <ion-content class="has-header" padding="true" direction="y" scrollbar-y="false">
+        <!-- <h4 style="color: rgb(0, 0, 0);" id="heading-joined">Joined Groups</h4> -->
+        <ion-refresher pulling-icon="ion-arrow-down-c"
+                       on-refresh="refreshItems()">
+        </ion-refresher>
+        <button class="button button-block button-clear button-positive icon ion-plus"
+                ng-click="addPost()">
+            Create a New Post
+        </button>
+
+        <div id="page-group-discussion-list">
+            <!-- <ion-item collection-repeat="item in items" -->
+                      <!-- ng-click="selectedItem(item)" -->
+                      <!-- class="item-icon-right"> -->
+                <!-- {{item.name}} -->
+            <!-- </ion-item> -->
+
+            <!-- <ion-item ng-if="items !== undefined && !items.length" ng-click="addNewCourse()"> -->
+                <!-- <p> -->
+                    <!-- Whoa! No groups here?<br> -->
+                    <!-- Why not add one? -->
+                <!-- </p> -->
+            <!-- </ion-item> -->
+            <div class="list card" ng-repeat="item in items">
+                <div class="item">
+                    <h2>{{item.user}}</h2>
+                    <p>{{item.date}}</p>
+                </div>
+                <div class="item item-body">
+                    <p>
+                        {{item.content}}
+                    </p>
+                </div>
+            </div>
+
+            <!-- <div class="list card"> -->
+                <!-- <div class="item"> -->
+                    <!-- <h2>User</h2> -->
+                    <!-- <p>Date November 05, 1955</p> -->
+                <!-- </div> -->
+
+                <!-- <div class="item item-body"> -->
+                    <!-- <p> -->
+                        <!-- This is a discussion thread. -->
+                    <!-- </p> -->
+                <!-- </div> -->
+            <!-- </div> -->
+        </div>
+
+        <!-- <h4 style="color: rgb(0, 0, 0);" id="heading-open">Open Groups</h4> -->
+        <!-- <ion-list id="page-course-groups-list-open"> -->
+            <!-- <ion-item style="" ui-sref="tabsController.groupDetail" id="groupTabPage-list-item24" class="item-icon-right">Name of the Group -->
+                <!-- <span class="item-note">Note</span> -->
+                <!-- <i class="icon ion-ios-information-outline"></i> -->
+            <!-- </ion-item> -->
+            <!-- <ion-item style="" ui-sref="tabsController.groupDetail" id="groupTabPage-list-item14" class="item-icon-right">Name of the Group -->
+                <!-- <span class="item-note">Note</span> -->
+                <!-- <i class="icon ion-ios-information-outline"></i> -->
+            <!-- </ion-item> -->
+        <!-- </ion-list> -->
+        <!-- <a class="button button-positive
+            button-block icon-left ion-android-add" id="groupTabPage-button25"
+            ui-sref="tabsController.newStudyGroup">Create study group</a> -->
+    </ion-content>
+</ion-view>
