@@ -1,11 +1,11 @@
 angular.module('app.groupDatabaseService', ['ionic'])
-    .service('groupDatabaseService', [
-        function(){
+    .service('groupDatabaseService', ['profileService',
+        function(profileService){
             var db = firebase.database();
             var groupsPath = 'groups/';
             var membersPath = 'members/';
             var usersPath = 'users/';
-            var messagePath = 'messages/'
+            var messagePath = '/messages'
 
             return {
                 createGroup: function(group){
@@ -32,27 +32,31 @@ angular.module('app.groupDatabaseService', ['ionic'])
                     return groupInfoRef.update(g);
                 },
                 
-                writeMessage: function(groupId, content){
-                    var messageRef = db.ref(groupsPath + groupId + '/' + 
-                                            messagePath + new Date().now());
+                writePost: function(groupId, content){
+                    var messageRef = db.ref(groupsPath + groupId + 
+                                            messagePath + '/' + Date.now());
                     var message = {
-                        user: userDatabaseService.getCurrentUserId(),
+                        user: profileService.getCurrentUserId(),
                         content: content
                     };
+                    return messageRef.set(message);
                 },
                 
-                getMessages: function(groupId, lim){
-                    var messageQuery = db.ref(groupsPath + groupId + '/' + messagePath).limitToLast(lim);
+                getPosts: function(groupId){
+                    var messageQuery = db.ref(groupsPath + groupId + messagePath).orderByKey();
                     return messageQuery.once('value').then(function(snapshot){
                         var messages = [];
+                        console.log(snapshot.val());
                         snapshot.forEach(function(childSnapshot){
                             var message = childSnapshot.val();
-                            message.date = childSnapshot.key();
+                            message.date = childSnapshot.key;
                             messages.push(message);
-                            
+                            console.log('getPosts, pushing: '+ message);
                         });
                         return messages;
-                    });
+                    }).catch(function(err){
+                        console.log(err)
+                    })
                 }
             }
         }])

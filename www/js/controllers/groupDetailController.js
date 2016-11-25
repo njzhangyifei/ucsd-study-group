@@ -116,8 +116,9 @@ angular.module('app.groupDetailController',
 
                         confirmPopup.then(function(ans){
                             if(ans){
-                                userCourseGroupService.removeGroupMember($scope.group.id);
-                                loadGroupInfo();
+                                userCourseGroupService.removeGroupMember($scope.group.id).then(function(){
+                                    loadGroupInfo();
+                                })
                                 $scope.joined = false;
                             }
                         })

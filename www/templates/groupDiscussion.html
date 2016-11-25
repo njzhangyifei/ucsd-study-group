@@ -1,3 +1,11 @@
+<style type="text/css">
+    .right{
+        text-align: right;
+    }
+    .noresize{
+        resize: none;
+    }
+</style>
 <ion-view style="" id="page-group-discussion" title="Discussion in {{group.name}}">
 
     <!-- <ion-nav-buttons side="secondary"> -->
@@ -12,10 +20,21 @@
                        on-refresh="refreshItems()">
         </ion-refresher>
         <button class="button button-block button-clear button-positive icon ion-plus"
-                ng-click="addPost()">
+                ng-click="writePost()"
+                ng-show="!writing">
             Create a New Post
         </button>
-
+        <div class="card" 
+             ng-show="writing">
+            <label class="item-input">
+                <textarea class="noresize" placeholder="Write message here..." msd-elastic ng-model="content">{{content}}</textarea>
+            </label>
+            <div class="right">
+                <button class="button button-small icon ion-close-round" ng-click="cancelPost()"></button>
+                <button class="button button-small button-positive" ng-click="submitPost()">Submit</button>
+            </div>
+        </div>
+        
         <div id="page-group-discussion-list">
             <!-- <ion-item collection-repeat="item in items" -->
                       <!-- ng-click="selectedItem(item)" -->
@@ -29,7 +48,7 @@
                     <!-- Why not add one? -->
                 <!-- </p> -->
             <!-- </ion-item> -->
-            <div class="list card" ng-repeat="item in items">
+            <div class="card" collection-repeat="item in items">
                 <div class="item">
                     <h2>{{item.user}}</h2>
                     <p>{{item.date}}</p>
