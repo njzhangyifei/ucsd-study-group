@@ -10,6 +10,7 @@ angular.module('app.groupDiscussionController',
             function($scope, $stateParams, $state, $ionicHistory, $ionicPopup, $ionicLoading,
                     profileService, userCourseGroupService, groupDatabaseService){
                 $scope.id = $stateParams.group.id;
+                $scope.group = $stateParams.group;
                 $scope.items = [];
                 $scope.message = {};
                 console.log('group discussion: ' + $scope.id);
