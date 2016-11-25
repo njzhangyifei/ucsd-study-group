@@ -39,6 +39,7 @@ angular.module('app.groupDatabaseService', ['ionic'])
                         user: profileService.getCurrentUserId(),
                         content: content
                     };
+                    console.log('writing: ' + message + ' ' + content);
                     return messageRef.set(message);
                 },
                 
@@ -50,8 +51,11 @@ angular.module('app.groupDatabaseService', ['ionic'])
                         snapshot.forEach(function(childSnapshot){
                             var message = childSnapshot.val();
                             message.date = childSnapshot.key;
-                            messages.push(message);
-                            console.log('getPosts, pushing: '+ message);
+                            profileService.getName(message.user).then(function(name){
+                                message.user = name;
+                            })
+                            console.log(message.user);
+                            messages.unshift(message);
                         });
                         return messages;
                     }).catch(function(err){

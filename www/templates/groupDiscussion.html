@@ -27,14 +27,13 @@
         <div class="card" 
              ng-show="writing">
             <label class="item-input">
-                <textarea class="noresize" placeholder="Write message here..." msd-elastic ng-model="content">{{content}}</textarea>
+                <textarea class="noresize" placeholder="Write message here..." msd-elastic ng-model="message.content"></textarea>
             </label>
             <div class="right">
                 <button class="button button-small icon ion-close-round" ng-click="cancelPost()"></button>
                 <button class="button button-small button-positive" ng-click="submitPost()">Submit</button>
             </div>
         </div>
-        
         <div id="page-group-discussion-list">
             <!-- <ion-item collection-repeat="item in items" -->
                       <!-- ng-click="selectedItem(item)" -->
@@ -48,12 +47,12 @@
                     <!-- Why not add one? -->
                 <!-- </p> -->
             <!-- </ion-item> -->
-            <div class="card" collection-repeat="item in items">
-                <div class="item">
+            <div class="list card" collection-repeat="item in items">
+                <div class="item item-avatar">
                     <h2>{{item.user}}</h2>
-                    <p>{{item.date}}</p>
+                    <p>{{item.date | date : 'short'}}</p>
                 </div>
-                <div class="item item-body">
+                <div class="item item-text-wrap">
                     <p>
                         {{item.content}}
                     </p>

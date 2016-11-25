@@ -11,9 +11,9 @@ angular.module('app.groupDiscussionController',
                     profileService, userCourseGroupService, groupDatabaseService){
                 $scope.id = $stateParams.group.id;
                 $scope.items = [];
+                $scope.message = {};
                 console.log('group discussion: ' + $scope.id);
                 $scope.writing = false;
-                $scope.content = '';
                 //$scope.group = group;
                 
                 function loadPosts(){
@@ -38,14 +38,15 @@ angular.module('app.groupDiscussionController',
                 
                 $scope.cancelPost = function(){
                     $scope.writing = false;
-                    $scope.content = '';
+                    $scope.message.content = '';
                 }
                 
                 $scope.submitPost = function(){
-                    groupDatabaseService.writePost($scope.id, $scope.content).then(function(){
+                    console.log('writing'  + $scope.content);
+                    groupDatabaseService.writePost($scope.id, $scope.message.content).then(function(){
                         loadPosts();
                         
-                        $scope.content = '';
+                        $scope.message.content = '';
                         $scope.writing = false;
                     })
                 }
