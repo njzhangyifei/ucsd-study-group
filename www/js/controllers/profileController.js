@@ -1,10 +1,10 @@
 angular.module('app.profileController', ['ionic', 'jett.ionic.filter.bar',
                                          'app.userDatabaseService'])
     
-    .controller('profileCtrl', ['$scope', '$state', '$stateParams', 
+    .controller('profileCtrl', ['$scope', '$state', '$stateParams', '$cordovaImagePicker',
                                 '$ionicLoading', 'loginService', 'profileService',
         
-        function ($scope, $state, $stateParams, 
+        function ($scope, $state, $stateParams, $cordovaImagePicker,
                     $ionicLoading, loginService, profileService) {
             
             $scope.profile = {};

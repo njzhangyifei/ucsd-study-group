@@ -19,6 +19,9 @@
 <ion-content class="has-header" padding="true">
 <h2 style="color: rgb(0, 0, 0); text-align: center;" id="profile-heading">{{profile.name}}</h2>
 <form class="list" id="edit-profile-form">
+    <button class="button button-"ng-show="editing" ng-click=pickImage()>profile picture</button>
+    
+    <img src="{{profile.picture}}">
     
     <label id="name" class="item item-input" ng-show="editing">
         <span class="input-label">Name</span>

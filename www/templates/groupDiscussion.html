@@ -5,6 +5,7 @@
     .noresize{
         resize: none;
     }
+    
 </style>
 <ion-view style="" id="page-group-discussion" title="Discussion in {{group.name}}">
 
@@ -47,15 +48,15 @@
                     <!-- Why not add one? -->
                 <!-- </p> -->
             <!-- </ion-item> -->
-            <div class="list card" collection-repeat="item in items">
+            <div class="list card" ng-repeat="item in items">
                 <div class="item item-avatar">
                     <h2>{{item.user}}</h2>
                     <p>{{item.date | date : 'short'}}</p>
                 </div>
                 <div class="item item-text-wrap">
-                    <p>
+                    <div>
                         {{item.content}}
-                    </p>
+                    </div>
                 </div>
             </div>
 

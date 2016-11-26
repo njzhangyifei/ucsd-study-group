@@ -6,6 +6,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
             var groupsPath = 'groups/';
             var membersPath = 'members/';
             var db = firebase.database();
+            var storage = firebase.storage();
             var userId = firebase.auth().currentUser.uid;
             return {
                 getUserCourses: function(){
@@ -126,6 +127,12 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 return db.ref(usersPath + uid + '/name').once('value').then(function(snapshot){
                     return snapshot.val();
                 });
+            },
+            
+            uploadImage: function(uri){
+                var storageRef = storage.getReferenceFromUrl('gs://ucsd-study-group.appspot.com')
+                    .child('avatars/');
+                
             }
 
         }
