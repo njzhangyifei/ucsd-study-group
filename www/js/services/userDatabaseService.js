@@ -6,7 +6,6 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
             var groupsPath = 'groups/';
             var membersPath = 'members/';
             var db = firebase.database();
-            var storage = firebase.storage();
             var userId = firebase.auth().currentUser.uid;
             return {
                 getUserCourses: function(){
@@ -66,6 +65,8 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
     .service('profileService', [function(){
         var db = firebase.database();
         var usersPath = 'users/'
+        var defaultPictureURL = 'https://firebasestorage.googleapis.com/v0/b/ucsd-study-group.appspot.com/o/avatars%2Fdefault.jpg?alt=media&token=a6f6bb05-ee60-4f83-b06e-60e626ca4065'
+        
         return{
             /*
                 This function takes two strings, a name and an email,
@@ -77,7 +78,8 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
 
                 var profile = {
                     name: user.displayName,
-                    email: user.email
+                    email: user.email,
+                    picture: defaultPictureURL
                 };
                 db.ref(path).set(profile);
 
@@ -130,11 +132,30 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
             },
             
             uploadImage: function(uri){
-                var storageRef = storage.getReferenceFromUrl('gs://ucsd-study-group.appspot.com')
-                    .child('avatars/');
+                var user = firebase.auth().currentUser;
+                var path = usersPath + user.uid;
+                var storageRef = firebase.storage().refFromURL('gs://ucsd-study-group.appspot.com')
+                    .child('avatars/' + user.uid);
                 
-            }
-
+                return fetch(uri)
+                    .then(function(data){
+                        return data.blob();
+                        console.log(blob);
+                    }).then(function(blob){
+                        var metadata = {
+                            contentType: 'image'
+                        };
+                        
+                        storageRef.put(blob, metadata)
+                            .then(function(snapshot){
+                                db.ref(path + '/picture').set(snapshot.downloadURL);
+                            }).catch(function(error){
+                                console.log(error);
+                            })
+                    }).catch(function(error){
+                        console.log(error);
+                    });    
+            }          
         }
     }])
 ;

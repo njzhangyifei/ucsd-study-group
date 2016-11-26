@@ -52,5 +52,19 @@ angular.module('app.profileController', ['ionic', 'jett.ionic.filter.bar',
                 $scope.editing = false;
                 retrieveProfile();
             };
+            
+            $scope.pickImage = function(){
+                $cordovaImagePicker.getPictures({maximumImagesCount: 1})
+                    .then(function(res){
+                        $ionicLoading.show({
+                            template: 'Uploading...',
+                            delay: 50
+                        });
+                        profileService.uploadImage(res[0])
+                            .then(function(){
+                                $ionicLoading.hide();
+                            })
+                })
+            }
 
         }])

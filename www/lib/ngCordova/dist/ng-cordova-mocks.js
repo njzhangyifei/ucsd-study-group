@@ -2291,7 +2291,7 @@ ngCordovaMocks.factory('$cordovaGooglePlayGame', ['$q', function ($q) {
 }]);
 
     
-ngCordovaMock.factory('$cordovaImagePicker', function() {
+ngCordovaMocks.factory('$cordovaImagePicker', function() {
     return {
         getImages: function (options){
             console.log('got images with options: ' + options);
