@@ -54,6 +54,7 @@ angular.module('app.profileController', ['ionic', 'jett.ionic.filter.bar',
             };
             
             $scope.pickImage = function(){
+                console.log("picking image")
                 $cordovaImagePicker.getPictures({maximumImagesCount: 1})
                     .then(function(res){
                         $ionicLoading.show({
