@@ -20,7 +20,7 @@ angular.module('app.profileController', ['ionic', 'ngCordova', 'jett.ionic.filte
                     profileService.getProfile($stateParams.uid)
                         .then(function(res){
                             if (!res.avatar) {
-                                profile.avatar = profileService.getDefaultAvatar();
+                                $scope.profile.avatar = profileService.getDefaultAvatar();
                             }
                             $scope.profile = res;
                             $ionicLoading.hide();

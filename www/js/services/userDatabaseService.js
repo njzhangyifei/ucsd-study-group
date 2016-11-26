@@ -65,7 +65,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
     .service('profileService', [function(){
         var db = firebase.database();
         var usersPath = 'users/'
-        // var defaultPictureURL = 'https://firebasestorage.googleapis.com/v0/b/ucsd-study-group.appspot.com/o/avatars%2Fdefault.jpg?alt=media&token=a6f6bb05-ee60-4f83-b06e-60e626ca4065'
+        //var defaultAvatarURL = 'https://firebasestorage.googleapis.com/v0/b/ucsd-study-group.appspot.com/o/avatars%2Fdefault.jpg?alt=media&token=a6f6bb05-ee60-4f83-b06e-60e626ca4065'
         
         return{
             /*
@@ -133,7 +133,6 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
 
             getDefaultAvatar: function(){
                 //base64
-                return "";
             },
 
             getAvatar: function(uid){
