@@ -72,7 +72,7 @@
         <ion-list id="groupDetail-list">
             <ion-item style="" class="item item-avatar" 
             collection-repeat="member in members" ng-click="viewMember(member)">
-                <img src="{{member.picture || 'https://firebasestorage.googleapis.com/v0/b/ucsd-study-group.appspot.com/o/avatars%2Fdefault.jpg?alt=media&token=b3c9311a-fa9a-4747-bdcf-487234a6e872'}} " width=50px height=50px>
+                <img ng-src="{{member.avatar}}" />
                 <h2>{{member.name}}</h2>
                 <p>{{member.description}}</p>
             </ion-item>

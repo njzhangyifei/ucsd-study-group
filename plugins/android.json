@@ -7,6 +7,9 @@
         "files": {}
     },
     "installed_plugins": {
+        "com-badrit-base64": {
+            "PACKAGE_NAME": "com.ionicframework.ucsdstudygroup569859"
+        },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.ionicframework.ucsdstudygroup569859"
         },

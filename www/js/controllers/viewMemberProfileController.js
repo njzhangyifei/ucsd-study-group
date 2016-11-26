@@ -20,6 +20,9 @@ angular.module('app.viewMemberProfileController', ['ionic', 'jett.ionic.filter.b
                     });
                     profileService.getProfile($stateParams.uid)
                         .then(function(res){
+                            if (!res.avatar) {
+                                res.avatar = profileService.getDefaultAvatar();
+                            }
                             $scope.profile = res;
                             $ionicLoading.hide();
                         }).catch(function(error){
@@ -29,28 +32,5 @@ angular.module('app.viewMemberProfileController', ['ionic', 'jett.ionic.filter.b
                 }
 
                 retrieveProfile();
-
-
-                $scope.signout = function() {
-                    loginService.signout();
-                }
-
-                $scope.editProfile = function(){
-                    $scope.editing = true;
-                }
-
-                $scope.updateProfile = function(){
-                    // TODO update the user's database entry
-                    var name = $scope.profile.name;
-                    var email = $scope.profile.email;
-                    var phone = $scope.profile.phone;
-                    var description = $scope.profile.description;
-
-                    console.log("button update profile clicked");
-                    profileService.updateProfile(name, email, phone, description);
-
-                    $scope.editing = false;
-                    retrieveProfile();
-                };
 
             }])

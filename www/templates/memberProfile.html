@@ -3,23 +3,24 @@
         text-align: center;
         
     }
+    .profile-avatar {
+        width: 70%;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
 </style>
-<ion-view style="" id="page-profile-member" title="Profile">
-<ion-nav-buttons side="secondary">
-    <button class="button button-icon icon ion-edit"
-            ng-show="isCurrentUser && !editing"
-            ng-click="editProfile()">
-    </button>
-    <button class="button button-icon icon ion-checkmark-round"
-            ng-show="isCurrentUser && editing"
-            ng-click="updateProfile()">
-    </button>
-</ion-nav-buttons>
 
+<ion-view style="" id="page-profile-member" title="Profile">
 <ion-content class="has-header" padding="true">
 <h2 style="color: rgb(0, 0, 0); text-align: center;" id="profile-heading">{{profile.name}}</h2>
 <form class="list" id="edit-profile-form">
-    
+    <img class="profile-avatar" ng-src="{{profile.avatar}}" ng-show="editing">
+    <button class="button button-block" ng-show="editing" ng-click=pickImage()>
+        Change profile picture
+    </button>
+
     <label id="name" class="item item-input" ng-show="editing">
         <span class="input-label">Name</span>
         <input placeholder=""
@@ -27,6 +28,7 @@
                ng-model="profile.name">
     </label>
     
+
     <pre class="profile-contact" ng-show="!editing">{{profile.email}}</pre>
     <label id="email" class="item item-input" ng-show="editing">
         <span class="input-label">Email</span>
@@ -43,6 +45,8 @@
                ng-model="profile.phone">
     </label>
     
+    <img class="profile-avatar" ng-src="{{profile.avatar}}" ng-show="!editing">
+    
     <pre ng-show="!editing">{{profile.description}}</pre>
     <label id="description" class="item item-input" ng-show="editing">
         <span class="input-label">Description</span>
@@ -51,12 +55,6 @@
                   type="text"
                   ng-model="profile.description"></textarea>
     </label>
-    <button class="button button-assertive button-block"
-            id="profile-button-signout"
-            ng-click="signout()"
-            ng-show="isCurrentUser && !editing">
-        Sign out
-    </button>
 </form>
 </ion-content>
 </ion-view>

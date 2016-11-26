@@ -49,8 +49,16 @@
     },
     "cordova-plugin-image-picker": {
         "source": {
+            "type": "registry",
+            "id": "cordova-plugin-image-picker"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com-badrit-base64": {
+        "source": {
             "type": "git",
-            "url": "https://github.com/wymsee/cordova-imagePicker.git",
+            "url": "https://github.com/hazemhagrass/phonegap-base64",
             "subdir": "."
         },
         "is_top_level": true,
