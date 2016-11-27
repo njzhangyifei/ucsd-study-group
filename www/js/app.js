@@ -13,9 +13,9 @@ angular.module('app',
      'app.groupDetailController',
      'app.routes', 'app.directives',
      'app.services', 'app.courseDatabaseService', 'app.newClassPopupService',
-     'app.userDatabaseService', 'app.groupDatabaseService',
+     'app.userDatabaseService', 'app.groupDatabaseService', 'app.meetingController',
      'jett.ionic.filter.bar',
-     'monospaced.elastic',
+     'monospaced.elastic', "ion-datetime-picker",
     ])
 
 .run(function($ionicPlatform) {

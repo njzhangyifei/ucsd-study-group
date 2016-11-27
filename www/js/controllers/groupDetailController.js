@@ -12,7 +12,6 @@ angular.module('app.groupDetailController',
                     $scope.group = $stateParams.group;
                     console.log($scope.group);
                     $scope.creator = ($scope.group.creator == profileService.getCurrentUserId());
-
                     $scope.join = function(){
                         $ionicLoading.show({
                             template: 'Joining',
@@ -54,7 +53,7 @@ angular.module('app.groupDetailController',
                             $scope.members = membersProfiles;
                         })
                         $ionicLoading.hide();
-                    }
+                    };
 
                     function loadGroupInfo(){
                         var uid = profileService.getCurrentUserId();
@@ -76,11 +75,11 @@ angular.module('app.groupDetailController',
                             $scope.joined = false;
                         }
                         updateMember();
-                    }
+                    };
 
                     $scope.editGroup = function(){
                         $scope.editing = true;
-                    }
+                    };
 
                     $scope.updateGroup = function(){
                         $ionicLoading.show({
@@ -110,7 +109,11 @@ angular.module('app.groupDetailController',
                                 $scope.joined = false;
                             }
                         })
-                    }
+                    };
+
+                    $scope.viewMeeting = function(){
+                        $state.go('tabsController.groupMeeting', {group: $scope.group});
+                    };
 
                     loadGroupInfo();
                 }

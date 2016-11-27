@@ -93,7 +93,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 var path = usersPath + user.uid;
 
                 var updates = {};
-                if(name)
+                if(name) 
                     updates['name'] = name;
                 if(email)
                     updates['email'] = email;
@@ -104,7 +104,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
 
                 db.ref(path).update(updates);
 
-                console.log('ProfileService: profile updated');
+                console.log('Profile is updated');
             },
 
             getCurrentUserId:function(){
