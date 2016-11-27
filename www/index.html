@@ -19,6 +19,7 @@
                 messagingSenderId: "513554936579"
             };
             firebase.initializeApp(config);
+
         </script>
 
         <!-- cordova script (this will be a 404 during development) --> 
@@ -31,6 +32,7 @@
 
 
         <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
 
 
         <style type="text/css">
@@ -84,16 +86,13 @@
         <link rel="stylesheet" href="lib/ionic-filter-bar/dist/ionic.filter.bar.css">
         <script src="lib/ionic-filter-bar/dist/ionic.filter.bar.js"></script>
         <script src="lib/angular-elastic/elastic.js"></script>
+       
 
     </head>
     <body ng-app="app" animation="slide-left-right-ios7">
-        <div style="">
-            <div style="">
                 <ion-nav-bar class="bar-stable">
-                <ion-nav-back-button></ion-nav-back-button>
+                    <ion-nav-back-button></ion-nav-back-button>
                 </ion-nav-bar>
                 <ion-nav-view></ion-nav-view>
-            </div>
-        </div>
     </body>
 </html>

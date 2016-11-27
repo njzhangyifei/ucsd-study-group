@@ -1,4 +1,7 @@
 <ion-view style="" id="page-new-study-group" title="New Study Group">
+    <ion-nav-bar class="bar-calm" >
+    <ion-nav-back-button></ion-nav-back-button></ion-nav-bar>
+    <div class = "triton-view"></div>
     <ion-content class="has-header" padding="true">
         <form class="list" id="newStudyGroup-form">
             <label id="newStudyGroup-name" class="item item-input">
@@ -12,6 +15,6 @@
                 <textarea placeholder="" ng-model=groupForm.description></textarea>
             </label>
         </form>
-        <button class="button button-positive  button-block" id="page-new-study-group-button-create" ng-click="createGroup()">Submit</button>
+        <button class="button button-calm  button-block" id="page-new-study-group-button-create" ng-click="createGroup()">Submit</button>
     </ion-content>
 </ion-view>

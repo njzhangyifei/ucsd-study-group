@@ -1,33 +1,46 @@
-<ion-view style="" id="page-login" title="Login">
+<ion-view style="" id="page-login" title="Sign In">
+    <ion-nav-bar class="bar-stable" >
+    <ion-nav-back-button></ion-nav-back-button></ion-nav-bar>
+    <div class='login-view'></div>
     <ion-content class="has-header" padding="true">
-        <form class="list" id="login-form">
-            <ion-list id="login-list">
-                <label id="login-input-id" class="item item-input">
-                    <span class="input-label">E-mail</span>
-                    <input placeholder="triton@ucsd.edu" 
-                           type="text" 
-                           ng-model="loginForm.id">
-                    </input>
-                </label>
-                <label id="login-input-password" class="item item-input">
-                    <span class="input-label">Password</span>
-                    <input placeholder="triton" 
-                           type="password"
-                           ng-model="loginForm.password"> 
-                    </input>
-                </label>
-            </ion-list>
-            <!-- <div style="width: 300px; height: 25px;" class="spacer"></div> -->
-            <button class="button button-positive button-block" 
-                    id="login-button-login" 
-                    ng-click="login()">
-                Login
+        <form id="login-form">
+            <div class="group">
+                <input
+                   type="text" 
+                   ng-model="loginForm.id"
+                   class="custom-input"
+                   ng-blur="customInputOnBlur()"
+                   id="login-email">
+                <span class="highlight"></span>
+                <span class="custom-bar"></span>
+                <custom-label>Email</custom-label>
+            </div>
+            <div class="group">
+                <input
+                   type="password"
+                   ng-model="loginForm.password"
+                   class="custom-input"
+                   ng-blur="customInputOnBlur()"
+                   id="login-password">
+                <span class="highlight"></span>
+                <span class="custom-bar"></span>
+            <custom-label>Password</custom-label>
+            </div>
+            <button type="button" class="custom-button buttonBlue" id="login-button-login" ng-click="login()">Login
+                <div class="ripples buttonRipples">
+                    <span class="ripplesCircle"></span>
+                </div>
             </button>
             <button class="button button-positive button-block button-clear" 
                     id="login-button-register" 
                     ng-click="signup()">
+                <font color = "white">
                 Or create an account
+            
+                </font>
+                </div>
             </button>
         </form>
+
     </ion-content>
 </ion-view>

@@ -94,7 +94,23 @@ angular.module('app.controllers',
                 $scope.signup = function(){
                     console.log("button sign up clicked");
                     $state.go('signup');
-                }
+                };
+
+              $scope.customInputOnBlur = function() {
+                    if ($scope.loginForm.id){
+                        angular.element(document.querySelector( '#login-email' )).addClass("used");
+                    } else {
+                        angular.element(document.querySelector( '#login-email' )).removeClass("used");
+                    }
+                    if ($scope.loginForm.password){
+                        angular.element(document.querySelector( '#login-password' )).addClass("used");
+                    } else {
+                        angular.element(document.querySelector( '#login-password' )).removeClass("used");
+                    }
+                };
+                angular.element(document).ready(function(){
+                    $scope.customInputOnBlur();
+                });
             }])
 
     .controller('signupCtrl',

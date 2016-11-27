@@ -12,6 +12,7 @@
     }
 </style>
 <ion-view style="" id="page-profile" title="Profile">
+
 <ion-nav-buttons side="secondary">
     <button class="button button-icon icon ion-edit"
             ng-show="isCurrentUser && !editing"
@@ -23,7 +24,9 @@
     </button>
 </ion-nav-buttons>
 
+<div class='profile-view'></div>
 <ion-content class="has-header" padding="true">
+
 <h2 style="color: rgb(0, 0, 0); text-align: center;" id="profile-heading">{{profile.name}}</h2>
 <form class="list" id="edit-profile-form">
     <img class="profile-avatar" ng-src="{{profile.avatar}}" ng-show="editing">
@@ -31,7 +34,7 @@
         Change profile picture
     </button>
 
-    <label id="name" class="item item-input" ng-show="editing">
+    <label id="name" class="item item-input" ng-show="editing" >
         <span class="input-label">Name</span>
         <input placeholder=""
                type="text"
