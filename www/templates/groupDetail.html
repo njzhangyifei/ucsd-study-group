@@ -51,7 +51,8 @@
             </div>
         </button>
 
-        <button class="button icon ion-chatboxes button-outline button-positive button-block">
+        <button class="button icon ion-chatboxes button-outline button-positive button-block"
+                ng-click="viewDiscussion()">
             Group Discussion
         </button>
 
@@ -70,9 +71,9 @@
 
         <h4 style="color: rgb(0, 0, 0);" id="groupDetail-heading">Members</h4>
         <ion-list id="groupDetail-list">
-            <ion-item style="" ui-sref="tabsController.profile" 
-                      class="item item-icon-left" collection-repeat="member in members">
-                <i class="icon ion-person"></i>
+            <ion-item style="" class="item item-avatar" 
+            collection-repeat="member in members" ng-click="viewMember(member)">
+                <img ng-src="{{member.avatar}}" />
                 <h2>{{member.name}}</h2>
                 <p>{{member.description}}</p>
             </ion-item>

@@ -1,18 +1,17 @@
 angular.module('app.groupDatabaseService', ['ionic'])
-    .service('groupDatabaseService', [
-        function(){
+    .service('groupDatabaseService', ['profileService',
+        function(profileService){
             var db = firebase.database();
             var groupsPath = 'groups/';
             var membersPath = 'members/';
             var usersPath = 'users/';
             var meetingPath = '/meeting/'
-            
+            var messagePath = '/messages'
 
             return {
                 createGroup: function(group){
                     // still needs work
-                    var currentUser = firebase.auth().currentUser.uid;
-                    group.creator = currentUser
+                    group.creator = userDatabaseService.getCurrentUserId()
                     var groupInfoRef = db.ref(groupsPath).push(group);
                     return groupInfoRef;
                 },
@@ -59,6 +58,37 @@ angular.module('app.groupDatabaseService', ['ionic'])
                     db.ref(path).update(meeting);
                     console.log('Meeting has updated.');
                 },
+                
+                writePost: function(groupId, content){
+                    var messageRef = db.ref(groupsPath + groupId + 
+                                            messagePath + '/' + Date.now());
+                    var message = {
+                        user: profileService.getCurrentUserId(),
+                        content: content
+                    };
+                    console.log('writing: ' + message + ' ' + content);
+                    return messageRef.set(message);
+                },
+                
+                getPosts: function(groupId){
+                    var messageQuery = db.ref(groupsPath + groupId + messagePath).orderByKey();
+                    return messageQuery.once('value').then(function(snapshot){
+                        var messages = [];
+                        console.log(snapshot.val());
+                        snapshot.forEach(function(childSnapshot){
+                            var message = childSnapshot.val();
+                            message.date = childSnapshot.key;
+                            profileService.getName(message.user).then(function(name){
+                                message.user = name;
+                            })
+                            console.log(message.user);
+                            messages.unshift(message);
+                        });
+                        return messages;
+                    }).catch(function(err){
+                        console.log(err)
+                    })
+                }
             }
         }])
 ;

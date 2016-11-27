@@ -54,6 +54,7 @@ angular.module('app.routes', ['ionicUIRouter'])
                 },
             })
             .state('tabsController.profile', {
+                cache: false,
                 url: '/page-profile',
                 params:{
                     uid: null
@@ -65,7 +66,25 @@ angular.module('app.routes', ['ionicUIRouter'])
                     }
                 }
             })
+//do another controller and tempalte and everything
 
+            .state('tabsController.memberProfile', {
+                cache: false,
+                url: '/page-profile-member',
+                params:{
+                    uid: null
+                },
+                views: {
+                    'tab-home': {
+                        templateUrl: 'templates/memberProfile.html',
+                        controller: 'viewMemberProfileCtrl'
+                    },
+                    'tab-groups': {
+                        templateUrl: 'templates/memberProfile.html',
+                        controller: 'viewMemberProfileCtrl'
+                    }
+                }
+            })
             .state('tabsController.addCourse', {
                 cache: false,
                 url: '/page-add-course',
@@ -110,6 +129,25 @@ angular.module('app.routes', ['ionicUIRouter'])
                 }
             })
 
+            .state('tabsController.groupDiscussion', {
+                cache: false,
+                url: '/page-group-discussion',
+                params: {
+                    group: null
+                },
+                views: {
+                    'tab-groups': {
+                        templateUrl: 'templates/groupDiscussion.html',
+                        controller: 'groupDiscussionCtrl'
+                    },
+                    'tab-home': {
+                        templateUrl: 'templates/groupDiscussion.html',
+                        controller: 'groupDiscussionCtrl'
+                    }
+                }
+            })
+
+
             .state('tabsController.newStudyGroup', {
                 cache: false,
                 url: '/page-new-study-group',
@@ -153,7 +191,7 @@ angular.module('app.routes', ['ionicUIRouter'])
     .controller('tabsControllerCtrl', function($scope, $ionicTabsDelegate) {
         $scope.goHome = function() {
             $ionicTabsDelegate.$getByHandle('my-tabs').select(0);
-        }  
+        }
     })
 
     .controller('tabHomeLocalCtrl', function($scope, $state) {

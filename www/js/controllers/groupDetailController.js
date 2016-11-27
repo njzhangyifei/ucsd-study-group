@@ -1,4 +1,4 @@
-angular.module('app.groupDetailController', 
+angular.module('app.groupDetailController',
     ['ionic',
         'app.userDatabaseService',
         'app.groupDatabaseService',
@@ -6,8 +6,8 @@ angular.module('app.groupDetailController',
 
     .controller('groupDetailCtrl',
         ['$scope', '$stateParams', '$state', '$ionicHistory', '$ionicPopup',
-            '$ionicLoading','profileService', 'userCourseGroupService', 'groupDatabaseService', 
-            function($scope, $stateParams, $state, $ionicHistory, $ionicPopup, $ionicLoading, 
+            '$ionicLoading','profileService', 'userCourseGroupService', 'groupDatabaseService',
+            function($scope, $stateParams, $state, $ionicHistory, $ionicPopup, $ionicLoading,
                 profileService, userCourseGroupService, groupDatabaseService){
                     $scope.group = $stateParams.group;
                     console.log($scope.group);
@@ -57,7 +57,7 @@ angular.module('app.groupDetailController',
 
                     function loadGroupInfo(){
                         var uid = profileService.getCurrentUserId();
-                        
+
                         $ionicLoading.show({
                             template: 'Loading',
                             delay: 50
@@ -81,6 +81,17 @@ angular.module('app.groupDetailController',
                         $scope.editing = true;
                     };
 
+                    $scope.viewDiscussion = function(){
+                        console.log("group discussion clicked");
+                        $state.go('tabsController.groupDiscussion', {group: $scope.group});
+                    }
+
+                    $scope.viewMember = function(member) {
+                        var memberID = member.id;
+                        console.log(memberID);
+                        $state.go('tabsController.memberProfile', {uid: memberID});
+                    }
+
                     $scope.updateGroup = function(){
                         $ionicLoading.show({
                             template: 'Loading',
@@ -95,17 +106,18 @@ angular.module('app.groupDetailController',
                             $ionicLoading.hide();
                         });
                     };
-                
+
                     $scope.leaveGroup = function(){
                         var confirmPopup = $ionicPopup.confirm({
                             title:'Leave Group',
                             template:'Are you sure you want to leave this group?'
                         })
-                        
+
                         confirmPopup.then(function(ans){
                             if(ans){
-                                userCourseGroupService.removeGroupMember($scope.group.id);
-                                loadGroupInfo();
+                                userCourseGroupService.removeGroupMember($scope.group.id).then(function(){
+                                    loadGroupInfo();
+                                })
                                 $scope.joined = false;
                             }
                         })

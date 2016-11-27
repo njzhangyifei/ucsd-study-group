@@ -5,10 +5,18 @@
         An Ionic Framework and Cordova project.
     </description>
   <author email="you@example.com" href="http://example.com.com/">
-      Your Name Here
+        Your Name Here
     </author>
   <content src="index.html"/>
   <access origin="*"/>
+  <access origin="*"/>
+  <access origin="content://*"/>
+  <access origin="cdvfile://*"/>
+  <allow-navigation href="file:///**/*"/>
+  <allow-navigation href="*://**.phdesign.com.br/*"/>
+  <allow-navigation href="filesystem://**/*"/>
+  <allow-navigation href="cdvfile://**/*"/>
+  <allow-navigation href="http://192.168.0.25:8100"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>

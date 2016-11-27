@@ -65,6 +65,8 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
     .service('profileService', [function(){
         var db = firebase.database();
         var usersPath = 'users/'
+        //var defaultAvatarURL = 'https://firebasestorage.googleapis.com/v0/b/ucsd-study-group.appspot.com/o/avatars%2Fdefault.jpg?alt=media&token=a6f6bb05-ee60-4f83-b06e-60e626ca4065'
+        
         return{
             /*
                 This function takes two strings, a name and an email,
@@ -76,7 +78,8 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
 
                 var profile = {
                     name: user.displayName,
-                    email: user.email
+                    email: user.email,
+                    avatar: null,
                 };
                 db.ref(path).set(profile);
 
@@ -116,7 +119,9 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 if(!uid) uid = firebase.auth().currentUser.uid;
                 profileRef = db.ref(usersPath + uid);
                 return profileRef.once('value').then(function(snapshot){
-                    return snapshot.val();
+                    var member = snapshot.val();
+                    member.id = uid;
+                    return member;
                 })
             },
 
@@ -124,8 +129,52 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 return db.ref(usersPath + uid + '/name').once('value').then(function(snapshot){
                     return snapshot.val();
                 });
-            }
+            },
 
+            getDefaultAvatar: function(){
+                //base64
+            },
+
+            getAvatar: function(uid){
+                var user = firebase.auth().currentUser;
+                var path = usersPath + uid + "/avatar";
+                return db.ref(path).once('value').then(function(snapshot){
+                    return snapshot.val();
+                });
+            },
+            
+            setAvatar: function(uri){
+                var user = firebase.auth().currentUser;
+                var path = usersPath + user.uid + "/avatar";
+                var base64_promise = new Promise(function(resolve, reject){
+                    window.plugins.Base64.encodeFile(uri, resolve, reject);
+                });
+                return base64_promise.then(function(res){
+                    return db.ref(path).set(res);
+                })
+
+                // var storageRef = firebase.storage().refFromURL('gs://ucsd-study-group.appspot.com')
+                    // .child('avatars/' + user.uid);
+                
+                // return fetch(uri)
+                    // .then(function(data){
+                        // return data.blob();
+                        // console.log(blob);
+                    // }).then(function(blob){
+                        // var metadata = {
+                            // contentType: 'image'
+                        // };
+                        
+                        // storageRef.put(blob, metadata)
+                            // .then(function(snapshot){
+                                // db.ref(path + '/picture').set(snapshot.downloadURL);
+                            // }).catch(function(error){
+                                // console.log(error);
+                            // })
+                    // }).catch(function(error){
+                        // console.log(error);
+                    // });    
+            }          
         }
     }])
 ;
