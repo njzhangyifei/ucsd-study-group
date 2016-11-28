@@ -5,6 +5,7 @@ angular.module('app.groupDatabaseService', ['ionic'])
             var groupsPath = 'groups/';
             var membersPath = 'members/';
             var usersPath = 'users/';
+            var meetingPath = '/meeting/'
             var messagePath = '/messages'
 
             return {
@@ -25,11 +26,37 @@ angular.module('app.groupDatabaseService', ['ionic'])
                 },
 
                 updateGroup: function(group){
+
                     var groupInfoRef = db.ref(groupsPath + group.id);
                     var g = Object.assign({}, group);
                     delete g.id;
                     delete g.member;
                     return groupInfoRef.update(g);
+                },
+
+                getMeeting: function(group){
+                    var path = groupsPath + group.id + meetingPath;
+                    var meetingInfoRef = db.ref(path);
+                    return meetingInfoRef.once('value').then(function(snapshot){
+                    return snapshot.val();
+                    })
+                },
+
+                updateMeeting: function(group, title, description, location, time){
+                    var path = groupsPath + group.id + meetingPath;
+                    var meetingInfoRef = db.ref(path);
+                    var meeting = {};
+                    if(title)
+                        meeting['title'] = title;
+                    if(description)
+                        meeting['description'] = description;
+                    if(location)
+                        meeting['location'] = location;
+                    if(time)
+                        meeting['time'] = time;
+
+                    db.ref(path).update(meeting);
+                    console.log('Meeting has updated.');
                 },
                 
                 writePost: function(groupId, content){
@@ -47,14 +74,12 @@ angular.module('app.groupDatabaseService', ['ionic'])
                     var messageQuery = db.ref(groupsPath + groupId + messagePath).orderByKey();
                     return messageQuery.once('value').then(function(snapshot){
                         var messages = [];
-                        console.log(snapshot.val());
                         snapshot.forEach(function(childSnapshot){
                             var message = childSnapshot.val();
                             message.date = childSnapshot.key;
                             profileService.getName(message.user).then(function(name){
                                 message.user = name;
                             })
-                            console.log(message.user);
                             messages.unshift(message);
                         });
                         return messages;

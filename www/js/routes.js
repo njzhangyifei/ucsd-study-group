@@ -162,6 +162,25 @@ angular.module('app.routes', ['ionicUIRouter'])
                 }
             })
 
+            .state('tabsController.groupMeeting', {
+                cache:false,
+                url:'/page-group-meeting',
+                params:
+                {
+                    group: null
+                },
+                views: {
+                    'tab-home': {
+                        templateUrl: 'templates/groupMeeting.html',
+                        controller: 'groupMeetingCtrl'
+                    },
+                    'tab-groups': {
+                        templateUrl: 'templates/groupMeeting.html',
+                        controller: 'groupMeetingCtrl'
+                    }
+                }
+            })
+
         // default page
         // $urlRouterProvider.otherwise('/page1/page7')
         $urlRouterProvider.otherwise('/page-login')

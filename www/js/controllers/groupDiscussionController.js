@@ -19,10 +19,11 @@ angular.module('app.groupDiscussionController',
                 
                 function loadPosts(){
                     $ionicLoading.show({
-                            template: 'Joining',
+                            template: 'Loading',
                             delay: 50
                     })
-                    $scope.items = groupDatabaseService.getPosts($scope.id).then(function(res){
+                    $scope.items = groupDatabaseService.getPosts($scope.id)
+                        .then(function(res){
                             $scope.items = res;
                             $ionicLoading.hide();
                         }).catch(function(){
@@ -31,7 +32,10 @@ angular.module('app.groupDiscussionController',
                     });
                 }
                 
-                $scope.refreshItems = loadPosts();
+                $scope.refreshItems = function(){
+                    loadPosts();
+                    $scope.$broadcast('scroll.refreshComplete');
+                }
                 
                 $scope.writePost = function(){
                     $scope.writing = true;
