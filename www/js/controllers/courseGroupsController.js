@@ -7,6 +7,7 @@ angular.module('app.courseGroupsController',
         ['$scope', '$state', '$ionicLoading', 'courseDatabaseService', 'stateParamsService',
         function ($scope, $state, $ionicLoading, courseDatabaseService, stateParamsService) {
                 $stateParams = stateParamsService.getStateParams();
+                $scope.course = $stateParams.course;
 
                 function getItems () {
                     $scope.items = [];
@@ -34,9 +35,10 @@ angular.module('app.courseGroupsController',
                 };
 
                 $scope.selectedItem = function(group){
-                    $state.go('tabsController.groupDetail',{
+                    stateParamsService.setStateParams('tabsController.groupDetail', {
                         group: group
                     })
+                    $state.go('tabsController.groupDetail')
                 }
 
                 $scope.addGroup = function() {

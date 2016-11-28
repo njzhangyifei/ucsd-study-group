@@ -1,11 +1,13 @@
 angular.module('app.myGroupsController', 
-    ['ionic', 'app.services', 'jett.ionic.filter.bar', 'app.userDatabaseService'])
+    ['ionic', 
+        'app.stateParamsService',
+        'app.services', 'jett.ionic.filter.bar', 'app.userDatabaseService'])
 
     .controller('myGroupsCtrl', ['$scope', 
         '$stateParams', '$state', '$ionicLoading', 
-        'userCourseGroupService',
-        function ($scope, $stateParams, $state, $ionicLoading, 
-            userCourseGroupService) {
+        'userCourseGroupService', 'stateParamsService',
+        function ($scope, $stateParams, $state, $ionicLoading,
+            userCourseGroupService, stateParamsService) {
 
             function getItems () {
                 $scope.items = [];
@@ -29,8 +31,10 @@ angular.module('app.myGroupsController',
             getItems();
             
             $scope.selectedItem = function(item){
-                $state.go('tabsController.groupDetail', 
-                    {group: item});
+                stateParamsService.setStateParams('tabsController.groupDetail', {
+                    group: item
+                })
+                $state.go('tabsController.groupDetail');
             }
 
             if ($stateParams.updateRequired) {

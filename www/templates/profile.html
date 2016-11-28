@@ -10,6 +10,9 @@
         margin-right: auto;
         display: block;
     }
+    .profile-description {
+        text-align: center;
+    }
 </style>
 <ion-view style="" id="page-profile" title="Profile">
 <ion-nav-buttons side="secondary">
@@ -57,7 +60,7 @@
     
     <img class="profile-avatar" ng-src="{{profile.avatar}}" ng-show="!editing">
     
-    <pre ng-show="!editing">{{profile.description}}</pre>
+    <pre class="profile-description" ng-show="!editing">{{profile.description}}</pre>
     <label id="description" class="item item-input" ng-show="editing">
         <span class="input-label">Description</span>
         <textarea msd-elastic

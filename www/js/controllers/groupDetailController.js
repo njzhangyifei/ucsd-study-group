@@ -1,14 +1,17 @@
 angular.module('app.groupDetailController',
     ['ionic',
+        'app.stateParamsService',
         'app.userDatabaseService',
         'app.groupDatabaseService',
     ])
 
     .controller('groupDetailCtrl',
-        ['$scope', '$stateParams', '$state', '$ionicHistory', '$ionicPopup',
+        ['$scope', '$state', '$ionicHistory', '$ionicPopup',
             '$ionicLoading','profileService', 'userCourseGroupService', 'groupDatabaseService',
-            function($scope, $stateParams, $state, $ionicHistory, $ionicPopup, $ionicLoading,
-                profileService, userCourseGroupService, groupDatabaseService){
+            'stateParamsService',
+            function($scope, $state, $ionicHistory, $ionicPopup, $ionicLoading,
+                profileService, userCourseGroupService, groupDatabaseService, stateParamsService){
+                    $stateParams = stateParamsService.getStateParams('tabsController.groupDetail');
                     $scope.group = $stateParams.group;
                     console.log($scope.group);
                     $scope.creator = ($scope.group.creator == profileService.getCurrentUserId());
@@ -66,15 +69,15 @@ angular.module('app.groupDetailController',
                                 console.log(p);
                                 $scope.group = p;
                                 $ionicLoading.hide();
+                                if ($scope.group.members && (uid in $scope.group.members)) {
+                                    $scope.joined = true;
+                                } else {
+                                    $scope.joined = false;
+                                }
+                                updateMember();
                             }).catch(function(){
                                 $ionicLoading.hide();
                             });
-                        if ($scope.group.members && (uid in $scope.group.members)) {
-                            $scope.joined = true;
-                        } else {
-                            $scope.joined = false;
-                        }
-                        updateMember();
                     };
 
                     $scope.editGroup = function(){
