@@ -19,15 +19,18 @@ angular.module('app.meetingController', ['ionic', 'jett.ionic.filter.bar',
             });
             groupDatabaseService.getMeeting($stateParams.group)
                 .then(function(res){
-                    $scope.meeting = res;
-                    console.log(res);
+                    if(res != null)
+                    {
+                        $scope.meeting = res;
+                        console.log(res);
+                    }
                     $ionicLoading.hide();
                 }).catch(function(error){
                     console.log("error !" + error);
                     $ionicLoading.hide();
                 });
         }
-        
+        retrieveMeeting();
 		$scope.editMeeting = function()
         {
 			$scope.editing = true;
