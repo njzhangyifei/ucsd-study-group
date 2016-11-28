@@ -35,9 +35,10 @@ angular.module('app.courseGroupsController',
                 };
 
                 $scope.selectedItem = function(group){
-                    $state.go('tabsController.groupDetail',{
+                    stateParamsService.setStateParams('tabsController.groupDetail', {
                         group: group
                     })
+                    $state.go('tabsController.groupDetail')
                 }
 
                 $scope.addGroup = function() {

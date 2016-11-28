@@ -1,14 +1,17 @@
 angular.module('app.groupDetailController',
     ['ionic',
+        'app.stateParamsService',
         'app.userDatabaseService',
         'app.groupDatabaseService',
     ])
 
     .controller('groupDetailCtrl',
-        ['$scope', '$stateParams', '$state', '$ionicHistory', '$ionicPopup',
+        ['$scope', '$state', '$ionicHistory', '$ionicPopup',
             '$ionicLoading','profileService', 'userCourseGroupService', 'groupDatabaseService',
-            function($scope, $stateParams, $state, $ionicHistory, $ionicPopup, $ionicLoading,
-                profileService, userCourseGroupService, groupDatabaseService){
+            'stateParamsService',
+            function($scope, $state, $ionicHistory, $ionicPopup, $ionicLoading,
+                profileService, userCourseGroupService, groupDatabaseService, stateParamsService){
+                    $stateParams = stateParamsService.getStateParams('tabsController.groupDetail');
                     $scope.group = $stateParams.group;
                     console.log($scope.group);
                     $scope.creator = ($scope.group.creator == profileService.getCurrentUserId());

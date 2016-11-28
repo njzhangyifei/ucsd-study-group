@@ -2,8 +2,10 @@ angular.module('app.stateParamsService', ['ionic'])
     .service('stateParamsService', [ '$ionicHistory',
         function($ionicHistory){
             return {
-                getStateParams: function(){
-                    var stateName = $ionicHistory.currentStateName()
+                getStateParams: function(stateName){
+                    if (!stateName) { 
+                        stateName = $ionicHistory.currentStateName()
+                    }
                     var stateParams = JSON.parse(localStorage.getItem(stateName));
                     console.log("stateParams read: " + stateName);
                     return stateParams;
