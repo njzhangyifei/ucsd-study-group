@@ -74,14 +74,12 @@ angular.module('app.groupDatabaseService', ['ionic'])
                     var messageQuery = db.ref(groupsPath + groupId + messagePath).orderByKey();
                     return messageQuery.once('value').then(function(snapshot){
                         var messages = [];
-                        console.log(snapshot.val());
                         snapshot.forEach(function(childSnapshot){
                             var message = childSnapshot.val();
                             message.date = childSnapshot.key;
                             profileService.getName(message.user).then(function(name){
                                 message.user = name;
                             })
-                            console.log(message.user);
                             messages.unshift(message);
                         });
                         return messages;

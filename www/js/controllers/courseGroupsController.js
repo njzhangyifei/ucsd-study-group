@@ -7,6 +7,7 @@ angular.module('app.courseGroupsController',
         ['$scope', '$state', '$ionicLoading', 'courseDatabaseService', 'stateParamsService',
         function ($scope, $state, $ionicLoading, courseDatabaseService, stateParamsService) {
                 $stateParams = stateParamsService.getStateParams();
+                $scope.course = $stateParams.course;
 
                 function getItems () {
                     $scope.items = [];

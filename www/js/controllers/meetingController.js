@@ -10,9 +10,7 @@ angular.module('app.meetingController', ['ionic', 'jett.ionic.filter.bar',
 		profileService, userCourseGroupService, groupDatabaseService){
         $scope.meeting = {};
 		var group = $stateParams.group;
-        console.log(group);
         $scope.isEditable = group.creator == profileService.getCurrentUserId();
-        console.log("isEditable = " + $scope.isEditable);
 
         function retrieveMeeting () {
             $ionicLoading.show({
