@@ -9,9 +9,9 @@ angular.module('app.groupDatabaseService', ['ionic'])
             var messagePath = '/messages'
 
             return {
-                createGroup: function(group){
+                createGroup: function(group, creator){
                     // still needs work
-                    group.creator = userDatabaseService.getCurrentUserId()
+                    group.creator = creator; 
                     var groupInfoRef = db.ref(groupsPath).push(group);
                     return groupInfoRef;
                 },
