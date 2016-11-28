@@ -66,15 +66,15 @@ angular.module('app.groupDetailController',
                                 console.log(p);
                                 $scope.group = p;
                                 $ionicLoading.hide();
+                                if ($scope.group.members && (uid in $scope.group.members)) {
+                                    $scope.joined = true;
+                                } else {
+                                    $scope.joined = false;
+                                }
+                                updateMember();
                             }).catch(function(){
                                 $ionicLoading.hide();
                             });
-                        if ($scope.group.members && (uid in $scope.group.members)) {
-                            $scope.joined = true;
-                        } else {
-                            $scope.joined = false;
-                        }
-                        updateMember();
                     };
 
                     $scope.editGroup = function(){
