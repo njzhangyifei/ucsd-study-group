@@ -64,10 +64,14 @@ angular.module('app.profileController', ['ionic', 'ngCordova', 'jett.ionic.filte
                         };
                         $cordovaImagePicker.getPictures(options)
                             .then(function(res){
+                                if (!res || !res[0]) {
+                                    return;
+                                }
                                 $ionicLoading.show({
                                     template: 'Uploading...',
                                     delay: 50
                                 });
+                                console.log(res[0]);
                                 window.plugins.Base64.encodeFile(res[0], function(d){
                                     $scope.profile.avatar = d;
                                 });
