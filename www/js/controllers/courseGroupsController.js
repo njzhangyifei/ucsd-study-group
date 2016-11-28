@@ -1,14 +1,12 @@
 angular.module('app.courseGroupsController',
-    ['ionic', 
-     'app.services', 'app.courseDatabaseService',
+    ['ionic',
+     'app.services', 'app.courseDatabaseService', 'app.stateParamsService',
      'jett.ionic.filter.bar'])
 
     .controller('courseGroupsCtrl',
-        ['$scope', '$stateParams',
-        '$state', '$ionicLoading', 'courseDatabaseService',
-        function ($scope,
-            $stateParams, $state, $ionicLoading, courseDatabaseService) {
-                // var course = $stateParams.course;
+        ['$scope', '$state', '$ionicLoading', 'courseDatabaseService', 'stateParamsService',
+        function ($scope, $state, $ionicLoading, courseDatabaseService, stateParamsService) {
+                $stateParams = stateParamsService.getStateParams();
                 $scope.course = $stateParams.course;
 
                 function getItems () {
@@ -35,19 +33,21 @@ angular.module('app.courseGroupsController',
                         $scope.$broadcast('scroll.refreshComplete');
                     });
                 };
-            
+
                 $scope.selectedItem = function(group){
-                    $state.go('tabsController.groupDetail',{
+                    stateParamsService.setStateParams('tabsController.groupDetail', {
                         group: group
                     })
+                    $state.go('tabsController.groupDetail')
                 }
 
                 $scope.addGroup = function() {
-                    $state.go('tabsController.newStudyGroup', {
+                    stateParamsService.setStateParams('tabsController.newStudyGroup', {
                         course: $stateParams.course
-                    });
+                    })
+                    $state.go('tabsController.newStudyGroup');
                 }
-                
+
                 if ($stateParams.updateRequired) {
                     // force refresh
                     console.log("update is required");

@@ -1,7 +1,5 @@
 <ion-view style="" id="page-home" title="Search for Groups">
     <ion-nav-buttons side="secondary">
-        <button class="button button-icon icon ion-android-add" ng-click="addCourse()">
-        </button>
     </ion-nav-buttons>
 
     <ion-content class="has-header" padding="true">
@@ -13,6 +11,11 @@
         <div class="button-bar" collection-repeat="item in items" ng-click="selectedItem(item)">
             <button class="button button-stable button-large button-block button-outline">
                 {{item.department + " " + item.number}}
+            </button>
+        </div>
+        <div class="list">
+            <button class="item button button-positive button-block button-clear icon ion-compose" ng-click="addCourse()">
+               Didn't find your class? Add it! 
             </button>
         </div>
     </ion-content>

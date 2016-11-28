@@ -6,16 +6,21 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('app',
-    ['ionic', 'app.controllers', 'app.homeController', 
+    ['ionic', 'ngCordova', 'app.controllers', 'app.homeController', 
      'app.newStudyGroupController',
      'app.addCourseController', 'app.profileController',
+     'app.viewMemberProfileController',
      'app.courseGroupsController', 'app.myGroupsController',
      'app.groupDetailController',
+     'app.groupDiscussionController',
      'app.routes', 'app.directives',
      'app.services', 'app.courseDatabaseService', 'app.newClassPopupService',
-     'app.userDatabaseService', 'app.groupDatabaseService',
+     'app.userDatabaseService', 'app.groupDatabaseService', 'app.meetingController',
      'jett.ionic.filter.bar',
-     'monospaced.elastic',
+     'monospaced.elastic', "ion-datetime-picker",
+     'app.userDatabaseService', 'app.groupDatabaseService', 'app.stateParamsService',
+     'jett.ionic.filter.bar',
+     'monospaced.elastic', 'ngCordova'
     ])
 
 .run(function($ionicPlatform) {
@@ -32,4 +37,8 @@ angular.module('app',
       StatusBar.styleDefault();
     }
   });
+})
+
+.config(function ($compileProvider) {
+    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https|ftp|mailto|file|tel|data)/);
 })

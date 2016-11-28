@@ -1,0 +1,56 @@
+<ion-view style="" id="page-group-meetings" title="Group Meeting">
+	<ion-nav-buttons side="secondary">
+    	<button class="button button-icon icon ion-edit"
+            	ng-show="isEditable && !editing"
+            	ng-click="editMeeting()">
+    	</button>
+    	<button class="button button-icon icon ion-checkmark-round"
+            	ng-show="isEditable && editing"
+            	ng-click="updateMeeting()">
+    	</button>
+	</ion-nav-buttons>
+	<ion-content class="has-header" padding="true">
+	    	<h2 style="color: rgb(0, 0, 0); text-align: center;" id="profile-heading" ng-show="!editing">
+	    	{{meeting.title}}
+	    	</h2>
+			<form class="list" id="edit-Meeting">
+    			<label id="title" class="item item-input" ng-show="editing">
+        			<span class="input-label">
+        			Title
+        			</span>
+        			<input placeholder="Meeting title" 
+        				   type="text" 
+        				   ng-disabled="!editing" 
+        				   ng-model="meeting.title">
+    			</label>
+    			<label id="time" class="item item-input">
+        			<span class="input-label">
+        			Time
+        			</span>
+        			<input placeholder="Time Setting"
+               			   type="text"
+               			   ng-disabled="!editing"
+               		       ng-model="meeting.time">
+    			</label>
+    			<label id="description" class="item item-input">
+        			<span class="input-label">
+        			Description
+        			</span>
+        			<input placeholder="Meeting Description"
+               			   type="text"
+                           row="2"
+               			   ng-disabled="!editing"
+               		       ng-model="meeting.description">
+    			</label>
+    			<label id="location" class="item item-input">
+        			<span class="input-label">
+        			Location
+        			</span>
+        			<input placeholder="Meeting Location"
+               			   ng-disabled="!editing"
+               			   type="text"
+               		       ng-model="meeting.location">
+    			</label>
+    		</form>
+	</ion-content>
+</ion-view>

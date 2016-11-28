@@ -1,15 +1,16 @@
 angular.module('app.newStudyGroupController',
     ['ionic', 'app.services', 'jett.ionic.filter.bar', 
-        'app.courseDatabaseService',
+        'app.courseDatabaseService', 'app.stateParamsService',
         'app.groupDatabaseService', 'app.userDatabaseService'])
     .controller('newStudyGroupCtrl',
-        ['$scope', '$stateParams', '$ionicHistory', '$ionicPopup','$ionicLoading', 
-            'groupDatabaseService', 'courseDatabaseService', 'userCourseGroupService',
+        ['$scope', '$ionicHistory', '$ionicPopup','$ionicLoading', 
+            'groupDatabaseService', 'courseDatabaseService', 'userCourseGroupService', 'stateParamsService',
             // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
             // You can include any angular dependencies as parameters for this function
             // TIP: Access Route Parameters for your page via $stateParams.parameterName
-            function ($scope, $stateParams, $ionicHistory, $ionicPopup, $ionicLoading, 
-                groupDatabaseService, courseDatabaseService, userCourseGroupService) {
+            function ($scope, $ionicHistory, $ionicPopup, $ionicLoading, 
+                groupDatabaseService, courseDatabaseService, userCourseGroupService, stateParamsService) {
+                    $stateParams = stateParamsService.getStateParams();
                     var course = $stateParams.course;
                     console.log('new study group for ' + course.department
                         +  ' ' + course.number);
