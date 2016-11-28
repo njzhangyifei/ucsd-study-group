@@ -17,10 +17,7 @@ angular.module('app',
      'app.services', 'app.courseDatabaseService', 'app.newClassPopupService',
      'app.userDatabaseService', 'app.groupDatabaseService', 'app.meetingController',
      'jett.ionic.filter.bar',
-     'monospaced.elastic', "ion-datetime-picker",
-     'app.userDatabaseService', 'app.groupDatabaseService', 'app.stateParamsService',
-     'jett.ionic.filter.bar',
-     'monospaced.elastic', 'ngCordova'
+     'monospaced.elastic', "ion-datetime-picker", 'ngCordova'
     ])
 
 .run(function($ionicPlatform) {

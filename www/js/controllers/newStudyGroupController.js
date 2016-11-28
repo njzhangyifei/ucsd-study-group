@@ -4,12 +4,12 @@ angular.module('app.newStudyGroupController',
         'app.groupDatabaseService', 'app.userDatabaseService'])
     .controller('newStudyGroupCtrl',
         ['$scope', '$ionicHistory', '$ionicPopup','$ionicLoading', 
-            'groupDatabaseService', 'courseDatabaseService', 'userCourseGroupService', 'stateParamsService',
+            'groupDatabaseService', 'courseDatabaseService', 'userCourseGroupService', 'profileService', 'stateParamsService',
             // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
             // You can include any angular dependencies as parameters for this function
             // TIP: Access Route Parameters for your page via $stateParams.parameterName
             function ($scope, $ionicHistory, $ionicPopup, $ionicLoading, 
-                groupDatabaseService, courseDatabaseService, userCourseGroupService, stateParamsService) {
+                groupDatabaseService, courseDatabaseService, userCourseGroupService, profileService, stateParamsService) {
                     $stateParams = stateParamsService.getStateParams();
                     var course = $stateParams.course;
                     console.log('new study group for ' + course.department
@@ -51,7 +51,7 @@ angular.module('app.newStudyGroupController',
                             }
 
                             console.log('valid input' + group.name);
-                            var groupRef = groupDatabaseService.createGroup(group);
+                            var groupRef = groupDatabaseService.createGroup(group, profileService.getCurrentUserId());
                             groupRef.then(function(){
                                 var k = groupRef.key;
                                 console.log("group added - key: " + k);
