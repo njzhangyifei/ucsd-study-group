@@ -29,8 +29,6 @@ angular.module('app.meetingController', ['ionic', 'jett.ionic.filter.bar',
                     $ionicLoading.hide();
                 });
         }
-
-        retrieveMeeting();
         
 		$scope.editMeeting = function()
         {
@@ -40,6 +38,7 @@ angular.module('app.meetingController', ['ionic', 'jett.ionic.filter.bar',
 		$scope.updateMeeting = function()
         {
             // TODO update the meeting entry
+            console.log('title is ' + $scope.meeting.title);
             var title = $scope.meeting.title;
             var time = $scope.meeting.time;
             var description = $scope.meeting.description;

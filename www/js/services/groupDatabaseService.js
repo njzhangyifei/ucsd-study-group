@@ -35,14 +35,28 @@ angular.module('app.groupDatabaseService', ['ionic'])
                 },
 
                 getMeeting: function(group){
-                    var path = groupsPath + group.id + meetingPath;
-                    var meetingInfoRef = db.ref(path);
-                    return meetingInfoRef.once('value').then(function(snapshot){
-                    return snapshot.val();
-                    })
+                        var path = groupsPath + group.id + meetingPath;
+                        var meetingInfoRef = db.ref(path);
+                        if(meetingInfoRef == null)
+                        {
+                            var meeting = {};
+                            meeting['title'] = '';
+                            meeting['description'] = '';
+                            meeting['location'] = '';
+                            meeting['time'] = '';
+                            db.ref(path).update(meeting);
+                            return meeting;
+                        }
+                        else
+                        {    
+                            return meetingInfoRef.once('value').then(function(snapshot){
+                            return snapshot.val();
+                            });
+                        }
                 },
 
                 updateMeeting: function(group, title, description, location, time){
+
                     var path = groupsPath + group.id + meetingPath;
                     var meetingInfoRef = db.ref(path);
                     var meeting = {};
