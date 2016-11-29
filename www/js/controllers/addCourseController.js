@@ -8,7 +8,7 @@ angular.module('app.addCourseController',
             $ionicFilterBar, $ionicLoading, $ionicHistory,
             newClassPopupService, courseDatabaseService, userCourseGroupService) {
                 var filterBarInstance;
-
+                //Get items from database
                 function getItems () {
                     $scope.items = [];
                     $ionicLoading.show({
@@ -32,7 +32,7 @@ angular.module('app.addCourseController',
                 }
 
                 getItems();
-
+                //Show filter bar
                 $scope.showFilterBar = function () {
                     filterBarInstance = $ionicFilterBar.show({
                         items: $scope.items,
@@ -41,7 +41,7 @@ angular.module('app.addCourseController',
                         }
                     });
                 };
-
+                //Refresh items
                 $scope.refreshItems = function () {
                     if (filterBarInstance) {
                         filterBarInstance();
@@ -54,14 +54,15 @@ angular.module('app.addCourseController',
                     });
                 };
 
+                //Select course from list
                 $scope.selectedItem = function(item) {
-                    console.log("adding course")
+                    console.log("adding course");
                     userCourseGroupService.addUserCourse(item.courseId);
                     $ionicHistory.nextViewOptions({disableBack: true});
                     $ionicHistory.backView().stateParams={updateRequired:true};
                     $ionicHistory.goBack();
                 };
-
+                //Add new course to database
                 $scope.addNewCourse = function() {
                     newClassPopupService.show().then(function(res){
                         if (res) {
@@ -70,6 +71,7 @@ angular.module('app.addCourseController',
                                 template: 'Loading',
                                 delay: 50
                             });
+                            //Create course in database
                             courseDatabaseService.createCourse(res)
                                 .then(
                                     function() {
@@ -78,6 +80,7 @@ angular.module('app.addCourseController',
                                     }
                                 )
                                 .catch(
+                                    //Error when writing course to database
                                     function() {
                                         console.log("Error writing to database");
                                         getItems();
