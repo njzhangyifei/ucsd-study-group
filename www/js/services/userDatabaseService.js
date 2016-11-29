@@ -32,6 +32,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                     return coursesRef.push(courseId);
                 },
 
+
                 addGroupMember: function(groupId){
                     return db.ref(groupsPath + groupId + '/' + membersPath + userId).set(userId).then(function(){
                         return db.ref(usersPath + userId + '/' + groupsPath + groupId).set(groupId)
@@ -152,28 +153,6 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 return base64_promise.then(function(res){
                     return db.ref(path).set(res);
                 })
-
-                // var storageRef = firebase.storage().refFromURL('gs://ucsd-study-group.appspot.com')
-                    // .child('avatars/' + user.uid);
-                
-                // return fetch(uri)
-                    // .then(function(data){
-                        // return data.blob();
-                        // console.log(blob);
-                    // }).then(function(blob){
-                        // var metadata = {
-                            // contentType: 'image'
-                        // };
-                        
-                        // storageRef.put(blob, metadata)
-                            // .then(function(snapshot){
-                                // db.ref(path + '/picture').set(snapshot.downloadURL);
-                            // }).catch(function(error){
-                                // console.log(error);
-                            // })
-                    // }).catch(function(error){
-                        // console.log(error);
-                    // });    
             }          
         }
     }])
