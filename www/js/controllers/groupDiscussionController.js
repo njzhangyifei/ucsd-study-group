@@ -13,15 +13,17 @@ angular.module('app.groupDiscussionController',
                 $scope.group = $stateParams.group;
                 $scope.items = [];
                 $scope.message = {};
-                console.log('group discussion: ' + $scope.id);
-                $scope.writing = false;
-                //$scope.group = group;
+                $scope.isWriting = false;
                 
+                console.log('group discussion: ' + $scope.id);
+                
+                // load messages from the database
                 function loadPosts(){
                     $ionicLoading.show({
                             template: 'Loading',
                             delay: 50
                     })
+                    
                     $scope.items = groupDatabaseService.getPosts($scope.id)
                         .then(function(res){
                             $scope.items = res;
@@ -29,30 +31,35 @@ angular.module('app.groupDiscussionController',
                         }).catch(function(){
                             $ionicLoading.hide();
                             console.log('error loading posts');
-                    });
+                        });
                 }
                 
+                // pull down refresh
                 $scope.refreshItems = function(){
                     loadPosts();
                     $scope.$broadcast('scroll.refreshComplete');
                 }
                 
+                // show post input and submit button
                 $scope.writePost = function(){
-                    $scope.writing = true;
+                    $scope.isWriting = true;
                 }
                 
+                // hide post input and submit button
                 $scope.cancelPost = function(){
-                    $scope.writing = false;
+                    $scope.isWriting = false;
                     $scope.message.content = '';
                 }
                 
+                // write post to database
                 $scope.submitPost = function(){
-                    console.log('writing'  + $scope.content);
+                    console.log('groupDiscussion- writing: '  + $scope.content);
+                    
                     groupDatabaseService.writePost($scope.id, $scope.message.content).then(function(){
                         loadPosts();
                         
                         $scope.message.content = '';
-                        $scope.writing = false;
+                        $scope.isWriting = false;
                     })
                 }
                 
