@@ -19,17 +19,18 @@ angular.module('app.meetingController', ['ionic', 'jett.ionic.filter.bar',
             });
             groupDatabaseService.getMeeting($stateParams.group)
                 .then(function(res){
-                    $scope.meeting = res;
-                    console.log(res);
+                    if(res != null)
+                    {
+                        $scope.meeting = res;
+                        console.log(res);
+                    }
                     $ionicLoading.hide();
                 }).catch(function(error){
                     console.log("error !" + error);
                     $ionicLoading.hide();
                 });
         }
-
         retrieveMeeting();
-        
 		$scope.editMeeting = function()
         {
 			$scope.editing = true;
@@ -38,6 +39,7 @@ angular.module('app.meetingController', ['ionic', 'jett.ionic.filter.bar',
 		$scope.updateMeeting = function()
         {
             // TODO update the meeting entry
+            console.log('title is ' + $scope.meeting.title);
             var title = $scope.meeting.title;
             var time = $scope.meeting.time;
             var description = $scope.meeting.description;
