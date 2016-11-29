@@ -4,6 +4,7 @@ angular.module('app.profileController', ['ionic', 'ngCordova', 'jett.ionic.filte
     .controller('profileCtrl', ['$scope', '$state', '$stateParams', '$cordovaImagePicker',
         '$ionicLoading', '$ionicPlatform', 'loginService', 'profileService',
 
+        /*Check if is current user to control editprofile and signout in template*/
         function ($scope, $state, $stateParams, $cordovaImagePicker,
             $ionicLoading, $ionicPlatform, loginService, profileService) {
                 $scope.profile = {};
@@ -11,26 +12,29 @@ angular.module('app.profileController', ['ionic', 'ngCordova', 'jett.ionic.filte
                     $scope.isCurrentUser = true;
                 else
                     $scope.isCurrentUser = false;
-
-                function retrieveProfile () {
+                /* Retrieve profile and avatar */
+         function retrieveProfile () {
+                    //Delay of loading for animation porposes.
                     $ionicLoading.show({
                         template: 'Loading',
                         delay: 50
                     });
                     profileService.getProfile($stateParams.uid)
                         .then(function(res){
+                          //If no avatar has been set then get default avatar from database
                             if (!res.avatar) {
                                 $scope.profile.avatar = profileService.getDefaultAvatar();
                             }
+                          //set profile to result
                             $scope.profile = res;
                             $ionicLoading.hide();
                         }).catch(function(error){
-                            console.log("error !" + error);
+                            console.log("error !" + error);   //Error catching. 
                             $ionicLoading.hide();
                         });
                 }
 
-                retrieveProfile();
+        retrieveProfile();
 
                 $scope.signout = function() {
                     loginService.signout();
@@ -40,8 +44,9 @@ angular.module('app.profileController', ['ionic', 'ngCordova', 'jett.ionic.filte
                     $scope.editing = true;
                 }
 
+                /*update the user's database entry*/
                 $scope.updateProfile = function(){
-                    // TODO update the user's database entry
+                    
                     var name = $scope.profile.name;
                     var email = $scope.profile.email;
                     var phone = $scope.profile.phone;
@@ -53,7 +58,7 @@ angular.module('app.profileController', ['ionic', 'ngCordova', 'jett.ionic.filte
                     $scope.editing = false;
                     retrieveProfile();
                 };
-
+                /* Format the avatar picture and restrict user to pick only one picture */
                 $ionicPlatform.ready(function() {
                     $scope.pickImage = function(){
                         var options = {
@@ -64,17 +69,21 @@ angular.module('app.profileController', ['ionic', 'ngCordova', 'jett.ionic.filte
                         };
                         $cordovaImagePicker.getPictures(options)
                             .then(function(res){
-                                if (!res || !res[0]) {
+                                //No picture selected.
+                                if (!res || !res[0]) {      
                                     return;
                                 }
-                                $ionicLoading.show({
-                                    template: 'Uploading...',
+                                //Delay for animation purposes.
+                                $ionicLoading.show({            
+                                    template: 'Uploading...',   
                                     delay: 50
                                 });
                                 console.log(res[0]);
+                                //Convert selected picture into BASE64 string and set to avatar
                                 window.plugins.Base64.encodeFile(res[0], function(d){
                                     $scope.profile.avatar = d;
                                 });
+                                // Set user avatar
                                 profileService.setAvatar(res[0])
                                     .then(function(){
                                         console.log("uploaded")
