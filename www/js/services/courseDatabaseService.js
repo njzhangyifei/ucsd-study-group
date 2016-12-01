@@ -17,7 +17,8 @@ angular.module('app.courseDatabaseService', ['ionic', 'app.groupDatabaseService'
                     }
                     var courseInfoRef = db.ref(coursePath).push(courseInfo);
                     return courseInfoRef.then(function(){
-                        return db.ref(idPath).set(courseInfoRef.key);
+                        db.ref(idPath).set(courseInfoRef.key);
+                        return courseInfoRef.key;
                     });
                 },
 
@@ -32,6 +33,11 @@ angular.module('app.courseDatabaseService', ['ionic', 'app.groupDatabaseService'
                         }
                         return course;
                     });
+                },
+                
+                removeCourse: function(courseId){
+                    var courseRef = db.ref(coursePath + courseId);
+                    return courseRef.remove();
                 },
                 
                 addGroup: function(groupId, courseId){
