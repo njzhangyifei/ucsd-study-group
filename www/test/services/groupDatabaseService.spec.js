@@ -13,99 +13,81 @@ describe('groupDataService', function() {
     } );
 
     describe('#create&getGroup', function(){
-        it('should create a new group with info input and get that group', function() {
+        it('should create a new group', 
+            function() {
             var new_g = {
                 name:'grouptest',
-                description:'test2'
-            };
+                description:'test2',
+            }
             var creator_id = 123;
-            GroupDatabaseService.createGroup(new_g, creator_id).then(function(new_g_ref)
-            {
-                GroupDatabaseService.getGroup(new_g_ref.id).then(function(newGroup)
-                {
-                    chai.assert(newGroup.name == 'grouptest');
-                    chai.assert(newGroup.description == 'test2');
-                    chai.assert(newGroup.creator == 123);
-                });
-            });    
-        });
+            return GroupDatabaseService.createGroup(new_g, creator_id);
+        })
     });
     
      describe('#updateGroup', function(){
-        it('should update the group info except members and group id', function() 
+        it('should able to update the group info except members and group id', function() 
         {
-            var new_g = {
-                name:'updatetest',
-                description:'changeit'
-            };
-    
-            var creator_id = 123;
-            GroupDatabaseService.createGroup(new_g, creator_id).then(function(new_g_ref)
-            {
-                new_g_ref.name = 'namechanged';
-                new_g_ref.description = 'changed'
-                GroupDatabaseService.updateGroup(new_g_ref).then(function(changedGroup)
-                {
-                    GroupDatabaseService.getGroup(changedGroup).then(function(updatedGroup)
-                    {
-                        chai.assert(updatedGroup.name == 'namechanged');
-                        chai.assert(updatedGroup.name == 'changed');
-                    });
-                });    
-            });
-        });
+
+            var g = {
+                id:233,
+                name:'updated',
+                description:'changed',
+            }
+            return GroupDatabaseService.updateGroup(g);
+        })
     });
 
-    describe('update&getMeeting', function(){
-        it('should update the meeting and get updated meeting information back', function()
-        {
-            var new_g = {
-                name:'Meetingtest',
-                description:'test2'
-            };
-            var creator_id = 123;
-            GroupDatabaseService.createGroup(new_g, creator_id).then(function(new_g_ref)
+    describe('#getGroup',function(){
+        it('should be able to get the correct group',
+        function() {
+            var gid = 233;
+            var name = 'updated';
+            var description = 'changed';
+            return GroupDatabaseService.getGroup(gid).then(function(newGroup)
             {
-                var title = 'update meeting';
-                var time = 'update time';
-                var description = 'update description';
-                var location = 'update location';
-                GroupDatabaseService.updateMeeting(new_g_ref, title, time, description, location).then(function()
-                {
-                    GroupDatabaseService.getMeeting(new_g_ref).then(function(meeting)
-                    {
-                        chai.assert(meeting.title == 'update meeting');
-                        chai.assert(meeting.time == 'update time');
-                        chai.assert(meeting.description == 'update description');
-                        chai.assert(meeting.location == 'update location');
-                    });
-                });
-            });
-        });
+                chai.expect(newGroup.id).to.equal(gid);
+                chai.expect(newGroup.name).to.equal(name);
+                chai.expect(newGroup.description).to.equal(description);
+            })    
+        })
     });
-
-    describe('write&getpost', function(){
-        it('should write the post in the group disscussion and get it', function()
+ 
+    describe('#updateMeeting', function(){
+        it('should able to update a meeting', function() 
         {
-            var new_g = {
-                name:'posttest',
-                description:'test2'
-            };
-            var creator_id = 123;
-            GroupDatabaseService.createGroup(new_g, creator_id).then(function(new_g_ref)
-            {
-                var content = 'something new!';
+             var g = {
+                id:233,
+                name:'updated',
+                description:'changed',
+            }
+            var title = 'title';
+            var time = 'time';
+            var description = 'description';
+            var location = 'location';
+        })
+    });   
 
-                GroupDatabaseService.writePost(new_g_ref, content).then(function(message)
-                {
-                    GroupDatabaseService.getPost(new_g.id).then(function(messages)
-                    {
-                        except(messages).to.not.be.null;
-                    });
-                });
-            });
-        });
-    });
+     describe('#getMeeting', function(){
+        it('should able to get the meeting', function() 
+        {
+             var g = {
+                id:233,
+                name:'updated',
+                description:'changed',
+            }
+            var title = 'title';
+            var time = 'time';
+            var description = 'description';
+            var location = 'location';
+            return GroupDatabaseService.getMeeting(g).then(function(meeting)
+            {
+                chai.expect(meeting.title).to.equal(title);
+                chai.expect(meeting.time).to.equal(time);
+                chai.expect(meeting.description).to.equal(description);
+                chai.expect(meeting.location).to.equal(location);
+            })
+        })
+    });  
     afterEach(function() {
         // runs after each test in this block
     });
