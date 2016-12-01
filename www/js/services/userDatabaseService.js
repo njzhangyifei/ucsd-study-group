@@ -38,7 +38,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                         return db.ref(usersPath + userId + '/' + groupsPath + groupId).set(groupId)
                     });
                 },
-                
+
                 removeGroupMember: function(groupId){
                     return db.ref(groupsPath + groupId + '/' + membersPath + userId).remove().then(function(){
                         return db.ref(usersPath + userId + '/' + groupsPath + groupId).remove()
@@ -67,7 +67,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
         var db = firebase.database();
         var usersPath = 'users/'
         //var defaultAvatarURL = 'https://firebasestorage.googleapis.com/v0/b/ucsd-study-group.appspot.com/o/avatars%2Fdefault.jpg?alt=media&token=a6f6bb05-ee60-4f83-b06e-60e626ca4065'
-        
+
         return{
             /*
                 This function takes two strings, a name and an email,
@@ -82,9 +82,8 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                     email: user.email,
                     avatar: null,
                 };
-                db.ref(path).set(profile);
-
                 console.log('ProfileService: profile created');
+                return db.ref(path).set(profile);
             },
 
             /*
@@ -97,7 +96,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 var path = usersPath + user.uid;
 
                 var updates = {};
-                if(name) 
+                if(name)
                     updates['name'] = name;
                 if(email)
                     updates['email'] = email;
@@ -106,15 +105,13 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 if(description)
                     updates['description'] = description;
 
-                db.ref(path).update(updates);
-
                 console.log('Profile is updated');
+                return db.ref(path).update(updates);
             },
 
             getCurrentUserId:function(){
                 return firebase.auth().currentUser.uid;
             },
-
 
             getProfile: function(uid){
                 if(!uid) uid = firebase.auth().currentUser.uid;
@@ -134,6 +131,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
 
             getDefaultAvatar: function(){
                 //base64
+                return ''
             },
 
             getAvatar: function(uid){
@@ -143,7 +141,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                     return snapshot.val();
                 });
             },
-            
+
             setAvatar: function(uri){
                 var user = firebase.auth().currentUser;
                 var path = usersPath + user.uid + "/avatar";
@@ -153,7 +151,7 @@ angular.module('app.userDatabaseService', ['ionic', 'app.courseDatabaseService']
                 return base64_promise.then(function(res){
                     return db.ref(path).set(res);
                 })
-            }          
+            }
         }
     }])
 ;
