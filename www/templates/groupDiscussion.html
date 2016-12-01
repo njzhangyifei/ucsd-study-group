@@ -22,11 +22,11 @@
         </ion-refresher>
         <button class="button button-block button-clear button-positive icon ion-plus"
                 ng-click="writePost()"
-                ng-show="!writing">
+                ng-show="!isWriting">
             Create a New Post
         </button>
         <div class="card" 
-             ng-show="writing">
+             ng-show="isWriting">
             <label class="item-input">
                 <textarea class="noresize" placeholder="Write message here..." msd-elastic ng-model="message.content"></textarea>
             </label>
